@@ -1,7 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
-<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@page import="java.util.Collection"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
+<%@ page import="java.util.Collection"%>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -63,7 +64,7 @@
 				<!-- /.row -->
 				<div class="row">
 					<div class="col-lg-12">
-						<c:if test="${usuarios == null}">
+						<c:if test="${(usuarios == null) || (fn:length(usuarios) < 1)}">
 							<div class="jumbotron">
 								<h1>Ooops!</h1>
 								<p>Não fomos capazes de encontrar nenhum administrador
@@ -75,7 +76,7 @@
 								</p>
 							</div>
 						</c:if>
-						<c:if test="${usuarios != null}">
+						<c:if test="${(usuarios != null) && (fn:length(usuarios) > 0)}">
 							<div class="table-responsive">
 								<table class="table table-hover table-striped">
 									<thead>
@@ -85,20 +86,29 @@
 											<th>Telefone</th>
 											<th>Email</th>
 											<th>Usuario</th>
-											<th colspan="3">Revenue</th>
+											<th>Op&ccedil;&otilde;es</th>
 										</tr>
 									</thead>
 									<tbody>
-										<tr>
-											<td>nome</td>
-											<td>cpf</td>
-											<td>telefone</td>
-											<td>email</td>
-											<td>usuario</td>
-											<td>V</td>
-											<td>E</td>
-											<td>R</td>
-										</tr>
+										<c:forEach var="usuario" items="${usuarios}">
+											<tr>
+												<td>${usuario.pessoa.nome}</td>
+												<td>${usuario.pessoa.cpf}</td>
+												<td>${usuario.pessoa.telefone}</td>
+												<td>${usuario.pessoa.email}</td>
+												<td>${usuario.usuario}</td>
+												<td><a
+													href="${pageContext.request.contextPath}/admin/visualizar/${usuario.id}"
+													class="btn btn-success btn-sm" role="button"><i
+														class="fa fa-desktop"></i> Visualizar</a> <a
+													href="${pageContext.request.contextPath}/admin/editar/${usuario.id}"
+													class="btn btn-warning btn-sm" role="button"><i
+														class="fa fa-pencil"></i> Editar</a> <a
+													href="${pageContext.request.contextPath}/admin/remover/${usuario.id}"
+													class="btn btn-danger btn-sm" role="button"><i
+														class="fa fa-times"></i> Remover</a></td>
+											</tr>
+										</c:forEach>
 									</tbody>
 								</table>
 							</div>

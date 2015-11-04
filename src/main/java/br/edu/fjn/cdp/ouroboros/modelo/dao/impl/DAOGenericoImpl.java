@@ -68,6 +68,7 @@ public class DAOGenericoImpl<E extends EntidadeOuroboros<I>, I extends Serializa
 
 		try {
 			transacao.begin();
+			entidade = manager.merge(entidade);
 			manager.remove(entidade);
 			transacao.commit();
 		} catch (Exception e) {

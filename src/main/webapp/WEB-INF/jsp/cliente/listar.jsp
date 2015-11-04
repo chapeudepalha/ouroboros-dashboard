@@ -1,7 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
-<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@page import="java.util.Collection"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
+<%@ page import="java.util.Collection"%>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -51,84 +52,63 @@
 			<div class="container-fluid">
 				<div class="row">
 					<div class="col-lg-12">
-						<h1 class="page-header">Listar Administradores</h1>
+						<h1 class="page-header">Listar Clientes</h1>
 						<ol class="breadcrumb">
 							<li class="active"><i class="fa fa-dashboard"></i> <a
 								href="${pageContext.request.contextPath}/">Dashboard</a></li>
 							<li class="active"><i class="fa fa-table"></i> Listar
-								Administradores</li>
+								Clientes</li>
 						</ol>
 					</div>
 				</div>
 				<!-- /.row -->
 				<div class="row">
 					<div class="col-lg-12">
-						<c:if test="${usuarios == null}">
+						<c:if test="${(usuarios == null) || (fn:length(usuarios) < 1)}">
 							<div class="jumbotron">
 								<h1>Ooops!</h1>
-								<p>Não fomos capazes de encontrar nenhum administrador
+								<p>Não fomos capazes de encontrar nenhum Clientes
 									cadastrasdo. Que tal cadastrar um novo?</p>
 								<p>
-									<a href="${pageContext.request.contextPath}/admin/novo"
+									<a href="${pageContext.request.contextPath}/cliente/novo"
 										class="btn btn-primary btn-lg" role="button">Cadastrar
-										Administrador »</a>
+										Clientes »</a>
 								</p>
 							</div>
 						</c:if>
-						<c:if test="${usuarios != null}">
+						<c:if test="${(usuarios != null) && (fn:length(usuarios) >= 1)}">
 							<div class="table-responsive">
 								<table class="table table-hover table-striped">
 									<thead>
 										<tr>
 											<th>Nome</th>
-											<th>Visits</th>
-											<th>% New Visits</th>
-											<th>Revenue</th>
+											<th>CPF</th>
+											<th>Telefone</th>
+											<th>Email</th>
+											<th>Usuario</th>
+											<th>Op&ccedil;&otilde;es</th>
 										</tr>
 									</thead>
 									<tbody>
-										<tr>
-											<td>/index.html</td>
-											<td>1265</td>
-											<td>32.3%</td>
-											<td>$321.33</td>
-										</tr>
-										<tr>
-											<td>/about.html</td>
-											<td>261</td>
-											<td>33.3%</td>
-											<td>$234.12</td>
-										</tr>
-										<tr>
-											<td>/sales.html</td>
-											<td>665</td>
-											<td>21.3%</td>
-											<td>$16.34</td>
-										</tr>
-										<tr>
-											<td>/blog.html</td>
-											<td>9516</td>
-											<td>89.3%</td>
-											<td>$1644.43</td>
-										</tr>
-										<tr>
-											<td>/404.html</td>
-											<td>23</td>
-											<td>34.3%</td>
-											<td>$23.52</td>
-										</tr>
-										<tr>
-											<td>/services.html</td>
-											<td>421</td>
-											<td>60.3%</td>
-											<td>$724.32</td>
-										</tr>
-										<tr>
-											<td>/blog/post.html</td>
-											<td>1233</td>
-											<td>93.2%</td>
-											<td>$126.34</td>
-										</tr>
+										<c:forEach var="usuario" items="${usuarios}">
+											<tr>
+												<td>${usuario.pessoa.nome}</td>
+												<td>${usuario.pessoa.cpf}</td>
+												<td>${usuario.pessoa.telefone}</td>
+												<td>${usuario.pessoa.email}</td>
+												<td>${usuario.usuario}</td>
+												<td><a
+													href="${pageContext.request.contextPath}/cliente/visualizar/${usuario.id}"
+													class="btn btn-success btn-sm" role="button"><i
+														class="fa fa-desktop"></i> Visualizar</a> <a
+													href="${pageContext.request.contextPath}/cliente/editar/${usuario.id}"
+													class="btn btn-warning btn-sm" role="button"><i
+														class="fa fa-pencil"></i> Editar</a> <a
+													href="${pageContext.request.contextPath}/cliente/remover/${usuario.id}"
+													class="btn btn-danger btn-sm" role="button"><i
+														class="fa fa-times"></i> Remover</a></td>
+											</tr>
+										</c:forEach>
 									</tbody>
 								</table>
 							</div>

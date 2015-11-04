@@ -50,7 +50,7 @@
 						Projetos <i class="fa fa-fw fa-caret-down"></i></a>
 					<ul id="proj" class="collapse">
 						<li><a href="${pageContext.request.contextPath}/projeto/novo">Novo</a></li>
-						<li><a href="${pageContext.request.contextPath}/projeto/novo">Listar</a></li>
+						<li><a href="${pageContext.request.contextPath}/projeto/listar">Listar</a></li>
 					</ul></li>
 				<li><a href="javascript:;" data-toggle="collapse"
 					data-target="#colab"><i class="fa fa-fw fa-users"></i>
@@ -59,14 +59,14 @@
 						<li><a
 							href="${pageContext.request.contextPath}/colaborador/novo">Novo</a></li>
 						<li><a
-							href="${pageContext.request.contextPath}/colaborador/novo">Listar</a></li>
+							href="${pageContext.request.contextPath}/colaborador/listar">Listar</a></li>
 					</ul></li>
 				<li><a href="javascript:;" data-toggle="collapse"
 					data-target="#cliente"><i class="fa fa-fw fa-building"></i>Clientes
 						<i class="fa fa-fw fa-caret-down"></i></a>
 					<ul id="cliente" class="collapse">
 						<li><a href="${pageContext.request.contextPath}/cliente/novo">Novo</a></li>
-						<li><a href="${pageContext.request.contextPath}/cliente/novo">Listar</a></li>
+						<li><a href="${pageContext.request.contextPath}/cliente/listar">Listar</a></li>
 					</ul></li>
 			</c:if>
 			<c:if test="${sessao.usuario.tipoUsuario == 'COLABORADOR'}">
@@ -74,7 +74,7 @@
 					data-target="#proj"><i class="fa fa-fw fa-suitcase"></i>
 						Projetos <i class="fa fa-fw fa-caret-down"></i></a>
 					<ul id="proj" class="collapse">
-						<li><a href="${pageContext.request.contextPath}/projeto/novo">Listar</a></li>
+						<li><a href="${pageContext.request.contextPath}/projeto/listar">Listar</a></li>
 					</ul></li>
 			</c:if>
 			<c:if test="${sessao.usuario.tipoUsuario == 'CLIENTE'}">
@@ -82,7 +82,7 @@
 					data-target="#proj"><i class="fa fa-fw fa-suitcase"></i>
 						Projetos <i class="fa fa-fw fa-caret-down"></i></a>
 					<ul id="proj" class="collapse">
-						<li><a href="${pageContext.request.contextPath}/projeto/novo">Listar</a></li>
+						<li><a href="${pageContext.request.contextPath}/projeto/listar">Listar</a></li>
 					</ul></li>
 			</c:if>
 		</ul>
