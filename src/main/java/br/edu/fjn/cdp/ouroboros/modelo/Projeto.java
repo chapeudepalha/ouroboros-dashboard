@@ -26,8 +26,6 @@ public class Projeto implements EntidadeOuroboros<Integer> {
 	private Integer id;
 	@ManyToOne(fetch = FetchType.EAGER)
 	private Usuario cliente;
-	@ManyToOne(fetch = FetchType.EAGER)
-	private Usuario gerente;
 	@OneToOne(fetch = FetchType.EAGER)
 	private Equipe equipe;
 	@Column
@@ -89,14 +87,6 @@ public class Projeto implements EntidadeOuroboros<Integer> {
 
 	public void setEntrega(Calendar entrega) {
 		this.entrega = entrega;
-	}
-
-	public Usuario getGerente() {
-		return gerente;
-	}
-
-	public void setGerente(Usuario gerente) {
-		this.gerente = gerente;
 	}
 
 	public Calendar getInicio() {

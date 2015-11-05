@@ -34,9 +34,9 @@ public class UsuarioController {
 		if (u != null) {
 			sessao.login(u);
 			
-			result.redirectTo(InicioController.class).inicio();
-		} else {
 			result.redirectTo(IndexController.class).inicio();
+		} else {
+			result.redirectTo(IndexController.class).index();
 		}
 		
 	}
@@ -44,7 +44,7 @@ public class UsuarioController {
 	@Get("logout")
 	public void logout() {
 		sessao.logout();
-		result.redirectTo(IndexController.class).inicio();
+		result.redirectTo(IndexController.class).index();
 	}
 
 }

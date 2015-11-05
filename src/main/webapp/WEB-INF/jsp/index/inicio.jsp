@@ -2,93 +2,347 @@
 	pageEncoding="ISO-8859-1"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@page import="java.util.Collection"%>
-
 <!DOCTYPE html>
-<html lang="pt">
+<html lang="en">
 
-    <head>
+<head>
 
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Ouroboros Dashboard</title>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="">
+<meta name="author" content="">
 
-        <!-- CSS -->
-        <link rel="stylesheet" href="<c:url value="http://fonts.googleapis.com/css?family=Roboto:400,100,300,500"/>">
-        <link rel="stylesheet" href="<c:url value="assets/bootstrap/css/bootstrap.min.css"/>">
-        <link rel="stylesheet" href="<c:url value="assets/font-awesome/css/font-awesome.min.css"/>">
-		<link rel="stylesheet" href="<c:url value="assets/css/form-elements.css"/>">
-        <link rel="stylesheet" href="<c:url value="assets/css/style.css"/>">
+<title>Ouroboros Dashboard</title>
 
-        <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-        <!--[if lt IE 9]>
-            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-            <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-        <![endif]-->
+<!-- Bootstrap Core CSS -->
+<link href="<c:url value="/assets/css/bootstrap.min.css"/>"
+	rel="stylesheet">
 
-        <!-- Favicon and touch icons -->
-        <link rel="shortcut icon" href="assets/ico/favicon.png">
-        <link rel="apple-touch-icon-precomposed" sizes="144x144" href="assets/ico/apple-touch-icon-144-precomposed.png">
-        <link rel="apple-touch-icon-precomposed" sizes="114x114" href="assets/ico/apple-touch-icon-114-precomposed.png">
-        <link rel="apple-touch-icon-precomposed" sizes="72x72" href="assets/ico/apple-touch-icon-72-precomposed.png">
-        <link rel="apple-touch-icon-precomposed" href="assets/ico/apple-touch-icon-57-precomposed.png">
+<!-- Custom CSS -->
+<link href="<c:url value="/assets/css/sb-admin.css"/>" rel="stylesheet">
 
-    </head>
+<!-- Morris Charts CSS -->
+<link href="<c:url value="/assets/css/plugins/morris.css"/>"
+	rel="stylesheet">
 
-    <body>
+<!-- Custom Fonts -->
+<link
+	href="<c:url value="/assets/font-awesome/css/font-awesome.min.css"/>"
+	rel="stylesheet" type="text/css">
 
-        <!-- Top content -->
-        <div class="top-content">
-        	
-            <div class="inner-bg">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-sm-8 col-sm-offset-2 text">
-                            <h1><strong>Ouroboros</strong> <small>1.0</small></h1>                            
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-6 col-sm-offset-3 form-box">
-                        	<div class="form-top">
-                        		<div class="form-top-left">
-                        			<h3>Ouroboros Dashboard</h3>
-                            		<p>Gestão Inteligente</p>
-                        		</div>
-                        		<div class="form-top-right">
-                        			<i class="fa fa-lock"></i>
-                        		</div>
-                            </div>
-                            <div class="form-bottom">
-			                    <form role="form" action="${pageContext.request.contextPath}/login" method="post" class="login-form">
-			                    	<div class="form-group">
-			                    		<label>Usuário</label>
-			                        	<input type="text" name="usuario.usuario" placeholder="Nome de Usuário" class="form-username form-control" id="form-username">
-			                        </div>
-			                        <div class="form-group">
-			                        	<label>Senha</label>
-			                        	<input type="password" name="usuario.senha" placeholder="Senha" class="form-password form-control" id="form-password">
-			                        </div>
-			                        <button type="submit" class="btn btn-success">Entrar</button>			                        
-			                    </form>
-		                    </div>
-                        </div>
-                    </div>                    
-                </div>
-            </div>
-            
-        </div>        
+<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+<!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
 
-        <!-- Javascript -->
-        <script src="<c:url value="assets/js/jquery-1.11.1.min.js"/>"></script>
-        <script src="<c:url value="assets/bootstrap/js/bootstrap.min.js"/>"></script>
-        <script src="<c:url value="assets/js/jquery.backstretch.min.js"/>"></script>
-        <script src="<c:url value="assets/js/scripts.js"/>"></script>
-        
-        <!--[if lt IE 10]>
-            <script src="assets/js/placeholder.js"></script>
-        <![endif]-->
+</head>
 
-    </body>
+<body>
+
+	<div id="wrapper">
+
+		<jsp:include page="../menu/menu.jsp"></jsp:include>
+
+		<div id="page-wrapper">
+
+			<div class="container-fluid">
+
+				<!-- Page Heading -->
+				<div class="row">
+					<div class="col-lg-12">
+						<h1 class="page-header">
+							Dashboard <small>Statistics Overview</small>
+						</h1>
+						<ol class="breadcrumb">
+							<li class="active"><i class="fa fa-dashboard"></i> Dashboard
+							</li>
+						</ol>
+					</div>
+				</div>
+				<!-- /.row -->
+
+				<div class="row">
+					<div class="col-lg-12">
+						<div class="alert alert-info alert-dismissable">
+							<button type="button" class="close" data-dismiss="alert"
+								aria-hidden="true">&times;</button>
+							<i class="fa fa-info-circle"></i> <strong>Like SB Admin?</strong>
+							Try out <a
+								href="http://startbootstrap.com/template-overviews/sb-admin-2"
+								class="alert-link">SB Admin 2</a> for additional features!
+						</div>
+					</div>
+				</div>
+				<!-- /.row -->
+
+				<div class="row">
+					<div class="col-lg-3 col-md-6">
+						<div class="panel panel-primary">
+							<div class="panel-heading">
+								<div class="row">
+									<div class="col-xs-3">
+										<i class="fa fa-comments fa-5x"></i>
+									</div>
+									<div class="col-xs-9 text-right">
+										<div class="huge">26</div>
+										<div>New Comments!</div>
+									</div>
+								</div>
+							</div>
+							<a href="#">
+								<div class="panel-footer">
+									<span class="pull-left">View Details</span> <span
+										class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+									<div class="clearfix"></div>
+								</div>
+							</a>
+						</div>
+					</div>
+					<div class="col-lg-3 col-md-6">
+						<div class="panel panel-green">
+							<div class="panel-heading">
+								<div class="row">
+									<div class="col-xs-3">
+										<i class="fa fa-tasks fa-5x"></i>
+									</div>
+									<div class="col-xs-9 text-right">
+										<div class="huge">12</div>
+										<div>New Tasks!</div>
+									</div>
+								</div>
+							</div>
+							<a href="#">
+								<div class="panel-footer">
+									<span class="pull-left">View Details</span> <span
+										class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+									<div class="clearfix"></div>
+								</div>
+							</a>
+						</div>
+					</div>
+					<div class="col-lg-3 col-md-6">
+						<div class="panel panel-yellow">
+							<div class="panel-heading">
+								<div class="row">
+									<div class="col-xs-3">
+										<i class="fa fa-shopping-cart fa-5x"></i>
+									</div>
+									<div class="col-xs-9 text-right">
+										<div class="huge">124</div>
+										<div>New Orders!</div>
+									</div>
+								</div>
+							</div>
+							<a href="#">
+								<div class="panel-footer">
+									<span class="pull-left">View Details</span> <span
+										class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+									<div class="clearfix"></div>
+								</div>
+							</a>
+						</div>
+					</div>
+					<div class="col-lg-3 col-md-6">
+						<div class="panel panel-red">
+							<div class="panel-heading">
+								<div class="row">
+									<div class="col-xs-3">
+										<i class="fa fa-support fa-5x"></i>
+									</div>
+									<div class="col-xs-9 text-right">
+										<div class="huge">13</div>
+										<div>Support Tickets!</div>
+									</div>
+								</div>
+							</div>
+							<a href="#">
+								<div class="panel-footer">
+									<span class="pull-left">View Details</span> <span
+										class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+									<div class="clearfix"></div>
+								</div>
+							</a>
+						</div>
+					</div>
+				</div>
+				<!-- /.row -->
+
+				<div class="row">
+					<div class="col-lg-12">
+						<div class="panel panel-default">
+							<div class="panel-heading">
+								<h3 class="panel-title">
+									<i class="fa fa-bar-chart-o fa-fw"></i> Area Chart
+								</h3>
+							</div>
+							<div class="panel-body">
+								<div id="morris-area-chart"></div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- /.row -->
+
+				<div class="row">
+					<div class="col-lg-4">
+						<div class="panel panel-default">
+							<div class="panel-heading">
+								<h3 class="panel-title">
+									<i class="fa fa-long-arrow-right fa-fw"></i> Donut Chart
+								</h3>
+							</div>
+							<div class="panel-body">
+								<div id="morris-donut-chart"></div>
+								<div class="text-right">
+									<a href="#">View Details <i
+										class="fa fa-arrow-circle-right"></i></a>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-lg-4">
+						<div class="panel panel-default">
+							<div class="panel-heading">
+								<h3 class="panel-title">
+									<i class="fa fa-clock-o fa-fw"></i> Tasks Panel
+								</h3>
+							</div>
+							<div class="panel-body">
+								<div class="list-group">
+									<a href="#" class="list-group-item"> <span class="badge">just
+											now</span> <i class="fa fa-fw fa-calendar"></i> Calendar updated
+									</a> <a href="#" class="list-group-item"> <span class="badge">4
+											minutes ago</span> <i class="fa fa-fw fa-comment"></i> Commented on
+										a post
+									</a> <a href="#" class="list-group-item"> <span class="badge">23
+											minutes ago</span> <i class="fa fa-fw fa-truck"></i> Order 392
+										shipped
+									</a> <a href="#" class="list-group-item"> <span class="badge">46
+											minutes ago</span> <i class="fa fa-fw fa-money"></i> Invoice 653 has
+										been paid
+									</a> <a href="#" class="list-group-item"> <span class="badge">1
+											hour ago</span> <i class="fa fa-fw fa-user"></i> A new user has been
+										added
+									</a> <a href="#" class="list-group-item"> <span class="badge">2
+											hours ago</span> <i class="fa fa-fw fa-check"></i> Completed task:
+										"pick up dry cleaning"
+									</a> <a href="#" class="list-group-item"> <span class="badge">yesterday</span>
+										<i class="fa fa-fw fa-globe"></i> Saved the world
+									</a> <a href="#" class="list-group-item"> <span class="badge">two
+											days ago</span> <i class="fa fa-fw fa-check"></i> Completed task:
+										"fix error on sales page"
+									</a>
+								</div>
+								<div class="text-right">
+									<a href="#">View All Activity <i
+										class="fa fa-arrow-circle-right"></i></a>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-lg-4">
+						<div class="panel panel-default">
+							<div class="panel-heading">
+								<h3 class="panel-title">
+									<i class="fa fa-money fa-fw"></i> Transactions Panel
+								</h3>
+							</div>
+							<div class="panel-body">
+								<div class="table-responsive">
+									<table class="table table-bordered table-hover table-striped">
+										<thead>
+											<tr>
+												<th>Order #</th>
+												<th>Order Date</th>
+												<th>Order Time</th>
+												<th>Amount (USD)</th>
+											</tr>
+										</thead>
+										<tbody>
+											<tr>
+												<td>3326</td>
+												<td>10/21/2013</td>
+												<td>3:29 PM</td>
+												<td>$321.33</td>
+											</tr>
+											<tr>
+												<td>3325</td>
+												<td>10/21/2013</td>
+												<td>3:20 PM</td>
+												<td>$234.34</td>
+											</tr>
+											<tr>
+												<td>3324</td>
+												<td>10/21/2013</td>
+												<td>3:03 PM</td>
+												<td>$724.17</td>
+											</tr>
+											<tr>
+												<td>3323</td>
+												<td>10/21/2013</td>
+												<td>3:00 PM</td>
+												<td>$23.71</td>
+											</tr>
+											<tr>
+												<td>3322</td>
+												<td>10/21/2013</td>
+												<td>2:49 PM</td>
+												<td>$8345.23</td>
+											</tr>
+											<tr>
+												<td>3321</td>
+												<td>10/21/2013</td>
+												<td>2:23 PM</td>
+												<td>$245.12</td>
+											</tr>
+											<tr>
+												<td>3320</td>
+												<td>10/21/2013</td>
+												<td>2:15 PM</td>
+												<td>$5663.54</td>
+											</tr>
+											<tr>
+												<td>3319</td>
+												<td>10/21/2013</td>
+												<td>2:13 PM</td>
+												<td>$943.45</td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
+								<div class="text-right">
+									<a href="#">View All Transactions <i
+										class="fa fa-arrow-circle-right"></i></a>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- /.row -->
+
+			</div>
+			<!-- /.container-fluid -->
+
+		</div>
+		<!-- /#page-wrapper -->
+
+	</div>
+	<!-- /#wrapper -->
+
+	<!-- jQuery -->
+	<script src="<c:url value="/inside/js/jquery.js"/>"></script>
+
+	<!-- Bootstrap Core JavaScript -->
+	<script src="<c:url value="/inside/js/bootstrap.min.js"/>"></script>
+
+	<!-- Morris Charts JavaScript -->
+	<script src="<c:url value="/inside/js/plugins/morris/raphael.min.js"/>"></script>
+	<script src="<c:url value="/inside/js/plugins/morris/morris.min.js"/>"></script>
+	<script src="<c:url value="/inside/js/plugins/morris/morris-data.js"/>"></script>
+
+</body>
 
 </html>
