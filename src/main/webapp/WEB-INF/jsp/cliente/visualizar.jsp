@@ -3,10 +3,8 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@page import="java.util.Collection"%>
 <!DOCTYPE html>
-<html lang="en">
-
+<html>
 <head>
-
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -55,6 +53,9 @@
 						<ol class="breadcrumb">
 							<li class="active"><i class="fa fa-dashboard"></i> <a
 								href="${pageContext.request.contextPath}/">Dashboard</a></li>
+							<li class="active"><i class="fa fa-table"></i> <a
+								href="${pageContext.request.contextPath}/cliente/listar">
+									Listar Clientes </a></li>
 							<li class="active"><i class="fa fa-desktop"></i> Visualizar
 								Cliente</li>
 						</ol>

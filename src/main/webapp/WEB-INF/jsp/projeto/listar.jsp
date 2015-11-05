@@ -5,10 +5,8 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ page import="java.util.Collection"%>
 <!DOCTYPE html>
-<html lang="en">
-
+<html>
 <head>
-
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -99,9 +97,9 @@
 														pattern="dd/MM/yyyy" /></td>
 												<td>${projeto.cliente.pessoa.nome}</td>
 												<td><a
-													href="${pageContext.request.contextPath}/projeto/adicionar/${projeto.id}"
+													href="${pageContext.request.contextPath}/projeto/colaboradores/${projeto.id}"
 													class="btn btn-info btn-sm" role="button"><i
-														class="fa fa-user"></i> Add Colaboradores</a> <a
+														class="fa fa-user"></i> Gerenciar Colaboradores</a> <a
 													href="${pageContext.request.contextPath}/projeto/visualizar/${projeto.id}"
 													class="btn btn-success btn-sm" role="button"><i
 														class="fa fa-desktop"></i> Visualizar</a> <a

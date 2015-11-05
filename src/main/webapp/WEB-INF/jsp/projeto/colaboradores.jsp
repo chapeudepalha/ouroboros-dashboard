@@ -4,8 +4,10 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <%@ page import="java.util.Collection"%>
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
 <head>
+
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -40,21 +42,25 @@
 </head>
 
 <body>
-
 	<div id="wrapper">
 
 		<jsp:include page="../menu/menu.jsp"></jsp:include>
 
 		<div id="page-wrapper">
-
 			<div class="container-fluid">
+
+				<!-- Page Heading -->
 				<div class="row">
 					<div class="col-lg-12">
-						<h1 class="page-header">Listar Colaboradores</h1>
+						<h1 class="page-header">Gerenciar Colaboradores do projeto
+							${projeto.nome}</h1>
 						<ol class="breadcrumb">
 							<li class="active"><i class="fa fa-dashboard"></i> <a
 								href="${pageContext.request.contextPath}/">Dashboard</a></li>
-							<li class="active"><i class="fa fa-table"></i> Listar
+							<li class="active"><i class="fa fa-table"></i> <a
+								href="${pageContext.request.contextPath}/projeto/listar">
+									Listar Projetos </a></li>
+							<li class="active"><i class="fa fa-user"></i> Gerenciar
 								Colaboradores</li>
 						</ol>
 					</div>
@@ -62,24 +68,21 @@
 				<!-- /.row -->
 				<div class="row">
 					<div class="col-lg-12">
-						<c:if test="${(usuarios == null) || (fn:length(usuarios) < 1)}">
+						<c:if
+							test="${(colaboradores == null) || (fn:length(colaboradores) < 1)}">
 							<div class="jumbotron">
 								<h1>Ooops!</h1>
-								<p>Não fomos capazes de encontrar nenhum Colaborador
-									cadastrasdo. Que tal cadastrar um novo?</p>
-								<p>
-									<a href="${pageContext.request.contextPath}/colaborador/novo"
-										class="btn btn-primary btn-lg" role="button">Cadastrar
-										Colaborador »</a>
-								</p>
+								<p>Ainda n&atilde;o foram cadastrados colaboradores para o
+									projeto ${projeto.nome}</p>
 							</div>
 						</c:if>
-						<c:if test="${(usuarios != null) && (fn:length(usuarios) >= 1)}">
+						<c:if
+							test="${(colaboradores != null) && (fn:length(colaboradores) > 0)}">
 							<div class="table-responsive">
 								<table class="table table-hover table-striped">
 									<thead>
 										<tr>
-											<th>Nome</th>
+											<th>Colaborador</th>
 											<th>CPF</th>
 											<th>Telefone</th>
 											<th>Email</th>
@@ -88,7 +91,7 @@
 										</tr>
 									</thead>
 									<tbody>
-										<c:forEach var="usuario" items="${usuarios}">
+										<c:forEach var="usuario" items="${colaboradores}">
 											<tr>
 												<td>${usuario.pessoa.nome}</td>
 												<td>${usuario.pessoa.cpf}</td>
@@ -99,12 +102,9 @@
 													href="${pageContext.request.contextPath}/colaborador/visualizar/${usuario.id}"
 													class="btn btn-success btn-sm" role="button"><i
 														class="fa fa-desktop"></i> Visualizar</a> <a
-													href="${pageContext.request.contextPath}/colaborador/editar/${usuario.id}"
-													class="btn btn-warning btn-sm" role="button"><i
-														class="fa fa-pencil"></i> Editar</a> <a
-													href="${pageContext.request.contextPath}/colaborador/remover/${usuario.id}"
+													href="${pageContext.request.contextPath}/projeto/colaborador/remover/${usuario.id}/${projeto.id}"
 													class="btn btn-danger btn-sm" role="button"><i
-														class="fa fa-times"></i> Remover</a></td>
+														class="fa fa-times"></i> Remover do Projeto</a></td>
 											</tr>
 										</c:forEach>
 									</tbody>
@@ -114,6 +114,32 @@
 					</div>
 				</div>
 				<!-- /.row -->
+				<div class="row">
+					<div class="col-lg-12">
+						<form role="form"
+							action="${pageContext.request.contextPath}/projeto/colaborador/add"
+							method="post" class="registration-form">
+							<input type="hidden" value="${projeto.id}" name="projeto.id" />
+							<div class="col-lg-12">
+								<div class="col-lg-9 form-group">
+									<label>Colaborador</label> <select name="usuario.id"
+										class="form-control">
+										<c:forEach var="usuario" items="${usuarios}">
+											<option value="${usuario.id}">${usuario.pessoa.nome}</option>
+										</c:forEach>
+									</select>
+								</div>
+								<div class="form-group">
+									<br />
+									<button type="submit" class="col-lg-3 btn btn-success">Adicionar
+										Colaborador</button>
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>
+				<!-- /.row -->
+
 			</div>
 			<!-- /.container-fluid -->
 

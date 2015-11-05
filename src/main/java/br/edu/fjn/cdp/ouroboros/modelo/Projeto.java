@@ -2,6 +2,7 @@ package br.edu.fjn.cdp.ouroboros.modelo;
 
 import java.util.Calendar;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -26,8 +27,8 @@ public class Projeto implements EntidadeOuroboros<Integer> {
 	private Integer id;
 	@ManyToOne(fetch = FetchType.EAGER)
 	private Usuario cliente;
-	@OneToOne(fetch = FetchType.EAGER)
-	private Equipe equipe;
+	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	private Equipe equipe = new Equipe();
 	@Column
 	private String nome;
 	@Column
