@@ -9,7 +9,6 @@ import br.com.caelum.vraptor.Result;
 import br.edu.fjn.cdp.ouroboros.componentes.Sessao;
 import br.edu.fjn.cdp.ouroboros.modelo.Usuario;
 import br.edu.fjn.cdp.ouroboros.modelo.dao.UsuarioDAO;
-import br.edu.fjn.cdp.ouroboros.modelo.dao.impl.UsuarioImplDAO;
 
 @Controller
 public class UsuarioController {
@@ -18,11 +17,12 @@ public class UsuarioController {
 	private Result result;
 	@Inject
 	private Sessao sessao;
+	@Inject
 	private UsuarioDAO usuarioDAO;
 	
 	@Inject
 	public UsuarioController() {
-		usuarioDAO = new UsuarioImplDAO();
+
 	}
 
 	@Post("login")

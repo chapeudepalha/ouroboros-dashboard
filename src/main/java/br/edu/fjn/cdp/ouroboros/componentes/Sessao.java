@@ -3,7 +3,6 @@ package br.edu.fjn.cdp.ouroboros.componentes;
 import java.io.Serializable;
 
 import javax.enterprise.context.SessionScoped;
-import javax.inject.Inject;
 import javax.inject.Named;
 
 import br.edu.fjn.cdp.ouroboros.modelo.Usuario;
@@ -19,9 +18,8 @@ public class Sessao implements Serializable {
 	
 	private Usuario usuario;
 
-	@Inject
 	public Sessao() {
-		// TODO Auto-generated constructor stub
+
 	}
 	
 	public Usuario getUsuario() {

@@ -1,17 +1,19 @@
 package br.edu.fjn.cdp.ouroboros.servico.impl;
 
+import javax.inject.Inject;
+
 import br.edu.fjn.cdp.ouroboros.modelo.EstadoTarefa;
 import br.edu.fjn.cdp.ouroboros.modelo.Projeto;
 import br.edu.fjn.cdp.ouroboros.modelo.dao.SubtarefaDAO;
-import br.edu.fjn.cdp.ouroboros.modelo.dao.impl.SubtarefaImplDAO;
 import br.edu.fjn.cdp.ouroboros.servico.TarefaServico;
 
 public class TarefaImplServico implements TarefaServico {
 
+	@Inject
 	private SubtarefaDAO subtarefaDAO;
 
 	public TarefaImplServico() {
-		subtarefaDAO = new SubtarefaImplDAO();
+
 	}
 
 	@Override

@@ -12,7 +12,6 @@ import br.com.caelum.vraptor.Result;
 import br.edu.fjn.cdp.ouroboros.modelo.TipoUsuario;
 import br.edu.fjn.cdp.ouroboros.modelo.Usuario;
 import br.edu.fjn.cdp.ouroboros.modelo.dao.UsuarioDAO;
-import br.edu.fjn.cdp.ouroboros.modelo.dao.impl.UsuarioImplDAO;
 
 @Controller
 @Path("colaborador")
@@ -20,10 +19,11 @@ public class ColaboradorController {
 	
 	@Inject
 	private Result result;
+	@Inject
 	private UsuarioDAO usuarioDAO;
 	
 	public ColaboradorController() {
-		usuarioDAO = new UsuarioImplDAO();
+
 	}
 	
 	@Get("novo")

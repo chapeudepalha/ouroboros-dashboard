@@ -27,12 +27,7 @@ import br.edu.fjn.cdp.ouroboros.modelo.dao.EquipeDAO;
 import br.edu.fjn.cdp.ouroboros.modelo.dao.ProjetoDAO;
 import br.edu.fjn.cdp.ouroboros.modelo.dao.TarefaDAO;
 import br.edu.fjn.cdp.ouroboros.modelo.dao.UsuarioDAO;
-import br.edu.fjn.cdp.ouroboros.modelo.dao.impl.EquipeImplDAO;
-import br.edu.fjn.cdp.ouroboros.modelo.dao.impl.ProjetoImplDAO;
-import br.edu.fjn.cdp.ouroboros.modelo.dao.impl.TarefaImplDAO;
-import br.edu.fjn.cdp.ouroboros.modelo.dao.impl.UsuarioImplDAO;
 import br.edu.fjn.cdp.ouroboros.servico.TarefaServico;
-import br.edu.fjn.cdp.ouroboros.servico.impl.TarefaImplServico;
 
 @Controller
 @Path("projeto")
@@ -40,18 +35,19 @@ public class ProjetoController {
 
 	@Inject
 	private Result result;
+	@Inject
 	private ProjetoDAO projetoDAO;
+	@Inject
 	private UsuarioDAO usuarioDAO;
+	@Inject
 	private EquipeDAO equipeDAO;
+	@Inject
 	private TarefaDAO tarefaDAO;
+	@Inject
 	private TarefaServico tarefaServico;
 
 	public ProjetoController() {
-		projetoDAO = new ProjetoImplDAO();
-		usuarioDAO = new UsuarioImplDAO();
-		equipeDAO = new EquipeImplDAO();
-		tarefaDAO = new TarefaImplDAO();
-		tarefaServico = new TarefaImplServico();
+
 	}
 
 	@Get("novo")
