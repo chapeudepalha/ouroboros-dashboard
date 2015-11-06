@@ -7,7 +7,7 @@ import br.edu.fjn.cdp.ouroboros.modelo.dao.impl.UsuarioImplDAO;
 
 public class CriaRoot {
 
-	public static void maind(String[] args) {
+	public static void mains(String[] args) {
 		
 		Usuario u = new Usuario();
 		u.setPessoa(null);

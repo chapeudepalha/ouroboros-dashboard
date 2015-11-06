@@ -97,12 +97,9 @@
 														pattern="dd/MM/yyyy" /></td>
 												<td>${projeto.cliente.pessoa.nome}</td>
 												<td><a
-													href="${pageContext.request.contextPath}/projeto/colaboradores/${projeto.id}"
-													class="btn btn-info btn-sm" role="button"><i
-														class="fa fa-user"></i> Gerenciar Colaboradores</a> <a
-													href="${pageContext.request.contextPath}/projeto/visualizar/${projeto.id}"
+													href="${pageContext.request.contextPath}/projeto/gerenciar/${projeto.id}"
 													class="btn btn-success btn-sm" role="button"><i
-														class="fa fa-desktop"></i> Visualizar</a> <a
+														class="fa fa-gears"></i> Gerenciar Projeto</a> <a
 													href="${pageContext.request.contextPath}/projeto/editar/${projeto.id}"
 													class="btn btn-warning btn-sm" role="button"><i
 														class="fa fa-pencil"></i> Editar</a> <a

@@ -7,10 +7,12 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -42,6 +44,9 @@ public class Tarefa implements EntidadeOuroboros<Integer> {
 	@Enumerated(EnumType.ORDINAL)
 	@Column(name = "estado_atividade")
 	private EstadoTarefa estadoTarefa;
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "id_projeto")
+	private Projeto projeto;
 	
 	public Tarefa() {
 		// TODO Auto-generated constructor stub
@@ -105,6 +110,14 @@ public class Tarefa implements EntidadeOuroboros<Integer> {
 
 	public void setColaboradorResponsavel(Usuario colaboradorResponsavel) {
 		this.colaboradorResponsavel = colaboradorResponsavel;
+	}
+
+	public Projeto getProjeto() {
+		return projeto;
+	}
+
+	public void setProjeto(Projeto projeto) {
+		this.projeto = projeto;
 	}
 
 }

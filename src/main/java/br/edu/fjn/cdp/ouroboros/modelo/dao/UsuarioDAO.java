@@ -9,6 +9,8 @@ public interface UsuarioDAO extends DAOGenerico<Usuario, Integer> {
 
 	Usuario buscarPorUsuarioESenha(String usuario, String senha);
 	
+	Usuario buscarPorUsuario(String usuario);
+	
 	List<Usuario> buscarPorTipoUsuario(TipoUsuario tipoUsuario);
 	
 }

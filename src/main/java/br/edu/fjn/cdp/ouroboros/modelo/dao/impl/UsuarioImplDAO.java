@@ -66,6 +66,7 @@ public class UsuarioImplDAO extends DAOGenericoImpl<Usuario, Integer> implements
 			Criterion c1 = Restrictions.eq("tipoUsuario", tipoUsuario);
 			
 			criterio.add(c1);
+			criterio.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
 			
 			usuarios = criterio.list();
 			
@@ -78,6 +79,36 @@ public class UsuarioImplDAO extends DAOGenericoImpl<Usuario, Integer> implements
 		}
 		
 		return usuarios;
+	}
+
+	@Override
+	public Usuario buscarPorUsuario(String usuario) {
+		Usuario resultado = null;
+
+		EntityManager manager = HibernateInfra.getManager();
+		EntityTransaction transacao = manager.getTransaction();
+
+		try {
+			transacao.begin();
+
+			Criteria criterio = ((Session) manager.getDelegate()).createCriteria(getClassePersistente());
+			
+			Criterion c1 = Restrictions.eq("usuario", usuario);
+			
+			criterio.add(c1);
+			
+			
+			resultado = (Usuario) criterio.uniqueResult();
+			
+			transacao.commit();
+		} catch (Exception e) {
+			e.printStackTrace();
+			transacao.rollback();
+		} finally {
+			manager.close();
+		}
+
+		return resultado;
 	}
 
 }

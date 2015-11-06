@@ -6,6 +6,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 @Entity
@@ -20,6 +21,7 @@ public class Subtarefa implements EntidadeOuroboros<Integer> {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer id;
 	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "id_tarefa")
 	private Tarefa tarefa;
 	@Column
 	private String nome;

@@ -88,12 +88,12 @@
 							<div class="col-lg-6">
 								<div class="form-group">
 									<label>In&iacute;cio</label> <input type="date"
-										name="projeto.inicio" placeholder="10/10/2010"
+										name="inicio" placeholder="10/10/2010"
 										value='<fmt:formatDate value="${projeto.inicio.time}" pattern="dd/MM/yyyy" />'
 										class="form-control" id="form-inicio">
 								</div>
 								<div class="form-group">
-									<label>Fim</label> <input type="date" name="projeto.entrega"
+									<label>Fim</label> <input type="date" name="entrega"
 										value='<fmt:formatDate value="${projeto.entrega.time}" pattern="dd/MM/yyyy" />'
 										placeholder="20/12/2010" class="form-control" id="form-fim">
 								</div>

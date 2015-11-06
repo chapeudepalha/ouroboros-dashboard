@@ -8,6 +8,7 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 
 @Entity
@@ -26,6 +27,7 @@ public class Usuario implements EntidadeOuroboros<Integer> {
 	@Column
 	private String senha;
 	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "id_pessoa")
 	private Pessoa pessoa;
 	@Column(name = "tipo_usuario", nullable = false)
 	@Enumerated(EnumType.ORDINAL)

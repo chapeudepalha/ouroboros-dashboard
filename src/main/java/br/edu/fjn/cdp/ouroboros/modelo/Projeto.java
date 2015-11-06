@@ -9,6 +9,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
@@ -26,8 +27,10 @@ public class Projeto implements EntidadeOuroboros<Integer> {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer id;
 	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "id_cliente")
 	private Usuario cliente;
 	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@JoinColumn(name = "id_equipe")
 	private Equipe equipe = new Equipe();
 	@Column
 	private String nome;
