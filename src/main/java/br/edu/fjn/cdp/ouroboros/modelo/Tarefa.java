@@ -2,7 +2,6 @@ package br.edu.fjn.cdp.ouroboros.modelo;
 
 import java.util.Calendar;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -38,7 +37,7 @@ public class Tarefa implements EntidadeOuroboros<Integer> {
 	@Temporal(TemporalType.DATE)
 	@Column
 	private Calendar fim;
-	@OneToOne(cascade = CascadeType.ALL)
+	@OneToOne(fetch = FetchType.EAGER)
 	@JoinColumn(nullable = false, name = "id_colaborador")
 	private Usuario colaboradorResponsavel;
 	@Enumerated(EnumType.ORDINAL)

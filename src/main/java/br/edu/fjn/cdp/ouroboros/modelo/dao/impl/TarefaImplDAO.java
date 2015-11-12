@@ -167,7 +167,7 @@ public class TarefaImplDAO extends DAOGenericoImpl<Tarefa, Integer> implements T
 			Criterion c1 = Restrictions.eq("p.id", projeto.getId());
 
 			Calendar calendar = new GregorianCalendar();
-			Criterion c2 = Restrictions.gt("fim", calendar);
+			Criterion c2 = Restrictions.lt("fim", calendar);
 			Criterion c3 = Restrictions.eq("estadoTarefa", EstadoTarefa.PARAFAZER);
 			Criterion c4 = Restrictions.eq("estadoTarefa", EstadoTarefa.EMPROGRESSO);
 

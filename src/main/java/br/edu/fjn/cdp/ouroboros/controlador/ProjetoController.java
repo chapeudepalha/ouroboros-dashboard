@@ -59,26 +59,30 @@ public class ProjetoController {
 
 	@Post("cadastrar")
 	public void cadastrar(Projeto projeto, String inicio, String entrega) {
-		DateFormat formatData = new SimpleDateFormat("yyyy-MM-dd");
+		DateFormat converte = new SimpleDateFormat("dd/MM/yyyy");
+		DateFormat formata = new SimpleDateFormat("yyyy-MM-dd");
 		Date convertido = null;
 		Calendar cal = null;
-		
+
 		try {
-			convertido = formatData.parse(inicio);
+			inicio = formata.format(converte.parse(inicio));
+			convertido = formata.parse(inicio);
+
 			cal = Calendar.getInstance();
 			cal.setTime(convertido);
-			
+
 			projeto.setInicio(cal);
-			
-			convertido = formatData.parse(entrega);
+
+			entrega = formata.format(converte.parse(entrega));
+			convertido = formata.parse(entrega);
 			cal = Calendar.getInstance();
 			cal.setTime(convertido);
-			
+
 			projeto.setEntrega(cal);
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
-		
+
 		projetoDAO.inserir(projeto);
 		result.redirectTo(this).listar();
 	}
@@ -94,26 +98,30 @@ public class ProjetoController {
 
 	@Post("editar")
 	public void editar(Projeto projeto, String inicio, String entrega) {
-		DateFormat formatData = new SimpleDateFormat("yyyy-MM-dd");
+		DateFormat converte = new SimpleDateFormat("dd/MM/yyyy");
+		DateFormat formata = new SimpleDateFormat("yyyy-MM-dd");
 		Date convertido = null;
 		Calendar cal = null;
-		
+
 		try {
-			convertido = formatData.parse(inicio);
+			inicio = formata.format(converte.parse(inicio));
+			convertido = formata.parse(inicio);
+
 			cal = Calendar.getInstance();
 			cal.setTime(convertido);
-			
+
 			projeto.setInicio(cal);
-			
-			convertido = formatData.parse(entrega);
+
+			entrega = formata.format(converte.parse(entrega));
+			convertido = formata.parse(entrega);
 			cal = Calendar.getInstance();
 			cal.setTime(convertido);
-			
+
 			projeto.setEntrega(cal);
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
-		
+
 		projetoDAO.alterar(projeto);
 		result.redirectTo(this).listar();
 	}
@@ -161,25 +169,25 @@ public class ProjetoController {
 	@Get("gerenciar/{id:[0-9]{1,15}}")
 	public void gerenciar(Integer id) {
 		Projeto projeto = projetoDAO.buscarPorId(id);
-		
+
 		long total = tarefaDAO.quantidadeDeTarefasPorProjeto(projeto);
-		long atrasados = 0;
-		long concluidos = 0;
-		long restantes = 0;
+		int atrasados = 0;
+		int concluidos = 0;
+		int restantes = 0;
 
 		List<Tarefa> fazer = new ArrayList<>();
 		List<Tarefa> progresso = new ArrayList<>();
 		List<Tarefa> concluido = new ArrayList<>();
 
 		if (total > 0) {
-			atrasados = tarefaServico.percentualAtrasadoPorProjeto(projeto);
 			concluidos = tarefaServico.percentualPorProjetoEEstado(projeto, EstadoTarefa.CONCLUIDO);
 			restantes = 100 - concluidos;
 			fazer = tarefaDAO.buscarPorProjetoEEstado(projeto, EstadoTarefa.PARAFAZER);
 			progresso = tarefaDAO.buscarPorProjetoEEstado(projeto, EstadoTarefa.EMPROGRESSO);
 			concluido = tarefaDAO.buscarPorProjetoEEstado(projeto, EstadoTarefa.CONCLUIDO);
+			atrasados = tarefaServico.percentualAtrasadoPorProjeto(projeto);
 		}
-
+		
 		result.include("total", total);
 		result.include("concluidos", concluidos);
 		result.include("restantes", restantes);
@@ -203,5 +211,64 @@ public class ProjetoController {
 		List<Projeto> projetos = projetoDAO.listar();
 
 		result.include("projetos", projetos);
+	}
+
+	@Get("resumo/{id:[0-9]{1,15}}")
+	public void resumo(Integer id) {
+		Projeto projeto = projetoDAO.buscarPorId(id);
+
+		long total = tarefaDAO.quantidadeDeTarefasPorProjeto(projeto);
+		int atrasados = 0;
+		int concluidos = 0;
+		int restantes = 0;
+		int fazer = 0;
+		int progresso = 0;
+		int concluido = 0;
+		int dia = 0;
+
+		if (total > 0) {
+			concluidos = tarefaServico.percentualPorProjetoEEstado(projeto, EstadoTarefa.CONCLUIDO);
+			restantes = 100 - concluidos;
+			fazer = tarefaServico.percentualPorProjetoEEstado(projeto, EstadoTarefa.PARAFAZER);
+			progresso = tarefaServico.percentualPorProjetoEEstado(projeto, EstadoTarefa.EMPROGRESSO);
+			concluido = tarefaServico.percentualPorProjetoEEstado(projeto, EstadoTarefa.CONCLUIDO);
+			atrasados = tarefaServico.percentualAtrasadoPorProjeto(projeto);
+			dia = 100 - atrasados;
+		}
+		
+		result.include("total", total);
+		result.include("concluidos", concluidos);
+		result.include("restantes", restantes);
+		result.include("atrasados", atrasados);
+		result.include("dia", dia);
+		result.include("fazer", fazer);
+		result.include("progresso", progresso);
+		result.include("concluido", concluido);
+		result.include("projeto", projeto);
+	}
+
+	@Get("tarefa/{id:[0-9]{1,15}}")
+	public void novaTarefa(Integer id) {
+		result.forwardTo(TarefaController.class).novo(id);
+	}
+
+	@Post("tarefa/cadastrar")
+	public void cadastrarTarefa(Tarefa tarefa, String inicio, String fim) {
+		result.forwardTo(TarefaController.class).cadastrar(tarefa, inicio, fim);
+	}
+
+	@Get("tarefa/editar/{id:[0-9]{1,15}}")
+	public void editarTarefa(Integer id) {
+		result.forwardTo(TarefaController.class).editar(id);
+	}
+
+	@Post("tarefa/editar")
+	public void editarTarefa(Tarefa tarefa, String inicio, String fim) {
+		result.forwardTo(TarefaController.class).editar(tarefa, inicio, fim);
+	}
+
+	@Get("tarefa/remover/{id:[0-9]{1,15}}")
+	public void removerTarefa(Integer id) {
+		result.forwardTo(TarefaController.class).remover(id);
 	}
 }

@@ -45,7 +45,7 @@
 		<div class="row">
 			<div class="col-lg-12">
 				<div class="jumbotron">
-					<h1>Ooops!</h1>
+					<h1>Ooops! <small>404 [P&aacute;gina n&atilde;o encontrada]</small></h1>
 					<p>Não fomos capazes de encontrar a p&aacute;gina solicitada.
 						Que tal voltar para o in&iacute;cio?</p>
 					<p>

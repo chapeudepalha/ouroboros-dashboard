@@ -97,6 +97,9 @@
 														pattern="dd/MM/yyyy" /></td>
 												<td>${projeto.cliente.pessoa.nome}</td>
 												<td><a
+													href="${pageContext.request.contextPath}/projeto/resumo/${projeto.id}"
+													class="btn btn-info btn-sm" role="button"><i
+														class="fa fa-pie-chart"></i> Resumo do Projeto</a> <a
 													href="${pageContext.request.contextPath}/projeto/gerenciar/${projeto.id}"
 													class="btn btn-success btn-sm" role="button"><i
 														class="fa fa-gears"></i> Gerenciar Projeto</a> <a

@@ -180,87 +180,49 @@
 				<br />
 				<c:if test="${total >= 1}">
 					<div class="row">
-
-						<div class="col-lg-4 text-center">
-							<div class="panel panel-default">
-								<div class="panel-body">
-									<strong>Para Fazer</strong>
-								</div>
-							</div>
-						</div>
-						<div class="col-lg-4 text-center">
-							<div class="panel panel-default">
-								<div class="panel-body">
-									<strong>Em Progresso</strong>
-								</div>
-							</div>
-						</div>
-						<div class="col-lg-4 text-center">
-							<div class="panel panel-default">
-								<div class="panel-body">
-									<strong>Conclu&iacute;do</strong>
-								</div>
-							</div>
-						</div>
+						<table class="table table-bordered table-hover text-center">
+							<thead>
+								<tr>
+									<th>Para Fazer</th>
+									<th>Em Progresso</th>
+									<th>Conclu&iacute;do</th>
+								</tr>
+							</thead>
+							<tbody>
+								<c:forEach var="i" begin="0" end="${total - 1}">
+									<tr>
+										<c:if test="${fazer[i] != null}">
+											<td><strong><c:out value="${fazer[i].nome}"></c:out></strong>
+												<a class="btn btn-primary" href="#"><i
+													class="fa fa-desktop"></i></a> <a class="btn btn-warning"
+												href="${pageContext.request.contextPath}/projeto/tarefa/editar/${fazer[i].id}"><i
+													class="fa fa-pencil"></i></a> <a class="btn btn-danger"
+												href="${pageContext.request.contextPath}/projeto/tarefa/remover/${fazer[i].id}"><i
+													class="fa fa-times"></i></a></td>
+										</c:if>
+										<c:if test="${progresso[i] != null}">
+											<td><strong><c:out value="${progresso[i].nome}"></c:out></strong>
+												<a class="btn btn-primary" href="#"><i
+													class="fa fa-desktop"></i></a> <a class="btn btn-warning"
+												href="${pageContext.request.contextPath}/projeto/tarefa/editar/${progresso[i].id}"><i
+													class="fa fa-pencil"></i></a> <a class="btn btn-danger"
+												href="${pageContext.request.contextPath}/projeto/tarefa/remover/${progresso[i].id}"><i
+													class="fa fa-times"></i></a></td>
+										</c:if>
+										<c:if test="${concluido[i] != null}">
+											<td><strong><c:out value="${concluido[i].nome}"></c:out></strong>
+												<a class="btn btn-primary" href="#"><i
+													class="fa fa-desktop"></i></a> <a class="btn btn-warning"
+												href="${pageContext.request.contextPath}/projeto/tarefa/editar/${concluido[i].id}"><i
+													class="fa fa-pencil"></i></a> <a class="btn btn-danger"
+												href="${pageContext.request.contextPath}/projeto/tarefa/remover/${concluido[i].id}"><i
+													class="fa fa-times"></i></a></td>
+										</c:if>
+									</tr>
+								</c:forEach>
+							</tbody>
+						</table>
 					</div>
-					<c:forEach var="i" begin="0" end="${total - 1}">
-						<div class="row">
-							<c:if test="${fazer[i] != null}">
-								<div class="col-lg-4 text-center">
-									<div class="panel panel-default">
-										<div class="panel-body">
-											<div class="col-lg-8">
-												<strong><c:out value="${fazer[i].nome}"></c:out></strong>
-											</div>
-											<div class="col-lg-4">
-												<a class="btn btn-warning"
-													href="${pageContext.request.contextPath}/projeto/tarefa/editar/${fazer[i].id}"><i
-													class="fa fa-pencil"></i></a> <a class="btn btn-danger"
-													href="${pageContext.request.contextPath}/projeto/tarefa/remover/${fazer[i].id}"><i
-													class="fa fa-times"></i></a>
-											</div>
-										</div>
-									</div>
-								</div>
-							</c:if>
-							<c:if test="${progresso[i] != null}">
-								<div class="col-lg-4 text-center">
-									<div class="panel panel-default">
-										<div class="panel-body">
-											<div class="col-lg-8">
-												<strong><c:out value="${progresso[i].nome}"></c:out></strong>
-											</div>
-											<div class="col-lg-4">
-												<a class="btn btn-warning"
-													href="${pageContext.request.contextPath}/projeto/tarefa/editar/${progresso[i].id}"><i
-													class="fa fa-pencil"></i></a> <a class="btn btn-danger"
-													href="${pageContext.request.contextPath}/projeto/tarefa/remover/${progresso[i].id}"><i
-													class="fa fa-times"></i></a>
-											</div>
-										</div>
-									</div>
-								</div>
-							</c:if>
-							<c:if test="${concluido[i] != null}">
-								<div class="col-lg-4 text-center">
-									<div class="panel panel-default">
-										<div class="panel-body">
-											<div class="col-lg-8">
-												<strong><c:out value="${concluido[i].nome}"></c:out></strong>
-											</div>
-											<div class="col-lg-4">
-												<a class="btn btn-warning"
-													href="${pageContext.request.contextPath}/projeto/tarefa/editar/${concluido[i].id}"><i
-													class="fa fa-pencil"></i></a> <a class="btn btn-danger"
-													href="${pageContext.request.contextPath}/projeto/tarefa/remover/${concluido[i].id}"><i
-													class="fa fa-times"></i></a>
-											</div>
-										</div>
-									</div>
-								</div>
-							</c:if>
-						</div>
-					</c:forEach>
 				</c:if>
 				<c:if test="${total <= 0}">
 					<div class="jumbotron">

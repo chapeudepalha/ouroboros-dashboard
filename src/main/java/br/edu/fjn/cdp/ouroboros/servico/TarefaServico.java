@@ -5,8 +5,8 @@ import br.edu.fjn.cdp.ouroboros.modelo.Projeto;
 
 public interface TarefaServico {
 
-	Long percentualPorProjetoEEstado(Projeto projeto, EstadoTarefa estadoTarefa);
+	Integer percentualPorProjetoEEstado(Projeto projeto, EstadoTarefa estadoTarefa);
 	
-	Long percentualAtrasadoPorProjeto(Projeto projeto);
+	Integer percentualAtrasadoPorProjeto(Projeto projeto);
 	
 }

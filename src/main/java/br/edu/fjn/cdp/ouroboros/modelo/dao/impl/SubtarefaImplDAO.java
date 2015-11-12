@@ -101,8 +101,8 @@ public class SubtarefaImplDAO extends DAOGenericoImpl<Subtarefa, Integer> implem
 			Criteria criterio = ((Session) manager.getDelegate()).createCriteria(getClassePersistente());
 
 			criterio.createAlias("tarefa", "t");
-			criterio.createAlias("projeto", "p");
-			criterio.add(Restrictions.eq("t.p.id", projeto.getId()));
+			criterio.createAlias("t.projeto", "p");
+			criterio.add(Restrictions.eq("p.id", projeto.getId()));
 			criterio.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
 			criterio.setProjection(Projections.rowCount());
 
@@ -131,10 +131,10 @@ public class SubtarefaImplDAO extends DAOGenericoImpl<Subtarefa, Integer> implem
 			Criteria criterio = ((Session) manager.getDelegate()).createCriteria(getClassePersistente());
 
 			criterio.createAlias("tarefa", "t");
-			criterio.createAlias("projeto", "p");
+			criterio.createAlias("t.projeto", "p");
 			
 			Criterion c1 = Restrictions.eq("t.estadoTarefa", estadoTarefa);
-			Criterion c2 = Restrictions.eq("t.p.id", projeto.getId());
+			Criterion c2 = Restrictions.eq("p.id", projeto.getId());
 			
 			criterio.add(Restrictions.and(c1, c2));
 			criterio.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
@@ -165,12 +165,12 @@ public class SubtarefaImplDAO extends DAOGenericoImpl<Subtarefa, Integer> implem
 			Criteria criterio = ((Session) manager.getDelegate()).createCriteria(getClassePersistente());
 
 			criterio.createAlias("tarefa", "t");
-			criterio.createAlias("projeto", "p");
+			criterio.createAlias("t.projeto", "p");
 			
-			Criterion c1 = Restrictions.eq("t.p.id", projeto.getId());
+			Criterion c1 = Restrictions.eq("p.id", projeto.getId());
 			
 			Calendar calendar = new GregorianCalendar();
-			Criterion c2 = Restrictions.gt("t.fim", calendar);
+			Criterion c2 = Restrictions.lt("t.fim", calendar);
 			Criterion c3 = Restrictions.eq("t.estadoTarefa", EstadoTarefa.PARAFAZER);
 			Criterion c4 = Restrictions.eq("t.estadoTarefa", EstadoTarefa.EMPROGRESSO);
 
