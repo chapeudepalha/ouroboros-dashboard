@@ -25,6 +25,11 @@ public class UsuarioController {
 
 	}
 
+	@Get("usuario/login")
+	public void login() {
+		
+	}
+	
 	@Post("login")
 	public void login(Usuario usuario) {
 		Usuario u = null;
@@ -36,7 +41,7 @@ public class UsuarioController {
 			
 			result.redirectTo(IndexController.class).inicio();
 		} else {
-			result.redirectTo(IndexController.class).index();
+			result.redirectTo(this).login();
 		}
 		
 	}
@@ -44,7 +49,7 @@ public class UsuarioController {
 	@Get("logout")
 	public void logout() {
 		sessao.logout();
-		result.redirectTo(IndexController.class).index();
+		result.redirectTo(this).login();
 	}
 
 }

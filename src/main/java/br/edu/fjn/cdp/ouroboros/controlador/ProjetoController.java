@@ -17,6 +17,7 @@ import br.com.caelum.vraptor.Get;
 import br.com.caelum.vraptor.Path;
 import br.com.caelum.vraptor.Post;
 import br.com.caelum.vraptor.Result;
+import br.edu.fjn.cdp.ouroboros.componentes.SomenteLogado;
 import br.edu.fjn.cdp.ouroboros.modelo.Equipe;
 import br.edu.fjn.cdp.ouroboros.modelo.EstadoTarefa;
 import br.edu.fjn.cdp.ouroboros.modelo.Projeto;
@@ -51,6 +52,7 @@ public class ProjetoController {
 	}
 
 	@Get("novo")
+	@SomenteLogado
 	public void novo() {
 		List<Usuario> usuarios = usuarioDAO.buscarPorTipoUsuario(TipoUsuario.CLIENTE);
 
@@ -58,6 +60,7 @@ public class ProjetoController {
 	}
 
 	@Post("cadastrar")
+	@SomenteLogado
 	public void cadastrar(Projeto projeto, String inicio, String entrega) {
 		DateFormat converte = new SimpleDateFormat("dd/MM/yyyy");
 		DateFormat formata = new SimpleDateFormat("yyyy-MM-dd");
@@ -88,6 +91,7 @@ public class ProjetoController {
 	}
 
 	@Get("editar/{id:[0-9]{1,15}}")
+	@SomenteLogado
 	public void editar(Integer id) {
 		List<Usuario> usuarios = usuarioDAO.buscarPorTipoUsuario(TipoUsuario.CLIENTE);
 		result.include("usuarios", usuarios);
@@ -97,6 +101,7 @@ public class ProjetoController {
 	}
 
 	@Post("editar")
+	@SomenteLogado
 	public void editar(Projeto projeto, String inicio, String entrega) {
 		DateFormat converte = new SimpleDateFormat("dd/MM/yyyy");
 		DateFormat formata = new SimpleDateFormat("yyyy-MM-dd");
@@ -127,6 +132,7 @@ public class ProjetoController {
 	}
 
 	@Get("colaboradores/{id:[0-9]{1,15}}")
+	@SomenteLogado
 	public void colaboradores(Integer id) {
 		Projeto projeto = projetoDAO.buscarPorId(id);
 		List<Usuario> usuarios = usuarioDAO.buscarPorTipoUsuario(TipoUsuario.COLABORADOR);
@@ -142,6 +148,7 @@ public class ProjetoController {
 	}
 
 	@Post("colaborador/add")
+	@SomenteLogado
 	public void addColaborador(Usuario usuario, Projeto projeto) {
 		Projeto proj = projetoDAO.buscarPorId(projeto.getId());
 		Usuario u = usuarioDAO.buscarPorId(usuario.getId());
@@ -155,6 +162,7 @@ public class ProjetoController {
 	}
 
 	@Get("colaborador/remover/{idColaborador:[0-9]{1,15}}/{idProjeto:[0-9]{1,15}}")
+	@SomenteLogado
 	public void removerColaborador(Integer idColaborador, Integer idProjeto) {
 		Projeto p = projetoDAO.buscarPorId(idProjeto);
 		Usuario u = usuarioDAO.buscarPorId(idColaborador);
@@ -167,6 +175,7 @@ public class ProjetoController {
 	}
 
 	@Get("gerenciar/{id:[0-9]{1,15}}")
+	@SomenteLogado
 	public void gerenciar(Integer id) {
 		Projeto projeto = projetoDAO.buscarPorId(id);
 
@@ -187,7 +196,7 @@ public class ProjetoController {
 			concluido = tarefaDAO.buscarPorProjetoEEstado(projeto, EstadoTarefa.CONCLUIDO);
 			atrasados = tarefaServico.percentualAtrasadoPorProjeto(projeto);
 		}
-		
+
 		result.include("total", total);
 		result.include("concluidos", concluidos);
 		result.include("restantes", restantes);
@@ -199,6 +208,7 @@ public class ProjetoController {
 	}
 
 	@Get("remover/{id:[0-9]{1,15}}")
+	@SomenteLogado
 	public void remover(Integer id) {
 		Projeto projeto = projetoDAO.buscarPorId(id);
 		projetoDAO.remover(projeto);
@@ -207,6 +217,7 @@ public class ProjetoController {
 	}
 
 	@Get("listar")
+	@SomenteLogado
 	public void listar() {
 		List<Projeto> projetos = projetoDAO.listar();
 
@@ -214,6 +225,7 @@ public class ProjetoController {
 	}
 
 	@Get("resumo/{id:[0-9]{1,15}}")
+	@SomenteLogado
 	public void resumo(Integer id) {
 		Projeto projeto = projetoDAO.buscarPorId(id);
 
@@ -235,7 +247,7 @@ public class ProjetoController {
 			atrasados = tarefaServico.percentualAtrasadoPorProjeto(projeto);
 			dia = 100 - atrasados;
 		}
-		
+
 		result.include("total", total);
 		result.include("concluidos", concluidos);
 		result.include("restantes", restantes);
@@ -248,26 +260,31 @@ public class ProjetoController {
 	}
 
 	@Get("tarefa/{id:[0-9]{1,15}}")
+	@SomenteLogado
 	public void novaTarefa(Integer id) {
 		result.forwardTo(TarefaController.class).novo(id);
 	}
 
 	@Post("tarefa/cadastrar")
+	@SomenteLogado
 	public void cadastrarTarefa(Tarefa tarefa, String inicio, String fim) {
 		result.forwardTo(TarefaController.class).cadastrar(tarefa, inicio, fim);
 	}
 
 	@Get("tarefa/editar/{id:[0-9]{1,15}}")
+	@SomenteLogado
 	public void editarTarefa(Integer id) {
 		result.forwardTo(TarefaController.class).editar(id);
 	}
 
 	@Post("tarefa/editar")
+	@SomenteLogado
 	public void editarTarefa(Tarefa tarefa, String inicio, String fim) {
 		result.forwardTo(TarefaController.class).editar(tarefa, inicio, fim);
 	}
 
 	@Get("tarefa/remover/{id:[0-9]{1,15}}")
+	@SomenteLogado
 	public void removerTarefa(Integer id) {
 		result.forwardTo(TarefaController.class).remover(id);
 	}

@@ -1,7 +1,20 @@
 package br.edu.fjn.cdp.ouroboros.modelo;
 
 public enum EstadoTarefa {
-
+	PENDENTE {
+		@Override
+		public String toString() {
+			// TODO Auto-generated method stub
+			return "Pendente";
+		}
+	},
+	AGUARDAACEITACAO {
+		@Override
+		public String toString() {
+			// TODO Auto-generated method stub
+			return "Aguardando Aceitação";
+		}
+	},
 	PARAFAZER {
 		@Override
 		public String toString() {

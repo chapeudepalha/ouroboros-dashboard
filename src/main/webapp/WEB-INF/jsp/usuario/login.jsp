@@ -12,14 +12,14 @@
 
 <!-- CSS -->
 <link rel="stylesheet"
-	href="<c:url value="http://fonts.googleapis.com/css?family=Roboto:400,100,300,500"/>">
+	href="http://fonts.googleapis.com/css?family=Roboto:400,100,300,500">
 <link rel="stylesheet"
-	href="<c:url value="assets/bootstrap/css/bootstrap.min.css"/>">
+	href="${pageContext.request.contextPath}/assets/bootstrap/css/bootstrap.min.css">
 <link rel="stylesheet"
-	href="<c:url value="assets/font-awesome/css/font-awesome.min.css"/>">
+	href="${pageContext.request.contextPath}/assets/font-awesome/css/font-awesome.min.css">
 <link rel="stylesheet"
-	href="<c:url value="assets/css/form-elements.css"/>">
-<link rel="stylesheet" href="<c:url value="assets/css/style.css"/>">
+	href="${pageContext.request.contextPath}/assets/css/form-elements.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/style.css">
 
 <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
 <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -29,15 +29,15 @@
         <![endif]-->
 
 <!-- Favicon and touch icons -->
-<link rel="shortcut icon" href="assets/ico/favicon.png">
+<link rel="shortcut icon" href="${pageContext.request.contextPath}/assets/ico/favicon.png">
 <link rel="apple-touch-icon-precomposed" sizes="144x144"
-	href="assets/ico/apple-touch-icon-144-precomposed.png">
+	href="${pageContext.request.contextPath}/assets/ico/apple-touch-icon-144-precomposed.png">
 <link rel="apple-touch-icon-precomposed" sizes="114x114"
-	href="assets/ico/apple-touch-icon-114-precomposed.png">
+	href="${pageContext.request.contextPath}/assets/ico/apple-touch-icon-114-precomposed.png">
 <link rel="apple-touch-icon-precomposed" sizes="72x72"
-	href="assets/ico/apple-touch-icon-72-precomposed.png">
+	href="${pageContext.request.contextPath}/assets/ico/apple-touch-icon-72-precomposed.png">
 <link rel="apple-touch-icon-precomposed"
-	href="assets/ico/apple-touch-icon-57-precomposed.png">
+	href="${pageContext.request.contextPath}/assets/ico/apple-touch-icon-57-precomposed.png">
 
 </head>
 
@@ -91,13 +91,13 @@
 	</div>
 
 	<!-- Javascript -->
-	<script src="<c:url value="assets/js/jquery-1.11.1.min.js"/>"></script>
-	<script src="<c:url value="assets/bootstrap/js/bootstrap.min.js"/>"></script>
-	<script src="<c:url value="assets/js/jquery.backstretch.min.js"/>"></script>
-	<script src="<c:url value="assets/js/scripts.js"/>"></script>
+	<script src="${pageContext.request.contextPath}/assets/js/jquery-1.11.1.min.js"></script>
+	<script src="${pageContext.request.contextPath}/assets/bootstrap/js/bootstrap.min.js"></script>
+	<script src="${pageContext.request.contextPath}/assets/js/jquery.backstretch.min.js"></script>
+	<script src="${pageContext.request.contextPath}/assets/js/scripts.js"></script>
 
 	<!--[if lt IE 10]>
-            <script src="assets/js/placeholder.js"></script>
+            <script src="${pageContext.request.contextPath}/assets/js/placeholder.js"></script>
         <![endif]-->
 
 </body>

@@ -25,18 +25,19 @@ public class Tarefa implements EntidadeOuroboros<Integer> {
 	private static final long serialVersionUID = 1L;
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	@Column
 	private String nome;
 	@Column
 	private String descricao;
-	@Temporal(TemporalType.DATE)
+	@Temporal(TemporalType.TIMESTAMP)
 	@Column
 	private Calendar inicio;
-	@Temporal(TemporalType.DATE)
+	@Temporal(TemporalType.TIMESTAMP)
 	@Column
 	private Calendar fim;
+	private Integer numeroHoras; 
 	@OneToOne(fetch = FetchType.EAGER)
 	@JoinColumn(nullable = false, name = "id_colaborador")
 	private Usuario colaboradorResponsavel;
@@ -119,4 +120,12 @@ public class Tarefa implements EntidadeOuroboros<Integer> {
 		this.projeto = projeto;
 	}
 
+	public Integer getNumeroHoras() {
+		return numeroHoras;
+	}
+
+	public void setNumeroHoras(Integer numeroHoras) {
+		this.numeroHoras = numeroHoras;
+	}
+	
 }

@@ -15,6 +15,7 @@ import br.com.caelum.vraptor.Get;
 import br.com.caelum.vraptor.Path;
 import br.com.caelum.vraptor.Post;
 import br.com.caelum.vraptor.Result;
+import br.edu.fjn.cdp.ouroboros.componentes.SomenteLogado;
 import br.edu.fjn.cdp.ouroboros.modelo.EstadoTarefa;
 import br.edu.fjn.cdp.ouroboros.modelo.Tarefa;
 import br.edu.fjn.cdp.ouroboros.modelo.TipoUsuario;
@@ -38,6 +39,7 @@ public class TarefaController {
 	}
 
 	@Get("novo/{id:[0-9]{1,15}}")
+	@SomenteLogado
 	public void novo(Integer id) {
 		List<Usuario> colaboradores = new ArrayList<>();
 		colaboradores = usuarioDAO.buscarPorTipoUsuario(TipoUsuario.COLABORADOR);
@@ -47,6 +49,7 @@ public class TarefaController {
 	}
 
 	@Post("cadastrar")
+	@SomenteLogado
 	public void cadastrar(Tarefa tarefa, String inicio, String fim) {
 		tarefa.setEstadoTarefa(EstadoTarefa.PARAFAZER);
 
@@ -54,11 +57,11 @@ public class TarefaController {
 		DateFormat formata = new SimpleDateFormat("yyyy-MM-dd");
 		Date convertido = null;
 		Calendar cal = null;
-		
+
 		try {
 			inicio = formata.format(converte.parse(inicio));
 			convertido = formata.parse(inicio);
-			
+
 			cal = Calendar.getInstance();
 			cal.setTime(convertido);
 
@@ -75,33 +78,35 @@ public class TarefaController {
 		}
 
 		tarefaDAO.inserir(tarefa);
-		
+
 		result.redirectTo(ProjetoController.class).gerenciar(tarefa.getProjeto().getId());
 	}
 
 	@Get("editar/{id:[0-9]{1,15}}")
+	@SomenteLogado
 	public void editar(Integer id) {
 		List<Usuario> colaboradores = new ArrayList<>();
 		colaboradores = usuarioDAO.buscarPorTipoUsuario(TipoUsuario.COLABORADOR);
 
 		result.include("colaboradores", colaboradores);
-		
+
 		Tarefa tarefa = tarefaDAO.buscarPorId(id);
-		
+
 		result.include("tarefa", tarefa);
 	}
 
 	@Post("editar")
+	@SomenteLogado
 	public void editar(Tarefa tarefa, String inicio, String fim) {
 		DateFormat converte = new SimpleDateFormat("dd/MM/yyyy");
 		DateFormat formata = new SimpleDateFormat("yyyy-MM-dd");
 		Date convertido = null;
 		Calendar cal = null;
-		
+
 		try {
 			inicio = formata.format(converte.parse(inicio));
 			convertido = formata.parse(inicio);
-			
+
 			cal = Calendar.getInstance();
 			cal.setTime(convertido);
 
@@ -116,13 +121,14 @@ public class TarefaController {
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
-		
-		System.out.println("Inicio: "+tarefa.getInicio() +" Fim: "+tarefa.getFim());
+
+		System.out.println("Inicio: " + tarefa.getInicio() + " Fim: " + tarefa.getFim());
 		tarefaDAO.alterar(tarefa);
 		result.redirectTo(ProjetoController.class).gerenciar(tarefa.getProjeto().getId());
 	}
 
 	@Get("remover/{id:[0-9]{1,15}}")
+	@SomenteLogado
 	public void remover(Integer id) {
 
 	}

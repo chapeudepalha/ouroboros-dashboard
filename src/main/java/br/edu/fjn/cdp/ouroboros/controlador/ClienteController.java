@@ -9,6 +9,7 @@ import br.com.caelum.vraptor.Get;
 import br.com.caelum.vraptor.Path;
 import br.com.caelum.vraptor.Post;
 import br.com.caelum.vraptor.Result;
+import br.edu.fjn.cdp.ouroboros.componentes.SomenteLogado;
 import br.edu.fjn.cdp.ouroboros.modelo.TipoUsuario;
 import br.edu.fjn.cdp.ouroboros.modelo.Usuario;
 import br.edu.fjn.cdp.ouroboros.modelo.dao.UsuarioDAO;
@@ -21,24 +22,27 @@ public class ClienteController {
 	private Result result;
 	@Inject
 	private UsuarioDAO usuarioDAO;
-	
+
 	public ClienteController() {
 	}
-	
+
 	@Get("novo")
+	@SomenteLogado
 	public void novo() {
 
 	}
-	
+
 	@Post("cadastrar")
+	@SomenteLogado
 	public void cadastrar(Usuario usuario) {
 		usuario.setTipoUsuario(TipoUsuario.CLIENTE);
-		
+
 		usuarioDAO.inserir(usuario);
 		result.redirectTo(this).listar();
 	}
 
 	@Get("listar")
+	@SomenteLogado
 	public void listar() {
 		List<Usuario> usuarios = usuarioDAO.buscarPorTipoUsuario(TipoUsuario.CLIENTE);
 
@@ -46,6 +50,7 @@ public class ClienteController {
 	}
 
 	@Get("visualizar/{id:[0-9]{1,15}}")
+	@SomenteLogado
 	public void visualizar(Integer id) {
 		Usuario usuario = usuarioDAO.buscarPorId(id);
 
@@ -53,6 +58,7 @@ public class ClienteController {
 	}
 
 	@Get("editar/{id:[0-9]{1,15}}")
+	@SomenteLogado
 	public void editar(Integer id) {
 		Usuario usuario = usuarioDAO.buscarPorId(id);
 
@@ -60,18 +66,20 @@ public class ClienteController {
 	}
 
 	@Post("editar")
+	@SomenteLogado
 	public void editar(Usuario usuario) {
 		usuario.setTipoUsuario(TipoUsuario.CLIENTE);
-		
+
 		usuarioDAO.alterar(usuario);
 		result.redirectTo(this).listar();
 	}
 
 	@Get("remover/{id:[0-9]{1,15}}")
+	@SomenteLogado
 	public void remover(Integer id) {
 		Usuario usuario = usuarioDAO.buscarPorId(id);
 		usuarioDAO.remover(usuario);
 		result.redirectTo(this).listar();
 	}
-	
+
 }
