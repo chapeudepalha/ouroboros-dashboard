@@ -92,11 +92,7 @@
 										value='<fmt:formatDate value="${projeto.inicio.time}" pattern="dd/MM/yyyy" />'
 										class="form-control" id="form-inicio">
 								</div>
-								<div class="form-group">
-									<label>Fim</label> <input type="text" name="entrega"
-										value='<fmt:formatDate value="${projeto.entrega.time}" pattern="dd/MM/yyyy" />'
-										placeholder="20/12/2010" class="form-control" id="form-fim">
-								</div>
+								
 							</div>
 							<div class="col-lg-12 form-group">
 								<label>Descri&ccedil;&atilde;o</label> <input type="text"

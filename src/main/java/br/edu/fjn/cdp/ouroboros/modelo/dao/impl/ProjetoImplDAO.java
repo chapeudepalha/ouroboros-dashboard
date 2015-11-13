@@ -8,5 +8,5 @@ public class ProjetoImplDAO extends DAOGenericoImpl<Projeto, Integer> implements
 	public ProjetoImplDAO() {
 		super(Projeto.class);
 	}
-
+	
 }

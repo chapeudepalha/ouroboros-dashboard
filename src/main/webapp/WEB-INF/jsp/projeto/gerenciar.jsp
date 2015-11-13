@@ -74,7 +74,7 @@
 									</div>
 									<div class="col-xs-9 text-right">
 										<div class="huge">
-											<fmt:formatDate value="${projeto.entrega.time}"
+											<fmt:formatDate value="${projeto.inicio.time}"
 												pattern="dd/MM/yy" />
 										</div>
 										<div>Entrega</div>
@@ -163,13 +163,19 @@
 				</div>
 				<!-- /.row -->
 				<div class="row">
-					<div class="col-lg-6">
+					<div class="col-lg-4">
+						<a
+							href="${pageContext.request.contextPath}/projeto/competencia/${projeto.id}"
+							class="btn btn-info btn-lg col-lg-12" role="button"><i
+							class="fa fa-th-list"></i> Gerenciar Compet&ecirc;ncias</a>
+					</div>
+					<div class="col-lg-4">
 						<a
 							href="${pageContext.request.contextPath}/projeto/colaboradores/${projeto.id}"
-							class="btn btn-info btn-lg col-lg-12" role="button"><i
+							class="btn btn-primary btn-lg col-lg-12" role="button"><i
 							class="fa fa-user"></i> Gerenciar Colaboradores</a>
 					</div>
-					<div class="col-lg-6">
+					<div class="col-lg-4">
 						<a
 							href="${pageContext.request.contextPath}/projeto/tarefa/${projeto.id}"
 							class="btn btn-success btn-lg col-lg-12" role="button"><i

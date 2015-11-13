@@ -62,6 +62,15 @@
 							href="${pageContext.request.contextPath}/colaborador/listar">Listar</a></li>
 					</ul></li>
 				<li><a href="javascript:;" data-toggle="collapse"
+					data-target="#comp"><i class="fa fa-fw fa-th-list"></i>
+						Compet&ecirc;ncias <i class="fa fa-fw fa-caret-down"></i></a>
+					<ul id="comp" class="collapse">
+						<li><a
+							href="${pageContext.request.contextPath}/competencia/novo">Novo</a></li>
+						<li><a
+							href="${pageContext.request.contextPath}/competencia/listar">Listar</a></li>
+					</ul></li>
+				<li><a href="javascript:;" data-toggle="collapse"
 					data-target="#cliente"><i class="fa fa-fw fa-building"></i>Clientes
 						<i class="fa fa-fw fa-caret-down"></i></a>
 					<ul id="cliente" class="collapse">

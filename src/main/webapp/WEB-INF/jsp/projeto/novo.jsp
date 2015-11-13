@@ -79,25 +79,40 @@
 										</c:forEach>
 									</select>
 								</div>
+								<div class="form-group">
+									<label>Dias/semana a serem trabalhados no projeto</label> <select
+										name="projeto.semana" class="form-control">
+										<option value="1">1 dia</option>
+										<option value="2">2 dias</option>
+										<option value="3">3 dias</option>
+										<option value="4">4 dias</option>
+										<option value="5">5 dias</option>
+										<option value="6">6 dias</option>
+										<option value="7">7 dias</option>
+									</select>
+								</div>
 							</div>
 							<div class="col-lg-6">
 								<div class="form-group">
-									<label>In&iacute;cio</label> <input type="text"
-										name="inicio" placeholder="10/10/2010"
-										class="form-control" id="form-inicio">
+									<label>In&iacute;cio</label> <input type="text" name="inicio"
+										placeholder="10/10/2010" class="form-control" id="form-inicio">
 								</div>
 								<div class="form-group">
-									<label>Entrega</label> <input type="text" name="entrega"
-										placeholder="20/12/2010" class="form-control" id="form-entrega">
+									<label>Descri&ccedil;&atilde;o</label> <input type="text"
+										name="projeto.descricao" placeholder="Descri&ccedil;&atilde;o"
+										class="form-control" id="form-descricao">
+								</div>
+								<div class="form-group">
+									<label>Horas/dia a serem trabalhados no projeto</label> <select
+										name="projeto.dia" class="form-control">
+										<c:forEach var="i" begin="1" end="24">
+											<option value="${i}">${i}hora(s)</option>
+										</c:forEach>
+									</select>
 								</div>
 							</div>
-							<div class="col-lg-12 form-group">
-								<label>Descri&ccedil;&atilde;o</label> <input type="text"
-									name="projeto.descricao" placeholder="Descri&ccedil;&atilde;o"
-									class="form-control" id="form-descricao">
-							</div>
-							<div class="col-lg-3 col-lg-offset-5">
-								<button type="submit" class="btn btn-success">Cadastrar</button>
+							<div class="col-lg-3 col-lg-offset-4">
+								<button type="submit" class="col-lg-12 btn btn-success">Cadastrar</button>
 							</div>
 						</form>
 					</div>

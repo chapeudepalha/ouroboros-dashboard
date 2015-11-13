@@ -1,5 +1,8 @@
 package br.edu.fjn.cdp.ouroboros.modelo;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -18,7 +21,7 @@ public class Usuario implements EntidadeOuroboros<Integer> {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
@@ -32,7 +35,8 @@ public class Usuario implements EntidadeOuroboros<Integer> {
 	@Column(name = "tipo_usuario", nullable = false)
 	@Enumerated(EnumType.ORDINAL)
 	private TipoUsuario tipoUsuario;
-	
+	private Set<Competencia> competencias = new HashSet<>();
+
 	public Usuario() {
 		// TODO Auto-generated constructor stub
 	}
@@ -76,5 +80,13 @@ public class Usuario implements EntidadeOuroboros<Integer> {
 	public void setTipoUsuario(TipoUsuario tipoUsuario) {
 		this.tipoUsuario = tipoUsuario;
 	}
-	
+
+	public Set<Competencia> getCompetencias() {
+		return competencias;
+	}
+
+	public void setCompetencias(Set<Competencia> competencias) {
+		this.competencias = competencias;
+	}
+
 }

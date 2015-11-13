@@ -1,6 +1,8 @@
 package br.edu.fjn.cdp.ouroboros.modelo;
 
 import java.util.Calendar;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -10,6 +12,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
@@ -22,7 +25,7 @@ public class Projeto implements EntidadeOuroboros<Integer> {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
@@ -39,8 +42,12 @@ public class Projeto implements EntidadeOuroboros<Integer> {
 	@Temporal(TemporalType.DATE)
 	private Calendar inicio;
 	@Temporal(TemporalType.DATE)
-	private Calendar entrega;
-	
+	private Calendar prazoPrevisto;
+	private Integer semana;
+	private Integer dia;
+	@ManyToMany(fetch = FetchType.EAGER)
+	private Set<Competencia> competencias = new HashSet<>();
+
 	public Projeto() {
 		// TODO Auto-generated constructor stub
 	}
@@ -85,14 +92,6 @@ public class Projeto implements EntidadeOuroboros<Integer> {
 		this.descricao = descricao;
 	}
 
-	public Calendar getEntrega() {
-		return entrega;
-	}
-
-	public void setEntrega(Calendar entrega) {
-		this.entrega = entrega;
-	}
-
 	public Calendar getInicio() {
 		return inicio;
 	}
@@ -100,5 +99,37 @@ public class Projeto implements EntidadeOuroboros<Integer> {
 	public void setInicio(Calendar inicio) {
 		this.inicio = inicio;
 	}
-	
+
+	public Calendar getPrazoPrevisto() {
+		return prazoPrevisto;
+	}
+
+	public void setPrazoPrevisto(Calendar prazoPrevisto) {
+		this.prazoPrevisto = prazoPrevisto;
+	}
+
+	public Integer getSemana() {
+		return semana;
+	}
+
+	public void setSemana(Integer semana) {
+		this.semana = semana;
+	}
+
+	public Integer getDia() {
+		return dia;
+	}
+
+	public void setDia(Integer dia) {
+		this.dia = dia;
+	}
+
+	public Set<Competencia> getCompetencias() {
+		return competencias;
+	}
+
+	public void setCompetencias(Set<Competencia> competencias) {
+		this.competencias = competencias;
+	}
+
 }

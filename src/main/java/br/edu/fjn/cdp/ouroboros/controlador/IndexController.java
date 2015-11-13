@@ -8,11 +8,13 @@ import br.edu.fjn.cdp.ouroboros.componentes.SomenteLogado;
 public class IndexController {
 
 	public IndexController() {
+		
 	}
-
+	
 	@Get("/")
 	@SomenteLogado
 	public void inicio() {
 
 	}
+	
 }

@@ -87,8 +87,6 @@
 									</div>
 									<div class="col-xs-9 text-right">
 										<div class="huge">
-											<fmt:formatDate value="${projeto.entrega.time}"
-												pattern="dd/MM/yy" />
 										</div>
 										<div>Entrega</div>
 									</div>

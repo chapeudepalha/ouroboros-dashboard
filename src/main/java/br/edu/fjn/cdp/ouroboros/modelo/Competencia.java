@@ -1,12 +1,12 @@
 package br.edu.fjn.cdp.ouroboros.modelo;
 
-import javax.persistence.FetchType;
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
 
-public class Dominio implements EntidadeOuroboros<Integer> {
+@Entity
+public class Competencia implements EntidadeOuroboros<Integer> {
 
 	/**
 	 * 
@@ -17,8 +17,10 @@ public class Dominio implements EntidadeOuroboros<Integer> {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	private String nome;
-	@ManyToOne(fetch = FetchType.LAZY)
-	private Projeto projeto;
+	
+	public Competencia() {
+
+	}
 	
 	@Override
 	public Integer getId() {
@@ -30,5 +32,12 @@ public class Dominio implements EntidadeOuroboros<Integer> {
 		this.id = id;
 	}
 
+	public String getNome() {
+		return nome;
+	}
+
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
 	
 }
