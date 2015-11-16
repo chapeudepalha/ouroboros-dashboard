@@ -10,7 +10,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 
-@Entity
+@Entity(name = "equipe")
 public class Equipe implements EntidadeOuroboros<Integer> {
 	
 	/**

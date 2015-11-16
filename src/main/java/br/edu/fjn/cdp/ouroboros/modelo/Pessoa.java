@@ -9,7 +9,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 
-@Entity
+@Entity(name = "pessoa")
 public class Pessoa implements EntidadeOuroboros<Integer> {
 
 	/**

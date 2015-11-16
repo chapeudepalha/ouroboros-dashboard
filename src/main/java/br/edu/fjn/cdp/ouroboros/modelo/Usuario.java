@@ -16,7 +16,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
 
-@Entity
+@Entity(name = "usuario")
 public class Usuario implements EntidadeOuroboros<Integer> {
 
 	/**

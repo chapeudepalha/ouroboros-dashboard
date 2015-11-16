@@ -16,7 +16,7 @@ import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-@Entity
+@Entity(name = "tarefa")
 public class Tarefa implements EntidadeOuroboros<Integer> {
 	
 	/**
