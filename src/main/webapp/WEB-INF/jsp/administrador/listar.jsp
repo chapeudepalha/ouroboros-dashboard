@@ -1,8 +1,7 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=utf-8"
+	pageEncoding="utf-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
-<%@ page import="java.util.Collection"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -65,12 +64,12 @@
 						<c:if test="${(usuarios == null) || (fn:length(usuarios) < 1)}">
 							<div class="jumbotron">
 								<h1>Ooops!</h1>
-								<p>Não fomos capazes de encontrar nenhum administrador
+								<p>NÃ£o fomos capazes de encontrar nenhum administrador
 									cadastrasdo. Que tal cadastrar um novo?</p>
 								<p>
 									<a href="${pageContext.request.contextPath}/admin/novo"
 										class="btn btn-primary btn-lg" role="button">Cadastrar
-										Administrador »</a>
+										Administrador Â»</a>
 								</p>
 							</div>
 						</c:if>
@@ -101,10 +100,10 @@
 														class="fa fa-desktop"></i> Visualizar</a> <a
 													href="${pageContext.request.contextPath}/admin/editar/${usuario.id}"
 													class="btn btn-warning btn-sm" role="button"><i
-														class="fa fa-pencil"></i> Editar</a> <a
+														class="fa fa-pencil"></i> Editar</a> <!-- <a
 													href="${pageContext.request.contextPath}/admin/remover/${usuario.id}"
 													class="btn btn-danger btn-sm" role="button"><i
-														class="fa fa-times"></i> Remover</a></td>
+														class="fa fa-times"></i> Remover</a> --></td>
 											</tr>
 										</c:forEach>
 									</tbody>

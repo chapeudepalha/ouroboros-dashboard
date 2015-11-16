@@ -251,8 +251,8 @@ public class ProjetoController {
 
 	@Post("tarefa/cadastrar")
 	@SomenteLogado
-	public void cadastrarTarefa(Tarefa tarefa, String inicio, String fim) {
-		result.forwardTo(TarefaController.class).cadastrar(tarefa, inicio, fim);
+	public void cadastrarTarefa(Tarefa tarefa, String inicio) {
+		result.forwardTo(TarefaController.class).cadastrar(tarefa, inicio);
 	}
 
 	@Get("tarefa/editar/{id:[0-9]{1,15}}")
@@ -263,8 +263,8 @@ public class ProjetoController {
 
 	@Post("tarefa/editar")
 	@SomenteLogado
-	public void editarTarefa(Tarefa tarefa, String inicio, String fim) {
-		result.forwardTo(TarefaController.class).editar(tarefa, inicio, fim);
+	public void editarTarefa(Tarefa tarefa, String inicio) {
+		result.forwardTo(TarefaController.class).editar(tarefa, inicio);
 	}
 
 	@Get("tarefa/remover/{id:[0-9]{1,15}}")

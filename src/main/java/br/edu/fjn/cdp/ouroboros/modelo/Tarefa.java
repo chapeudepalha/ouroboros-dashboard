@@ -39,10 +39,10 @@ public class Tarefa implements EntidadeOuroboros<Integer> {
 	private Calendar fim;
 	private Integer numeroHoras; 
 	@OneToOne(fetch = FetchType.EAGER)
-	@JoinColumn(nullable = false, name = "id_colaborador")
+	@JoinColumn(name = "id_colaborador")
 	private Usuario colaboradorResponsavel;
 	@Enumerated(EnumType.ORDINAL)
-	@Column(name = "estado_atividade")
+	@Column(name = "estado_tarefa")
 	private EstadoTarefa estadoTarefa;
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "id_projeto")

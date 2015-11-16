@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=utf-8"
+	pageEncoding="utf-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <%@ page import="java.util.Collection"%>
@@ -72,36 +72,40 @@
 						<form role="form"
 							action="${pageContext.request.contextPath}/projeto/tarefa/cadastrar"
 							method="post" class="registration-form">
-							<input type="hidden" name="tarefa.projeto.id" value="${idProjeto}" >
+							<input type="hidden" name="tarefa.projeto.id"
+								value="${idProjeto}">
 							<div class="col-lg-6">
 								<div class="form-group">
 									<label>Nome</label> <input type="text" name="tarefa.nome"
 										placeholder="Nome" class="form-control" id="form-first-name">
 								</div>
 								<div class="form-group">
-									<label>Colaborador Respons&aacute;vel</label> <select name="tarefa.colaboradorResponsavel.id"
-										class="form-control">
-										<c:forEach var="usuario" items="${colaboradores}">
-											<option value="${usuario.id}">${usuario.pessoa.nome}</option>
+									<label>Compet&ecirc;ncia</label> <select
+										name="tarefa.competencia.id" class="form-control">
+										<c:forEach var="competencia" items="${competencias}">
+											<option value="${competencia.id}">${competencia.nome}</option>
 										</c:forEach>
 									</select>
 								</div>
 							</div>
 							<div class="col-lg-6">
-								<div class="form-group">
-									<label>In&iacute;cio</label> <input type="text"
-										name="inicio" placeholder="10/10/2010"
-										class="form-control" id="form-inicio">
+								<div class="col-lg-6 form-group">
+									<label>In&iacute;cio</label> <input type="text" name="inicio"
+										placeholder="10/10/2010" class="form-control" id="form-inicio">
+								</div>
+								<div class="col-lg-6 form-group">
+									<label>N&uacute;mero de Horas para Tarefa</label>
+									<div class="input-group">
+										<input type="number" name="tarefa.numeroHoras" placeholder="2"
+											class="form-control" id="form-fim"> <span
+											class="input-group-addon">horas</span>
+									</div>
 								</div>
 								<div class="form-group">
-									<label>Fim</label> <input type="text" name="fim"
-										placeholder="20/12/2010" class="form-control" id="form-fim">
+									<label>Descri&ccedil;&atilde;o</label> <input type="text"
+										name="tarefa.descricao" placeholder="Descri&ccedil;&atilde;o"
+										class="form-control" id="form-descricao">
 								</div>
-							</div>
-							<div class="col-lg-12 form-group">
-								<label>Descri&ccedil;&atilde;o</label> <input type="text"
-									name="tarefa.descricao" placeholder="Descri&ccedil;&atilde;o"
-									class="form-control" id="form-descricao">
 							</div>
 							<div class="col-lg-3 col-lg-offset-5">
 								<button type="submit" class="btn btn-success">Cadastrar</button>

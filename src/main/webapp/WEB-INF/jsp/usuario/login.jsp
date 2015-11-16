@@ -1,7 +1,6 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=utf-8"
+	pageEncoding="utf-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ page import="java.util.Collection"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -19,7 +18,8 @@
 	href="${pageContext.request.contextPath}/assets/font-awesome/css/font-awesome.min.css">
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/assets/css/form-elements.css">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/style.css">
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/assets/css/style.css">
 
 <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
 <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -29,7 +29,8 @@
         <![endif]-->
 
 <!-- Favicon and touch icons -->
-<link rel="shortcut icon" href="${pageContext.request.contextPath}/assets/ico/favicon.png">
+<link rel="shortcut icon"
+	href="${pageContext.request.contextPath}/assets/ico/favicon.png">
 <link rel="apple-touch-icon-precomposed" sizes="144x144"
 	href="${pageContext.request.contextPath}/assets/ico/apple-touch-icon-144-precomposed.png">
 <link rel="apple-touch-icon-precomposed" sizes="114x114"
@@ -60,7 +61,7 @@
 						<div class="form-top">
 							<div class="form-top-left">
 								<h3>Ouroboros Dashboard</h3>
-								<p>Gest„o Inteligente</p>
+								<p>Gest√£o Inteligente</p>
 							</div>
 							<div class="form-top-right">
 								<i class="fa fa-lock"></i>
@@ -71,8 +72,8 @@
 								action="${pageContext.request.contextPath}/login" method="post"
 								class="login-form">
 								<div class="form-group">
-									<label>Usu·rio</label> <input type="text"
-										name="usuario.usuario" placeholder="Nome de Usu·rio"
+									<label>Usu√°rio</label> <input type="text"
+										name="usuario.usuario" placeholder="Nome de Usu√°rio"
 										class="form-username form-control" id="form-username">
 								</div>
 								<div class="form-group">
@@ -91,9 +92,12 @@
 	</div>
 
 	<!-- Javascript -->
-	<script src="${pageContext.request.contextPath}/assets/js/jquery-1.11.1.min.js"></script>
-	<script src="${pageContext.request.contextPath}/assets/bootstrap/js/bootstrap.min.js"></script>
-	<script src="${pageContext.request.contextPath}/assets/js/jquery.backstretch.min.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/assets/js/jquery-1.11.1.min.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/assets/bootstrap/js/bootstrap.min.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/assets/js/jquery.backstretch.min.js"></script>
 	<script src="${pageContext.request.contextPath}/assets/js/scripts.js"></script>
 
 	<!--[if lt IE 10]>

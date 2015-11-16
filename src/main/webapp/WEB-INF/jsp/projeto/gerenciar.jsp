@@ -1,9 +1,8 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=utf-8"
+	pageEncoding="utf-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
-<%@ page import="java.util.Collection"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -163,19 +162,13 @@
 				</div>
 				<!-- /.row -->
 				<div class="row">
-					<div class="col-lg-4">
-						<a
-							href="${pageContext.request.contextPath}/projeto/competencia/${projeto.id}"
-							class="btn btn-info btn-lg col-lg-12" role="button"><i
-							class="fa fa-th-list"></i> Gerenciar Compet&ecirc;ncias</a>
-					</div>
-					<div class="col-lg-4">
+					<div class="col-lg-6">
 						<a
 							href="${pageContext.request.contextPath}/projeto/colaboradores/${projeto.id}"
 							class="btn btn-primary btn-lg col-lg-12" role="button"><i
 							class="fa fa-user"></i> Gerenciar Colaboradores</a>
 					</div>
-					<div class="col-lg-4">
+					<div class="col-lg-6">
 						<a
 							href="${pageContext.request.contextPath}/projeto/tarefa/${projeto.id}"
 							class="btn btn-success btn-lg col-lg-12" role="button"><i
@@ -271,13 +264,13 @@
 				<c:if test="${total <= 0}">
 					<div class="jumbotron">
 						<h1>Ooops!</h1>
-						<p>Não fomos capazes de encontrar nenhuma tarefa cadastrasdo.
+						<p>NÃ£o fomos capazes de encontrar nenhuma tarefa cadastrasdo.
 							Que tal cadastrar uma nova tarefa?</p>
 						<p>
 							<a
 								href="${pageContext.request.contextPath}/projeto/tarefa/${projeto.id}"
 								class="btn btn-primary btn-lg" role="button">Cadastrar
-								Tarefa »</a>
+								Tarefa Â»</a>
 						</p>
 					</div>
 				</c:if>

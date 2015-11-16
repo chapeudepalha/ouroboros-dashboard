@@ -14,6 +14,8 @@ public interface UsuarioDAO extends DAOGenerico<Usuario, Integer> {
 	
 	List<Usuario> buscarPorTipoUsuario(TipoUsuario tipoUsuario);
 	
+	List<Usuario> buscarPorTipoUsuarioECompetencia(TipoUsuario tipoUsuario, Competencia competencia);
+	
 	void adicionarCompetencia(Usuario usuario, Competencia competencia);
 	
 	void removerCompetencia(Usuario usuario, Competencia competencia);

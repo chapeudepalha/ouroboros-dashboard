@@ -1,9 +1,9 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=utf-8"
+	pageEncoding="utf-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <!DOCTYPE html>
-<html lang="en">
+<html>
 
 <head>
 
@@ -226,14 +226,14 @@
 				<c:if test="${total <= 0}">
 					<div class="jumbotron">
 						<h1>Ooops!</h1>
-						<p>Não fomos capazes de encontrar nenhuma tarefa cadastrada,
+						<p>NÃ£o fomos capazes de encontrar nenhuma tarefa cadastrada,
 							logo, n&atilde;o conseguimos montar um resumo. Que tal cadastrar
 							uma nova tarefa?</p>
 						<p>
 							<a
 								href="${pageContext.request.contextPath}/projeto/tarefa/${projeto.id}"
 								class="btn btn-primary btn-lg" role="button">Cadastrar
-								Tarefa »</a>
+								Tarefa Â»</a>
 						</p>
 					</div>
 				</c:if>
@@ -276,7 +276,7 @@
 					label : "Em Progresso",
 					data : ${progresso}
 				}, {
-					label : "Concluído",
+					label : "ConcluÃ­do",
 					data : ${concluido}
 				} ];
 				
@@ -289,7 +289,7 @@
 				} ];
 
 				var progresso = [ {
-					label : "Concluído",
+					label : "ConcluÃ­do",
 					data : ${concluido}
 				}, {
 					label : "Em andamento",

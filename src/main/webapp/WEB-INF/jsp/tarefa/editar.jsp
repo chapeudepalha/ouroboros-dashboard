@@ -1,9 +1,8 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=utf-8"
+	pageEncoding="utf-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
-<%@ page import="java.util.Collection"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -98,17 +97,17 @@
 								</div>
 							</div>
 							<div class="col-lg-6">
-								<div class="form-group">
+								<div class="col-lg-6 form-group">
 									<label>In&iacute;cio</label> <input type="text" name="inicio"
 										value='<fmt:formatDate value="${tarefa.inicio.time}"
 												pattern="dd/MM/yyyy" />'
 										placeholder="10/10/2010" class="form-control" id="form-inicio">
 								</div>
-								<div class="form-group">
-									<label>Fim</label> <input type="text" name="fim"
-										value='<fmt:formatDate value="${tarefa.fim.time}"
-												pattern="dd/MM/yyyy" />'
-										placeholder="20/12/2010" class="form-control" id="form-fim">
+								<div class="col-lg-6 form-group">
+									<label>N&uacute;mero de Horas para Tarefa</label> <input
+										type="number" name="tarefa.numeroHoras"
+										value='${tarefa.numeroHoras}' placeholder="2"
+										class="form-control">
 								</div>
 								<div class="form-group">
 									<label>Estado</label> <select name="tarefa.estadoTarefa"

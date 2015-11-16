@@ -1,7 +1,6 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=utf-8"
+	pageEncoding="utf-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ page import="java.util.Collection"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -46,11 +45,11 @@
 			<div class="col-lg-12">
 				<div class="jumbotron">
 					<h1>Ooops! <small>404 [P&aacute;gina n&atilde;o encontrada]</small></h1>
-					<p>Não fomos capazes de encontrar a p&aacute;gina solicitada.
+					<p>NÃ£o fomos capazes de encontrar a p&aacute;gina solicitada.
 						Que tal voltar para o in&iacute;cio?</p>
 					<p>
 						<a href="${pageContext.request.contextPath}/"
-							class="btn btn-primary btn-lg" role="button">In&iacute;cio »</a>
+							class="btn btn-primary btn-lg" role="button">In&iacute;cio Â»</a>
 					</p>
 				</div>
 			</div>

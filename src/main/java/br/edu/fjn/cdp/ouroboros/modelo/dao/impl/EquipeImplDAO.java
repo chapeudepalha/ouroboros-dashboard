@@ -54,7 +54,7 @@ public class EquipeImplDAO extends DAOGenericoImpl<Equipe, Integer> implements E
 			eq = manager.find(getClassePersistente(), equipe.getId());
 			u = manager.find(Usuario.class, colaborador.getId());
 
-			//eq.getColaboradores().add(u);
+			eq.getColaboradores().add(u);
 
 			manager.merge(eq);
 			transacao.commit();

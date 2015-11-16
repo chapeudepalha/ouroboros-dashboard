@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ page import="java.util.Collection"%>
 <!-- Navigation -->
 <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
 	<!-- Brand and toggle get grouped for better mobile display -->
@@ -12,7 +11,7 @@
 			<span class="icon-bar"></span> <span class="icon-bar"></span>
 		</button>
 		<a class="navbar-brand"
-			href="${pageContext.request.contextPath}/inicio">Ouroboros <small>1.0</small></a>
+			href="${pageContext.request.contextPath}/">Ouroboros <small>1.0</small></a>
 	</div>
 	<!-- Top Menu Items -->
 	<ul class="nav navbar-right top-nav">
@@ -27,7 +26,7 @@
 	<!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
 	<div class="collapse navbar-collapse navbar-ex1-collapse">
 		<ul class="nav navbar-nav side-nav">
-			<li><a href="${pageContext.request.contextPath}/inicio"><i
+			<li><a href="${pageContext.request.contextPath}/"><i
 					class="fa fa-fw fa-dashboard"></i> Dashboard</a></li>
 			<c:if test="${sessao.usuario.tipoUsuario == 'ROOT'}">
 				<li><a href="javascript:;" data-toggle="collapse"
