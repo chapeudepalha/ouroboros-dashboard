@@ -93,7 +93,7 @@
 														class="fa fa-pencil"></i> Editar</a> <a
 													href="${pageContext.request.contextPath}/colaborador/competencia/remover/${usuario.id}/${competencia.id}"
 													class="btn btn-danger btn-sm" role="button"><i
-														class="fa fa-times"></i> Remover</a></td>
+														class="fa fa-times"></i> Remover Compet&ecirc;ncia</a></td>
 											</tr>
 										</c:forEach>
 									</tbody>

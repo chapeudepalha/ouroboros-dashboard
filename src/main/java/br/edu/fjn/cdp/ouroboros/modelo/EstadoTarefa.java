@@ -5,7 +5,7 @@ public enum EstadoTarefa {
 		@Override
 		public String toString() {
 			// TODO Auto-generated method stub
-			return "Pendente";
+			return "Pendente Colaborador";
 		}
 	},
 	AGUARDAACEITACAO {

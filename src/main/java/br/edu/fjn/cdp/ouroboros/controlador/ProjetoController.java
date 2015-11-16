@@ -117,7 +117,7 @@ public class ProjetoController {
 		projetoDAO.alterar(projeto);
 		result.redirectTo(this).listar();
 	}
-	
+
 	@Get("colaboradores/{id:[0-9]{1,15}}")
 	@SomenteLogado
 	public void colaboradores(Integer id) {
@@ -163,32 +163,52 @@ public class ProjetoController {
 	public void gerenciar(Integer id) {
 		Projeto projeto = projetoDAO.buscarPorId(id);
 
-		long total = tarefaDAO.quantidadeDeTarefasPorProjeto(projeto);
+		long total = 0;
 		int atrasados = 0;
 		int concluidos = 0;
 		int restantes = 0;
 
+		List<Tarefa> tarefas = tarefaDAO.buscarPorProjeto(projeto);
+		List<Tarefa> pendente = new ArrayList<>();
+		List<Tarefa> aceitacao = new ArrayList<>();
 		List<Tarefa> fazer = new ArrayList<>();
 		List<Tarefa> progresso = new ArrayList<>();
 		List<Tarefa> concluido = new ArrayList<>();
 
+		total = tarefas.size();
 		if (total > 0) {
-			concluidos = tarefaServico.percentualPorProjetoEEstado(projeto, EstadoTarefa.CONCLUIDO);
-			restantes = 100 - concluidos;
-			fazer = tarefaDAO.buscarPorProjetoEEstado(projeto, EstadoTarefa.PARAFAZER);
-			progresso = tarefaDAO.buscarPorProjetoEEstado(projeto, EstadoTarefa.EMPROGRESSO);
-			concluido = tarefaDAO.buscarPorProjetoEEstado(projeto, EstadoTarefa.CONCLUIDO);
-			atrasados = tarefaServico.percentualAtrasadoPorProjeto(projeto);
+			for (Tarefa tarefa : tarefas) {
+				switch (tarefa.getEstadoTarefa()) {
+				case PENDENTE:
+					pendente.add(tarefa);
+					break;
+				case AGUARDAACEITACAO:
+					aceitacao.add(tarefa);
+					break;
+				case PARAFAZER:
+					fazer.add(tarefa);
+					break;
+				case EMPROGRESSO:
+					progresso.add(tarefa);
+					break;
+				case CONCLUIDO:
+					concluido.add(tarefa);
+					break;
+				}
+			}
 		}
 
-		result.include("total", total);
-		result.include("concluidos", concluidos);
-		result.include("restantes", restantes);
-		result.include("atrasados", atrasados);
+		result.include("pendente", pendente);
 		result.include("fazer", fazer);
 		result.include("progresso", progresso);
 		result.include("concluido", concluido);
+		
 		result.include("projeto", projeto);
+		
+		result.include("total", total);
+		result.include("restantes", restantes);
+		result.include("atrasados", atrasados);
+		result.include("concluidos", concluidos);
 	}
 
 	@Get("remover/{id:[0-9]{1,15}}")

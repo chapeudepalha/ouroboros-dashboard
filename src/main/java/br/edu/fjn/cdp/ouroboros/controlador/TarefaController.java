@@ -55,7 +55,7 @@ public class TarefaController {
 	@Post("cadastrar")
 	@SomenteLogado
 	public void cadastrar(Tarefa tarefa, String inicio) {
-		tarefa.setEstadoTarefa(EstadoTarefa.PARAFAZER);
+		tarefa.setEstadoTarefa(EstadoTarefa.PENDENTE);
 
 		DateFormat converte = new SimpleDateFormat("dd/MM/yyyy");
 		DateFormat formata = new SimpleDateFormat("yyyy-MM-dd");

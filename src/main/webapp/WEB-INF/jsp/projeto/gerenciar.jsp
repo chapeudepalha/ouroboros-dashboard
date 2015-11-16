@@ -179,22 +179,28 @@
 				<br />
 				<c:if test="${total >= 1}">
 					<div class="row">
-
-						<div class="col-lg-4 text-center">
+						<div class="col-lg-3 text-center">
+							<div class="panel panel-default">
+								<div class="panel-body">
+									<strong>Pendente</strong>
+								</div>
+							</div>
+						</div>
+						<div class="col-lg-3 text-center">
 							<div class="panel panel-default">
 								<div class="panel-body">
 									<strong>Para Fazer</strong>
 								</div>
 							</div>
 						</div>
-						<div class="col-lg-4 text-center">
+						<div class="col-lg-3 text-center">
 							<div class="panel panel-default">
 								<div class="panel-body">
 									<strong>Em Progresso</strong>
 								</div>
 							</div>
 						</div>
-						<div class="col-lg-4 text-center">
+						<div class="col-lg-3 text-center">
 							<div class="panel panel-default">
 								<div class="panel-body">
 									<strong>Conclu&iacute;do</strong>
@@ -204,14 +210,35 @@
 					</div>
 					<c:forEach var="i" begin="0" end="${total - 1}">
 						<div class="row">
-							<c:if test="${fazer[i] != null}">
-								<div class="col-lg-4 text-center">
+							<c:if test="${pendente[i] != null}">
+								<div class="col-lg-3 text-center">
 									<div class="panel panel-default">
 										<div class="panel-body">
-											<div class="col-lg-8">
+											<div class="col-lg-12">
+												<strong><c:out value="${pendente[i].nome}"></c:out></strong>
+											</div>
+											<div class="col-lg-12">
+												<a class="btn btn-warning"
+													href="${pageContext.request.contextPath}/projeto/tarefa/editar/${pendente[i].id}"><i
+													class="fa fa-pencil"></i></a> <a class="btn btn-danger"
+													href="${pageContext.request.contextPath}/projeto/tarefa/remover/${pendente[i].id}"><i
+													class="fa fa-times"></i></a>
+											</div>
+										</div>
+									</div>
+								</div>
+							</c:if>
+							<c:if test="${pendente[i] == null}">
+								<div class="col-lg-3 text-center"></div>
+							</c:if>
+							<c:if test="${fazer[i] != null}">
+								<div class="col-lg-3 text-center">
+									<div class="panel panel-default">
+										<div class="panel-body">
+											<div class="col-lg-12">
 												<strong><c:out value="${fazer[i].nome}"></c:out></strong>
 											</div>
-											<div class="col-lg-4">
+											<div class="col-lg-12">
 												<a class="btn btn-warning"
 													href="${pageContext.request.contextPath}/projeto/tarefa/editar/${fazer[i].id}"><i
 													class="fa fa-pencil"></i></a> <a class="btn btn-danger"
@@ -222,14 +249,17 @@
 									</div>
 								</div>
 							</c:if>
+							<c:if test="${fazer[i] == null}">
+								<div class="col-lg-3 text-center"></div>
+							</c:if>
 							<c:if test="${progresso[i] != null}">
-								<div class="col-lg-4 text-center">
+								<div class="col-lg-3 text-center">
 									<div class="panel panel-default">
 										<div class="panel-body">
-											<div class="col-lg-8">
+											<div class="col-lg-12">
 												<strong><c:out value="${progresso[i].nome}"></c:out></strong>
 											</div>
-											<div class="col-lg-4">
+											<div class="col-lg-12">
 												<a class="btn btn-warning"
 													href="${pageContext.request.contextPath}/projeto/tarefa/editar/${progresso[i].id}"><i
 													class="fa fa-pencil"></i></a> <a class="btn btn-danger"
@@ -240,14 +270,17 @@
 									</div>
 								</div>
 							</c:if>
+							<c:if test="${progresso[i] == null}">
+								<div class="col-lg-3 text-center"></div>
+							</c:if>
 							<c:if test="${concluido[i] != null}">
-								<div class="col-lg-4 text-center">
+								<div class="col-lg-3 text-center">
 									<div class="panel panel-default">
 										<div class="panel-body">
-											<div class="col-lg-8">
+											<div class="col-lg-12">
 												<strong><c:out value="${concluido[i].nome}"></c:out></strong>
 											</div>
-											<div class="col-lg-4">
+											<div class="col-lg-12">
 												<a class="btn btn-warning"
 													href="${pageContext.request.contextPath}/projeto/tarefa/editar/${concluido[i].id}"><i
 													class="fa fa-pencil"></i></a> <a class="btn btn-danger"
@@ -257,6 +290,9 @@
 										</div>
 									</div>
 								</div>
+							</c:if>
+							<c:if test="${concluido[i] == null}">
+								<div class="col-lg-3 text-center"></div>
 							</c:if>
 						</div>
 					</c:forEach>
