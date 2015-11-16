@@ -10,6 +10,7 @@ import br.com.caelum.vraptor.Path;
 import br.com.caelum.vraptor.Post;
 import br.com.caelum.vraptor.Result;
 import br.edu.fjn.cdp.ouroboros.componentes.SomenteLogado;
+import br.edu.fjn.cdp.ouroboros.modelo.Competencia;
 import br.edu.fjn.cdp.ouroboros.modelo.TipoUsuario;
 import br.edu.fjn.cdp.ouroboros.modelo.Usuario;
 import br.edu.fjn.cdp.ouroboros.modelo.dao.UsuarioDAO;
@@ -35,9 +36,10 @@ public class ColaboradorController {
 
 	@Post("cadastrar")
 	@SomenteLogado
-	public void cadastrar(Usuario usuario) {
+	public void cadastrar(Usuario usuario, Competencia competencia) {
 		usuario.setTipoUsuario(TipoUsuario.COLABORADOR);
-
+		usuario.getCompetencias().add(competencia);
+		
 		usuarioDAO.inserir(usuario);
 		result.redirectTo(this).listar();
 	}

@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=utf-8"
+	pageEncoding="utf-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ page import="java.util.Collection"%>
 <!DOCTYPE html>
@@ -90,8 +90,8 @@
 										placeholder="CPF" class="form-control" id="form-cpf">
 								</div>
 								<div class="form-group">
-									<label>Usuario</label> <input type="text"
-										name="usuario.usuario" placeholder="Usuario"
+									<label>Usu&aacute;rio</label> <input type="text"
+										name="usuario.usuario" placeholder="Usuário"
 										class="form-control" id="form-usuario">
 								</div>
 								<div class="col-lg-6 form-group">
@@ -106,14 +106,14 @@
 								</div>
 							</div>
 							<div class="col-lg-6">
-								<div class="form-group">
+								<div class="col-lg-8 form-group">
 									<label>Rua</label> <input type="text"
 										name="usuario.pessoa.endereco.logradouro" placeholder="Rua"
 										class="form-control" id="form-rua">
 								</div>
-								<div class="form-group">
-									<label>Numero</label> <input type="text"
-										name="usuario.pessoa.endereco.numero" placeholder="Numero"
+								<div class="col-lg-4 form-group">
+									<label>N&uacute;mero</label> <input type="text"
+										name="usuario.pessoa.endereco.numero" placeholder="Número"
 										class="form-control" id="form-rua">
 								</div>
 								<div class="form-group">
@@ -140,6 +140,14 @@
 									<label>Estado</label> <input type="text"
 										name="usuario.pessoa.endereco.estado" placeholder="Estado"
 										class="form-control" id="form-estado">
+								</div>
+								<div class="form-group">
+									<label>Compet&ecirc;ncia</label> <select name="projeto.semana"
+										class="form-control">
+										<c:forEach var="competencia" items="${competencias}">
+											<option value="competencia.id">${competencia.nome}</option>
+										</c:forEach>
+									</select>
 								</div>
 							</div>
 							<div class="col-lg-3 col-lg-offset-5">

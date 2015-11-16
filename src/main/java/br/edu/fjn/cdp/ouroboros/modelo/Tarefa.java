@@ -47,6 +47,9 @@ public class Tarefa implements EntidadeOuroboros<Integer> {
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "id_projeto")
 	private Projeto projeto;
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "id_competencia")
+	private Competencia competencia;
 	
 	public Tarefa() {
 		// TODO Auto-generated constructor stub
@@ -126,6 +129,14 @@ public class Tarefa implements EntidadeOuroboros<Integer> {
 
 	public void setNumeroHoras(Integer numeroHoras) {
 		this.numeroHoras = numeroHoras;
+	}
+
+	public Competencia getCompetencia() {
+		return competencia;
+	}
+
+	public void setCompetencia(Competencia competencia) {
+		this.competencia = competencia;
 	}
 	
 }

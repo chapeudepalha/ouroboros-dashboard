@@ -4,7 +4,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <%@ page import="java.util.Collection"%>
 <!DOCTYPE html>
-<html lang="en">
+<html>
 
 <head>
 
@@ -57,29 +57,54 @@
 						<ol class="breadcrumb">
 							<li class="active"><i class="fa fa-dashboard"></i> <a
 								href="${pageContext.request.contextPath}/">Dashboard</a></li>
-							<li class="active"><i class="fa fa-th-list"></i> Nova
-								Compet&ecirc;ncia</li>
+							<li class="active"><i class="fa fa-table"></i> Listar
+								Compet&ecirc;ncias</li>
 						</ol>
 					</div>
 				</div>
 				<!-- /.row -->
 				<div class="row">
 					<div class="col-lg-12">
-						<form role="form"
-							action="${pageContext.request.contextPath}/competencia/cadastrar"
-							method="post" class="registration-form">
-							<div class="col-lg-12">
-								<div class="col-lg-12 form-group">
-									<label>Compet&ecirc;ncia</label> <input type="text"
-										name="competencia.nome" placeholder="Nome da Competência"
-										class="form-control" id="form-competencia">
-								</div>
-								<div class="form-group col-lg-4 col-lg-offset-4">
-									<button type="submit" class="col-lg-12 btn btn-success">Adicionar
-										Compet&ecirc;ncia</button>
-								</div>
+						<c:if
+							test="${(competencias == null) || (fn:length(competencias) < 1)}">
+							<div class="jumbotron">
+								<h1>Ooops!</h1>
+								<p>Ainda n&atilde;o foram cadastradas compet&ecirc;ncias
+									para o projeto ${projeto.nome}</p>
+								<p>
+									<a href="${pageContext.request.contextPath}/competencia/novo"
+										class="btn btn-primary btn-lg" role="button">Cadastrar
+										Compet&ecirc;ncia »</a>
+								</p>
 							</div>
-						</form>
+						</c:if>
+						<c:if
+							test="${(competencias != null) && (fn:length(competencias) > 0)}">
+							<div class="table-responsive">
+								<table class="table table-hover table-striped">
+									<thead>
+										<tr>
+											<th>Compet&ecirc;ncia</th>
+											<th>Op&ccedil;&otilde;es</th>
+										</tr>
+									</thead>
+									<tbody>
+										<c:forEach var="competencia" items="${competencias}">
+											<tr>
+												<td>${competencia.nome}</td>
+												<td><a
+													href="${pageContext.request.contextPath}/competencia/editar/${competencia.id}"
+													class="btn btn-success btn-sm" role="button"><i
+														class="fa fa-pencil"></i> Editar</a> <!--<a
+													href="${pageContext.request.contextPath}/competencia/remover/${competencia.id}"
+													class="btn btn-danger btn-sm" role="button"><i
+														class="fa fa-times"></i> Remover</a> --></td>
+											</tr>
+										</c:forEach>
+									</tbody>
+								</table>
+							</div>
+						</c:if>
 					</div>
 				</div>
 				<!-- /.row -->

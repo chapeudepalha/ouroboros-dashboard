@@ -18,14 +18,12 @@ import br.com.caelum.vraptor.Path;
 import br.com.caelum.vraptor.Post;
 import br.com.caelum.vraptor.Result;
 import br.edu.fjn.cdp.ouroboros.componentes.SomenteLogado;
-import br.edu.fjn.cdp.ouroboros.modelo.Competencia;
 import br.edu.fjn.cdp.ouroboros.modelo.Equipe;
 import br.edu.fjn.cdp.ouroboros.modelo.EstadoTarefa;
 import br.edu.fjn.cdp.ouroboros.modelo.Projeto;
 import br.edu.fjn.cdp.ouroboros.modelo.Tarefa;
 import br.edu.fjn.cdp.ouroboros.modelo.TipoUsuario;
 import br.edu.fjn.cdp.ouroboros.modelo.Usuario;
-import br.edu.fjn.cdp.ouroboros.modelo.dao.CompetenciaDAO;
 import br.edu.fjn.cdp.ouroboros.modelo.dao.EquipeDAO;
 import br.edu.fjn.cdp.ouroboros.modelo.dao.ProjetoDAO;
 import br.edu.fjn.cdp.ouroboros.modelo.dao.TarefaDAO;
@@ -46,8 +44,6 @@ public class ProjetoController {
 	private EquipeDAO equipeDAO;
 	@Inject
 	private TarefaDAO tarefaDAO;
-	@Inject
-	private CompetenciaDAO competenciaDAO;
 	@Inject
 	private TarefaServico tarefaServico;
 
@@ -120,21 +116,6 @@ public class ProjetoController {
 
 		projetoDAO.alterar(projeto);
 		result.redirectTo(this).listar();
-	}
-
-	@Get("competencia/{id:[0-9]{1,15}}")
-	@SomenteLogado
-	public void competencia(Integer id) {
-		Projeto projeto = projetoDAO.buscarPorId(id);
-
-		result.include("projeto", projeto);
-	}
-	
-	@Post("competencia/add")
-	@SomenteLogado
-	public void competencia(Competencia competencia, Projeto projeto) {
-		competenciaDAO.inserir(competencia);
-		
 	}
 	
 	@Get("colaboradores/{id:[0-9]{1,15}}")

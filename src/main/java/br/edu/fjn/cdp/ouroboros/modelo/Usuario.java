@@ -8,10 +8,12 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
 
 @Entity
@@ -35,6 +37,7 @@ public class Usuario implements EntidadeOuroboros<Integer> {
 	@Column(name = "tipo_usuario", nullable = false)
 	@Enumerated(EnumType.ORDINAL)
 	private TipoUsuario tipoUsuario;
+	@ManyToMany(fetch = FetchType.EAGER)
 	private Set<Competencia> competencias = new HashSet<>();
 
 	public Usuario() {

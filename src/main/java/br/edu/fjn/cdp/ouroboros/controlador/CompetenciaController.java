@@ -35,7 +35,25 @@ public class CompetenciaController {
 	@Post("cadastrar")
 	@SomenteLogado
 	public void cadastrar(Competencia competencia) {
+		competenciaDAO.inserir(competencia);
 		
+		result.redirectTo(this).listar();
+	}
+	
+	@Get("editar/{id:[0-9]{1,15}}")
+	@SomenteLogado
+	public void editar(Integer id) {
+		Competencia competencia = competenciaDAO.buscarPorId(id);
+		
+		result.include("competencia", competencia);
+	}
+	
+	@Post("editar")
+	@SomenteLogado
+	public void editar(Competencia competencia) {
+		competenciaDAO.alterar(competencia);
+		
+		result.redirectTo(this).listar();
 	}
 	
 	@Get("listar")

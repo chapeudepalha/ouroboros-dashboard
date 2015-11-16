@@ -4,7 +4,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <%@ page import="java.util.Collection"%>
 <!DOCTYPE html>
-<html lang="en">
+<html>
 
 <head>
 
@@ -57,7 +57,10 @@
 						<ol class="breadcrumb">
 							<li class="active"><i class="fa fa-dashboard"></i> <a
 								href="${pageContext.request.contextPath}/">Dashboard</a></li>
-							<li class="active"><i class="fa fa-th-list"></i> Nova
+							<li class="active"><i class="fa fa-table"></i> <a
+								href="${pageContext.request.contextPath}/competencia/listar">Listar
+									Compet&ecirc;ncias</a></li>
+							<li class="active"><i class="fa fa-th-list"></i> Editar
 								Compet&ecirc;ncia</li>
 						</ol>
 					</div>
@@ -66,16 +69,18 @@
 				<div class="row">
 					<div class="col-lg-12">
 						<form role="form"
-							action="${pageContext.request.contextPath}/competencia/cadastrar"
+							action="${pageContext.request.contextPath}/competencia/editar"
 							method="post" class="registration-form">
+							<input type="hidden" name="competencia.id" value="${competencia.id}">
 							<div class="col-lg-12">
 								<div class="col-lg-12 form-group">
 									<label>Compet&ecirc;ncia</label> <input type="text"
-										name="competencia.nome" placeholder="Nome da Competência"
-										class="form-control" id="form-competencia">
+										value="${competencia.nome}" name="competencia.nome"
+										placeholder="Nome da Competência" class="form-control"
+										id="form-competencia">
 								</div>
 								<div class="form-group col-lg-4 col-lg-offset-4">
-									<button type="submit" class="col-lg-12 btn btn-success">Adicionar
+									<button type="submit" class="col-lg-12 btn btn-success">Editar
 										Compet&ecirc;ncia</button>
 								</div>
 							</div>

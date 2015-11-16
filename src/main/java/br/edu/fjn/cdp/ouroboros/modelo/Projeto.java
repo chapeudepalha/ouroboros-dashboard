@@ -1,8 +1,6 @@
 package br.edu.fjn.cdp.ouroboros.modelo;
 
 import java.util.Calendar;
-import java.util.HashSet;
-import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -12,7 +10,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
@@ -45,8 +42,6 @@ public class Projeto implements EntidadeOuroboros<Integer> {
 	private Calendar prazoPrevisto;
 	private Integer semana;
 	private Integer dia;
-	@ManyToMany(fetch = FetchType.EAGER)
-	private Set<Competencia> competencias = new HashSet<>();
 
 	public Projeto() {
 		// TODO Auto-generated constructor stub
@@ -122,14 +117,6 @@ public class Projeto implements EntidadeOuroboros<Integer> {
 
 	public void setDia(Integer dia) {
 		this.dia = dia;
-	}
-
-	public Set<Competencia> getCompetencias() {
-		return competencias;
-	}
-
-	public void setCompetencias(Set<Competencia> competencias) {
-		this.competencias = competencias;
 	}
 
 }
