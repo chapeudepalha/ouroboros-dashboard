@@ -13,6 +13,7 @@ import br.edu.fjn.cdp.ouroboros.componentes.SomenteLogado;
 import br.edu.fjn.cdp.ouroboros.modelo.Competencia;
 import br.edu.fjn.cdp.ouroboros.modelo.TipoUsuario;
 import br.edu.fjn.cdp.ouroboros.modelo.Usuario;
+import br.edu.fjn.cdp.ouroboros.modelo.dao.CompetenciaDAO;
 import br.edu.fjn.cdp.ouroboros.modelo.dao.UsuarioDAO;
 
 @Controller
@@ -23,6 +24,8 @@ public class ColaboradorController {
 	private Result result;
 	@Inject
 	private UsuarioDAO usuarioDAO;
+	@Inject
+	private CompetenciaDAO competenciaDAO;
 
 	public ColaboradorController() {
 
@@ -31,17 +34,19 @@ public class ColaboradorController {
 	@Get("novo")
 	@SomenteLogado
 	public void novo() {
-
+		List<Competencia> competencias = competenciaDAO.listar();
+		result.include("competencias", competencias);
 	}
 
 	@Post("cadastrar")
 	@SomenteLogado
-	public void cadastrar(Usuario usuario, Competencia competencia) {
+	public void cadastrar(Usuario usuario) {
 		usuario.setTipoUsuario(TipoUsuario.COLABORADOR);
-		usuario.getCompetencias().add(competencia);
-		
+
 		usuarioDAO.inserir(usuario);
-		result.redirectTo(this).listar();
+		
+		usuario = usuarioDAO.buscarPorUsuarioESenha(usuario.getUsuario(), usuario.getSenha());	
+		result.redirectTo(this).competencias(usuario.getId());
 	}
 
 	@Get("listar")
@@ -64,19 +69,50 @@ public class ColaboradorController {
 	@SomenteLogado
 	public void editar(Integer id) {
 		Usuario usuario = usuarioDAO.buscarPorId(id);
+		List<Competencia> competencias = competenciaDAO.listar();
 
+		result.include("competencias", competencias);
 		result.include("usuario", usuario);
 	}
 
 	@Post("editar")
 	@SomenteLogado
-	public void editar(Usuario usuario) {
+	public void editar(Usuario usuario, Competencia competencia) {
 		usuario.setTipoUsuario(TipoUsuario.COLABORADOR);
+		usuario.getCompetencias().add(competencia);
 
 		usuarioDAO.alterar(usuario);
 		result.redirectTo(this).listar();
 	}
 
+	@Get("competencias/{id:[0-9]{1,15}}")
+	@SomenteLogado
+	public void competencias(Integer id) {
+		Usuario usuario = usuarioDAO.buscarPorId(id);
+		List<Competencia> competencias = competenciaDAO.listar();
+
+		result.include("competencias", competencias);
+		result.include("usuario", usuario);
+	}
+	
+	@Post("competencia/add")
+	@SomenteLogado
+	public void competencias(Usuario usuario, Competencia competencia) {
+		usuarioDAO.adicionarCompetencia(usuario, competencia);
+		
+		result.redirectTo(this).competencias(usuario.getId());
+	}
+
+	@Get("competencia/remover/{idColaborador:[0-9]{1,15}}/{idCompetencia:[0-9]{1,15}}")
+	@SomenteLogado
+	public void removerCompetencia(Integer idColaborador, Integer idCompetencia) {
+		Usuario usuario = usuarioDAO.buscarPorId(idColaborador);
+		Competencia competencia = competenciaDAO.buscarPorId(idCompetencia);
+		
+		usuarioDAO.removerCompetencia(usuario, competencia);
+		result.redirectTo(this).competencias(idColaborador);
+	}
+	
 	@Get("remover/{id:[0-9]{1,15}}")
 	@SomenteLogado
 	public void remover(Integer id) {

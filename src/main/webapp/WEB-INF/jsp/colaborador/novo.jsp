@@ -106,12 +106,12 @@
 								</div>
 							</div>
 							<div class="col-lg-6">
-								<div class="col-lg-8 form-group">
+								<div class="form-group">
 									<label>Rua</label> <input type="text"
 										name="usuario.pessoa.endereco.logradouro" placeholder="Rua"
 										class="form-control" id="form-rua">
 								</div>
-								<div class="col-lg-4 form-group">
+								<div class="form-group">
 									<label>N&uacute;mero</label> <input type="text"
 										name="usuario.pessoa.endereco.numero" placeholder="Número"
 										class="form-control" id="form-rua">
@@ -141,14 +141,14 @@
 										name="usuario.pessoa.endereco.estado" placeholder="Estado"
 										class="form-control" id="form-estado">
 								</div>
-								<div class="form-group">
+								<!-- <div class="form-group">
 									<label>Compet&ecirc;ncia</label> <select name="projeto.semana"
 										class="form-control">
 										<c:forEach var="competencia" items="${competencias}">
 											<option value="competencia.id">${competencia.nome}</option>
 										</c:forEach>
 									</select>
-								</div>
+								</div> -->
 							</div>
 							<div class="col-lg-3 col-lg-offset-5">
 								<button type="submit" class="btn btn-success">Cadastrar</button>

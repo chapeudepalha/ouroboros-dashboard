@@ -56,6 +56,15 @@ public class CompetenciaController {
 		result.redirectTo(this).listar();
 	}
 	
+	@Get("remover/{id:[0-9]{1,15}}")
+	@SomenteLogado
+	public void remover(Integer id) {
+		Competencia competencia = competenciaDAO.buscarPorId(id);
+		
+		competenciaDAO.remover(competencia);
+		result.redirectTo(this).listar();
+	}
+	
 	@Get("listar")
 	@SomenteLogado
 	public void listar() {

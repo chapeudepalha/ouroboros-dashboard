@@ -140,9 +140,6 @@ public class ProjetoController {
 		Projeto proj = projetoDAO.buscarPorId(projeto.getId());
 		Usuario u = usuarioDAO.buscarPorId(usuario.getId());
 
-		if (proj.getEquipe() == null)
-			proj.setEquipe(new Equipe());
-
 		equipeDAO.adicionarColaborador(proj.getEquipe(), u);
 
 		result.redirectTo(this).colaboradores(proj.getId());

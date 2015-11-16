@@ -2,6 +2,7 @@ package br.edu.fjn.cdp.ouroboros.modelo.dao;
 
 import java.util.List;
 
+import br.edu.fjn.cdp.ouroboros.modelo.Competencia;
 import br.edu.fjn.cdp.ouroboros.modelo.TipoUsuario;
 import br.edu.fjn.cdp.ouroboros.modelo.Usuario;
 
@@ -13,4 +14,7 @@ public interface UsuarioDAO extends DAOGenerico<Usuario, Integer> {
 	
 	List<Usuario> buscarPorTipoUsuario(TipoUsuario tipoUsuario);
 	
+	void adicionarCompetencia(Usuario usuario, Competencia competencia);
+	
+	void removerCompetencia(Usuario usuario, Competencia competencia);
 }

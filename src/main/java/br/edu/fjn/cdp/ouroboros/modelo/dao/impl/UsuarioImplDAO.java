@@ -10,6 +10,7 @@ import org.hibernate.Session;
 import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.Restrictions;
 
+import br.edu.fjn.cdp.ouroboros.modelo.Competencia;
 import br.edu.fjn.cdp.ouroboros.modelo.TipoUsuario;
 import br.edu.fjn.cdp.ouroboros.modelo.Usuario;
 import br.edu.fjn.cdp.ouroboros.modelo.dao.UsuarioDAO;
@@ -111,4 +112,56 @@ public class UsuarioImplDAO extends DAOGenericoImpl<Usuario, Integer> implements
 		return resultado;
 	}
 
+	@Override
+	public void adicionarCompetencia(Usuario usuario, Competencia competencia) {
+		Competencia cp = null;
+		Usuario u = null;
+
+		EntityManager manager = HibernateInfra.getManager();
+		EntityTransaction transacao = manager.getTransaction();
+
+		try {
+			transacao.begin();
+
+			u = manager.find(getClassePersistente(), usuario.getId());
+			cp = manager.find(Competencia.class, competencia.getId());
+
+			u.getCompetencias().add(cp);
+
+			manager.merge(u);
+			transacao.commit();
+		} catch (Exception e) {
+			e.printStackTrace();
+			transacao.rollback();
+		} finally {
+			manager.close();
+		}
+	}
+	
+	@Override
+	public void removerCompetencia(Usuario usuario, Competencia competencia) {
+		Competencia cp = null;
+		Usuario u = null;
+
+		EntityManager manager = HibernateInfra.getManager();
+		EntityTransaction transacao = manager.getTransaction();
+
+		try {
+			transacao.begin();
+
+			u = manager.find(getClassePersistente(), usuario.getId());
+			cp = manager.find(Competencia.class, competencia.getId());
+
+			u.getCompetencias().remove(cp);
+
+			manager.merge(u);
+			transacao.commit();
+		} catch (Exception e) {
+			e.printStackTrace();
+			transacao.rollback();
+		} finally {
+			manager.close();
+		}
+	}
+	
 }

@@ -49,7 +49,7 @@
 					<p>Não fomos capazes de encontrar a p&aacute;gina solicitada.
 						Que tal voltar para o in&iacute;cio?</p>
 					<p>
-						<a href="${pageContext.request.contextPath}/inicio"
+						<a href="${pageContext.request.contextPath}/"
 							class="btn btn-primary btn-lg" role="button">In&iacute;cio »</a>
 					</p>
 				</div>
