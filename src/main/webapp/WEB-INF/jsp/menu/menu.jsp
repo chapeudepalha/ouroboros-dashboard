@@ -10,8 +10,9 @@
 			<span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span>
 			<span class="icon-bar"></span> <span class="icon-bar"></span>
 		</button>
-		<a class="navbar-brand"
-			href="${pageContext.request.contextPath}/">Ouroboros <small>1.0</small></a>
+		<a class="navbar-brand" href="${pageContext.request.contextPath}/">Ouroboros
+			<small>1.0</small>
+		</a>
 	</div>
 	<!-- Top Menu Items -->
 	<ul class="nav navbar-right top-nav">
@@ -49,7 +50,8 @@
 						Projetos <i class="fa fa-fw fa-caret-down"></i></a>
 					<ul id="proj" class="collapse">
 						<li><a href="${pageContext.request.contextPath}/projeto/novo">Novo</a></li>
-						<li><a href="${pageContext.request.contextPath}/projeto/listar">Listar</a></li>
+						<li><a
+							href="${pageContext.request.contextPath}/projeto/listar">Listar</a></li>
 					</ul></li>
 				<li><a href="javascript:;" data-toggle="collapse"
 					data-target="#colab"><i class="fa fa-fw fa-users"></i>
@@ -74,7 +76,8 @@
 						<i class="fa fa-fw fa-caret-down"></i></a>
 					<ul id="cliente" class="collapse">
 						<li><a href="${pageContext.request.contextPath}/cliente/novo">Novo</a></li>
-						<li><a href="${pageContext.request.contextPath}/cliente/listar">Listar</a></li>
+						<li><a
+							href="${pageContext.request.contextPath}/cliente/listar">Listar</a></li>
 					</ul></li>
 			</c:if>
 			<c:if test="${sessao.usuario.tipoUsuario == 'COLABORADOR'}">
@@ -82,8 +85,8 @@
 					data-target="#proj"><i class="fa fa-fw fa-suitcase"></i>
 						Projetos <i class="fa fa-fw fa-caret-down"></i></a>
 					<ul id="proj" class="collapse">
-					<li><a href="${pageContext.request.contextPath}/projeto/listar">Aceitar Tarefas</a></li>
-						<li><a href="${pageContext.request.contextPath}/projeto/listar">Listar</a></li>
+						<li><a
+							href="${pageContext.request.contextPath}/projeto/listar/colaborador">Listar</a></li>
 					</ul></li>
 			</c:if>
 			<c:if test="${sessao.usuario.tipoUsuario == 'CLIENTE'}">
@@ -91,7 +94,8 @@
 					data-target="#proj"><i class="fa fa-fw fa-suitcase"></i>
 						Projetos <i class="fa fa-fw fa-caret-down"></i></a>
 					<ul id="proj" class="collapse">
-						<li><a href="${pageContext.request.contextPath}/projeto/listar">Listar</a></li>
+						<li><a
+							href="${pageContext.request.contextPath}/projeto/listar">Listar</a></li>
 					</ul></li>
 			</c:if>
 		</ul>

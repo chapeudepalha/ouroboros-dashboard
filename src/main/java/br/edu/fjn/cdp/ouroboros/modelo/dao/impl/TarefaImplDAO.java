@@ -191,10 +191,10 @@ public class TarefaImplDAO extends DAOGenericoImpl<Tarefa, Integer> implements T
 	@Override
 	public Boolean colaboradorEstaAlocado(Usuario usuario) {
 		boolean alocado = false;
-		
+
 		EntityManager manager = HibernateInfra.getManager();
 		EntityTransaction transaction = manager.getTransaction();
-		
+
 		try {
 			transaction.begin();
 
@@ -211,7 +211,7 @@ public class TarefaImplDAO extends DAOGenericoImpl<Tarefa, Integer> implements T
 				alocado = false;
 			else
 				alocado = true;
-			
+
 			transaction.commit();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -219,8 +219,75 @@ public class TarefaImplDAO extends DAOGenericoImpl<Tarefa, Integer> implements T
 		} finally {
 			manager.close();
 		}
-		
+
 		return alocado;
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Tarefa> buscarPorColaboradorEEstado(Usuario usuario, EstadoTarefa estadoTarefa) {
+		List<Tarefa> tarefas = null;
+
+		EntityManager manager = HibernateInfra.getManager();
+		EntityTransaction transacao = manager.getTransaction();
+
+		try {
+			transacao.begin();
+
+			Criteria criterio = ((Session) manager.getDelegate()).createCriteria(getClassePersistente());
+
+			criterio.createAlias("colaboradorResponsavel", "c");
+			Criterion c1 = Restrictions.eq("c.id", usuario.getId());
+			Criterion c2 = Restrictions.eq("estadoTarefa", estadoTarefa);
+
+			criterio.add(Restrictions.and(c1, c2));
+			criterio.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
+
+			tarefas = criterio.list();
+
+			transacao.commit();
+		} catch (Exception e) {
+			e.printStackTrace();
+			transacao.rollback();
+		} finally {
+			manager.close();
+		}
+
+		return tarefas;
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Tarefa> buscarPorProjetoEColaborador(Projeto projeto, Usuario usuario) {
+		List<Tarefa> tarefas = null;
+
+		EntityManager manager = HibernateInfra.getManager();
+		EntityTransaction transacao = manager.getTransaction();
+
+		try {
+			transacao.begin();
+
+			Criteria criterio = ((Session) manager.getDelegate()).createCriteria(getClassePersistente());
+
+			criterio.createAlias("projeto", "p");
+			criterio.createAlias("colaboradorResponsavel", "c");
+			Criterion c1 = Restrictions.eq("p.id", projeto.getId());
+			Criterion c2 = Restrictions.eq("c.id", usuario.getId());
+
+			criterio.add(Restrictions.and(c1, c2));
+			criterio.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
+
+			tarefas = criterio.list();
+
+			transacao.commit();
+		} catch (Exception e) {
+			e.printStackTrace();
+			transacao.rollback();
+		} finally {
+			manager.close();
+		}
+
+		return tarefas;
 	}
 
 }

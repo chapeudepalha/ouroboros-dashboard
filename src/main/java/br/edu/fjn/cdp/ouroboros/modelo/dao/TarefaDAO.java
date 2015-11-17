@@ -11,6 +11,10 @@ public interface TarefaDAO extends DAOGenerico<Tarefa, Integer> {
 
 	List<Tarefa> buscarPorProjeto(Projeto projeto);
 	
+	List<Tarefa> buscarPorProjetoEColaborador(Projeto projeto, Usuario usuario);
+	
+	List<Tarefa> buscarPorColaboradorEEstado(Usuario usuario, EstadoTarefa estadoTarefa);
+	
 	List<Tarefa> buscarPorProjetoEEstado(Projeto projeto, EstadoTarefa estadoTarefa);
 	
 	Boolean colaboradorEstaAlocado(Usuario usuario);

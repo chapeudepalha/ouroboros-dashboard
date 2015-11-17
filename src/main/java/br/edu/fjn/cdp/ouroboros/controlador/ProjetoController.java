@@ -17,6 +17,7 @@ import br.com.caelum.vraptor.Get;
 import br.com.caelum.vraptor.Path;
 import br.com.caelum.vraptor.Post;
 import br.com.caelum.vraptor.Result;
+import br.edu.fjn.cdp.ouroboros.componentes.Sessao;
 import br.edu.fjn.cdp.ouroboros.componentes.SomenteLogado;
 import br.edu.fjn.cdp.ouroboros.modelo.Equipe;
 import br.edu.fjn.cdp.ouroboros.modelo.EstadoTarefa;
@@ -36,6 +37,8 @@ public class ProjetoController {
 
 	@Inject
 	private Result result;
+	@Inject
+	private Sessao sessao;
 	@Inject
 	private ProjetoDAO projetoDAO;
 	@Inject
@@ -192,6 +195,65 @@ public class ProjetoController {
 		result.redirectTo(this).colaboradores(p.getId());
 	}
 
+	@Get("painel/{id:[0-9]{1,15}}")
+	@SomenteLogado
+	public void painel(Integer id) {
+		Projeto projeto = projetoDAO.buscarPorId(id);
+
+		int total = 0;
+		int maior = 0;
+
+		List<Tarefa> tarefas = tarefaDAO.buscarPorProjetoEColaborador(projeto, sessao.getUsuario());
+
+		List<Tarefa> aceitacao = new ArrayList<>();
+		List<Tarefa> fazer = new ArrayList<>();
+		List<Tarefa> progresso = new ArrayList<>();
+		List<Tarefa> concluido = new ArrayList<>();
+
+		total = tarefas.size();
+		System.out.println("total de tarefas: "+total);
+		if (total > 0) {
+			for (Tarefa tarefa : tarefas) {
+				switch (tarefa.getEstadoTarefa()) {
+				case AGUARDAACEITACAO:
+					aceitacao.add(tarefa);
+					break;
+				case PARAFAZER:
+					fazer.add(tarefa);
+					break;
+				case EMPROGRESSO:
+					progresso.add(tarefa);
+					break;
+				case CONCLUIDO:
+					concluido.add(tarefa);
+					break;
+				default:
+					break;
+				}
+			}
+		}
+		
+		if ((aceitacao.size() > fazer.size()) || (aceitacao.size() > progresso.size())
+				|| (aceitacao.size() > concluido.size()))
+			maior = aceitacao.size();
+		else if ((fazer.size() > progresso.size()) || (fazer.size() > concluido.size()))
+			maior = fazer.size();
+		else if (progresso.size() > concluido.size())
+			maior = progresso.size();
+		else
+			maior = concluido.size();
+
+		result.include("total", total);
+		result.include("maior", maior);
+		
+		result.include("aceitacao", aceitacao);
+		result.include("fazer", fazer);
+		result.include("progresso", progresso);
+		result.include("concluido", concluido);
+
+		result.include("projeto", projeto);
+	}
+
 	@Get("gerenciar/{id:[0-9]{1,15}}")
 	@SomenteLogado
 	public void gerenciar(Integer id) {
@@ -210,7 +272,6 @@ public class ProjetoController {
 		List<Tarefa> tarefas = tarefaDAO.buscarPorProjeto(projeto);
 
 		List<Tarefa> pendente = new ArrayList<>();
-		List<Tarefa> aceitacao = new ArrayList<>();
 		List<Tarefa> fazer = new ArrayList<>();
 		List<Tarefa> progresso = new ArrayList<>();
 		List<Tarefa> concluido = new ArrayList<>();
@@ -224,7 +285,6 @@ public class ProjetoController {
 					break;
 				case AGUARDAACEITACAO:
 					pendente.add(tarefa);
-					// aceitacao.add(tarefa);
 					break;
 				case PARAFAZER:
 					fazer.add(tarefa);
@@ -250,7 +310,6 @@ public class ProjetoController {
 			maior = concluido.size();
 
 		result.include("pendente", pendente);
-		result.include("aceitacao", aceitacao);
 		result.include("fazer", fazer);
 		result.include("progresso", progresso);
 		result.include("concluido", concluido);
@@ -279,7 +338,55 @@ public class ProjetoController {
 
 		result.include("projetos", projetos);
 	}
+	
+	@Get("listar/colaborador")
+	@SomenteLogado
+	public void listarPorColaborador() {
+		List<Projeto> projetos = projetoDAO.buscarPorColaborador(sessao.getUsuario());
+		
+		System.out.println("projetos "+projetos.size());
+		
+		result.include("projetos", projetos);
+	}
 
+	@Get("resumo/colaborador/{id:[0-9]{1,15}}")
+	@SomenteLogado
+	public void resumoColaborador(Integer id) {
+		Projeto projeto = projetoDAO.buscarPorId(id);
+
+		long total = tarefaDAO.quantidadeDeTarefasPorProjeto(projeto);
+		int atrasados = 0;
+		int concluidos = 0;
+		int restantes = 0;
+		int fazer = 0;
+		int progresso = 0;
+		int concluido = 0;
+		int dia = 0;
+		int ociosos = 0;
+
+		if (total > 0) {
+			concluidos = resumoServico.percentualPorProjetoEEstado(projeto, EstadoTarefa.CONCLUIDO);
+			restantes = 100 - concluidos;
+			fazer = resumoServico.percentualPorProjetoEEstado(projeto, EstadoTarefa.PARAFAZER);
+			progresso = resumoServico.percentualPorProjetoEEstado(projeto, EstadoTarefa.EMPROGRESSO);
+			concluido = resumoServico.percentualPorProjetoEEstado(projeto, EstadoTarefa.CONCLUIDO);
+			atrasados = resumoServico.percentualTarefasAtrasadasPorProjeto(projeto);
+			dia = 100 - atrasados;
+			ociosos = resumoServico.numeroColaboradoresOciososPorProjeto(projeto);
+		}
+
+		result.include("ociosos", ociosos);
+		result.include("total", total);
+		result.include("concluidos", concluidos);
+		result.include("restantes", restantes);
+		result.include("atrasados", atrasados);
+		result.include("dia", dia);
+		result.include("fazer", fazer);
+		result.include("progresso", progresso);
+		result.include("concluido", concluido);
+		result.include("projeto", projeto);
+	}
+	
 	@Get("resumo/{id:[0-9]{1,15}}")
 	@SomenteLogado
 	public void resumo(Integer id) {
@@ -359,6 +466,18 @@ public class ProjetoController {
 	public void direitaTarefa(Integer id) {
 		result.forwardTo(TarefaController.class).direita(id);
 	}
+	
+	@Get("tarefa/colaborador/esquerda/{id:[0-9]{1,15}}")
+	@SomenteLogado
+	public void esquerdaColaradorTarefa(Integer id) {
+		result.forwardTo(TarefaController.class).esquerdaColaborador(id);
+	}
+
+	@Get("tarefa/colaborador/direita/{id:[0-9]{1,15}}")
+	@SomenteLogado
+	public void direitaColaboradorTarefa(Integer id) {
+		result.forwardTo(TarefaController.class).direitaColaborador(id);
+	}
 
 	@Get("tarefa/colaborador/add/{id:[0-9]{1,15}}")
 	@SomenteLogado
@@ -370,5 +489,29 @@ public class ProjetoController {
 	@SomenteLogado
 	public void altColaboradorTarefa(Integer id) {
 		result.forwardTo(TarefaController.class).altColaborador(id);
+	}
+
+	@Get("tarefa/visualizar/{id:[0-9]{1,15}}")
+	@SomenteLogado
+	public void visualizarTarefa(Integer id) {
+		result.forwardTo(TarefaController.class).visualizar(id);
+	}
+	
+	@Get("tarefa/pendente")
+	@SomenteLogado
+	public void tarefasPendente() {
+		result.forwardTo(TarefaController.class).tarefasPendente();
+	}
+
+	@Get("tarefa/aceitar/{id:[0-9]{1,15}}")
+	@SomenteLogado
+	public void aceitar(Integer id) {
+		result.forwardTo(TarefaController.class).aceitar(id);
+	}
+
+	@Get("tarefa/rejeitar/{id:[0-9]{1,15}}")
+	@SomenteLogado
+	public void rejeitar(Integer id) {
+		result.forwardTo(TarefaController.class).rejeitar(id);
 	}
 }

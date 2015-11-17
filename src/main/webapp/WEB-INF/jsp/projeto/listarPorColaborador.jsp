@@ -66,12 +66,7 @@
 							<div class="jumbotron">
 								<h1>Ooops!</h1>
 								<p>Não fomos capazes de encontrar nenhum Projeto
-									cadastrado. Que tal cadastrar um novo?</p>
-								<p>
-									<a href="${pageContext.request.contextPath}/projeto/novo"
-										class="btn btn-primary btn-lg" role="button">Cadastrar
-										Projeto »</a>
-								</p>
+									cadastrado.</p>
 							</div>
 						</c:if>
 						<c:if test="${(projetos != null) && (fn:length(projetos) >= 1)}">
@@ -96,15 +91,15 @@
 														value="${projeto.prazoPrevisto.time}" pattern="dd/MM/yyyy" /></td>
 												<td>${projeto.cliente.pessoa.nome}</td>
 												<td><a
-													href="${pageContext.request.contextPath}/projeto/resumo/${projeto.id}"
+													href="${pageContext.request.contextPath}/projeto/resumo/colaborador/${projeto.id}"
 													class="btn btn-info btn-sm" role="button"><i
 														class="fa fa-pie-chart"></i> Resumo do Projeto</a> <a
-													href="${pageContext.request.contextPath}/projeto/gerenciar/${projeto.id}"
+													href="${pageContext.request.contextPath}/projeto/painel/${projeto.id}"
 													class="btn btn-success btn-sm" role="button"><i
-														class="fa fa-gears"></i> Gerenciar Projeto</a> <a
+														class="fa fa-gears"></i> Gerenciar Atividades</a> <!-- <a
 													href="${pageContext.request.contextPath}/projeto/editar/${projeto.id}"
 													class="btn btn-warning btn-sm" role="button"><i
-														class="fa fa-pencil"></i> Editar</a> <!--<a
+														class="fa fa-pencil"></i> Editar</a> --> <!--<a
 													href="${pageContext.request.contextPath}/projeto/remover/${projeto.id}"
 													class="btn btn-danger btn-sm" role="button"><i
 														class="fa fa-times"></i> Remover</a> --></td>
