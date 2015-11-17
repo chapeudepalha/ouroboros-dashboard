@@ -177,38 +177,57 @@
 				</div>
 				<!-- /.row -->
 				<br />
-				<c:if test="${total >= 1}">
+				<c:if test="${maior < 1}">
+					<div class="jumbotron">
+						<h1>Ooops!</h1>
+						<p>Ainda n&atilde;o foram cadastradas tarefas para
+							o projeto ${projeto.nome}</p>
+						<p>
+							<a href="${pageContext.request.contextPath}/projeto/tarefa/${projeto.id}"
+								class="btn btn-primary btn-lg" role="button">Cadastrar
+								Tarefa »</a>
+						</p>
+					</div>
+				</c:if>
+				<c:if test="${maior >= 1}">
 					<div class="row">
 						<div class="col-lg-3 text-center">
 							<div class="panel panel-default">
 								<div class="panel-body">
-									<strong>Pendente</strong>
+									<strong>Pendente Colaborador /<br />Aguardando Aceite
+									</strong>
 								</div>
 							</div>
 						</div>
 						<div class="col-lg-3 text-center">
 							<div class="panel panel-default">
 								<div class="panel-body">
-									<strong>Para Fazer</strong>
+									<p>
+										<strong><p>Para Fazer</p></strong>
+									</p>
 								</div>
 							</div>
 						</div>
 						<div class="col-lg-3 text-center">
 							<div class="panel panel-default">
 								<div class="panel-body">
-									<strong>Em Progresso</strong>
+									<p>
+										<strong><p>Em Progresso</p></strong>
+									</p>
 								</div>
 							</div>
 						</div>
 						<div class="col-lg-3 text-center">
 							<div class="panel panel-default">
 								<div class="panel-body">
-									<strong>Conclu&iacute;do</strong>
+									<p>
+										<strong><p>Conclu&iacute;do</p></strong>
+									</p>
 								</div>
 							</div>
 						</div>
 					</div>
-					<c:forEach var="i" begin="0" end="${total - 1}">
+					<c:forEach var="i" begin="0" end="${maior}">
 						<div class="row">
 							<c:if test="${pendente[i] != null}">
 								<div class="col-lg-3 text-center">
@@ -218,11 +237,17 @@
 												<strong><c:out value="${pendente[i].nome}"></c:out></strong>
 											</div>
 											<div class="col-lg-12">
-												<a class="btn btn-warning"
-													href="${pageContext.request.contextPath}/projeto/tarefa/editar/${pendente[i].id}"><i
-													class="fa fa-pencil"></i></a> <a class="btn btn-danger"
-													href="${pageContext.request.contextPath}/projeto/tarefa/remover/${pendente[i].id}"><i
-													class="fa fa-times"></i></a>
+												<c:if test="${pendente[i].estadoTarefa == 'PENDENTE'}">
+													<a class="btn btn-primary"
+														href="${pageContext.request.contextPath}/projeto/tarefa/colaborador/add/${pendente[i].id}"><i
+														class="fa fa-user"></i> Add Colab.</a>
+												</c:if>
+												<c:if
+													test="${pendente[i].estadoTarefa == 'AGUARDAACEITACAO'}">
+													<a class="btn btn-warning"
+														href="${pageContext.request.contextPath}/projeto/tarefa/colaborador/alterar/${pendente[i].id}"><i
+														class="fa fa-user"></i> Alt. Colab.</a>
+												</c:if>
 											</div>
 										</div>
 									</div>
@@ -241,9 +266,11 @@
 											<div class="col-lg-12">
 												<a class="btn btn-warning"
 													href="${pageContext.request.contextPath}/projeto/tarefa/editar/${fazer[i].id}"><i
-													class="fa fa-pencil"></i></a> <a class="btn btn-danger"
-													href="${pageContext.request.contextPath}/projeto/tarefa/remover/${fazer[i].id}"><i
-													class="fa fa-times"></i></a>
+													class="fa fa-pencil"></i></a> <a class="btn btn-warning"
+													href="${pageContext.request.contextPath}/projeto/tarefa/colaborador/alterar/${fazer[i].id}"><i
+													class="fa fa-user"></i></a> <a class="btn btn-info"
+													href="${pageContext.request.contextPath}/projeto/tarefa/direita/${fazer[i].id}"><i
+													class="fa fa-arrow-right"></i></a>
 											</div>
 										</div>
 									</div>
@@ -260,11 +287,15 @@
 												<strong><c:out value="${progresso[i].nome}"></c:out></strong>
 											</div>
 											<div class="col-lg-12">
-												<a class="btn btn-warning"
+												<a class="btn btn-info"
+													href="${pageContext.request.contextPath}/projeto/tarefa/esquerda/${progresso[i].id}"><i
+													class="fa fa-arrow-left"></i></a> <a class="btn btn-warning"
 													href="${pageContext.request.contextPath}/projeto/tarefa/editar/${progresso[i].id}"><i
-													class="fa fa-pencil"></i></a> <a class="btn btn-danger"
-													href="${pageContext.request.contextPath}/projeto/tarefa/remover/${progresso[i].id}"><i
-													class="fa fa-times"></i></a>
+													class="fa fa-pencil"></i></a> <a class="btn btn-warning"
+													href="${pageContext.request.contextPath}/projeto/tarefa/colaborador/alterar/${progresso[i].id}"><i
+													class="fa fa-user"></i></a> <a class="btn btn-info"
+													href="${pageContext.request.contextPath}/projeto/tarefa/direita/${progresso[i].id}"><i
+													class="fa fa-arrow-right"></i></a>
 											</div>
 										</div>
 									</div>
@@ -281,11 +312,16 @@
 												<strong><c:out value="${concluido[i].nome}"></c:out></strong>
 											</div>
 											<div class="col-lg-12">
-												<a class="btn btn-warning"
+												<a class="btn btn-info"
+													href="${pageContext.request.contextPath}/projeto/tarefa/esquerda/${concluido[i].id}"><i
+													class="fa fa-arrow-left"></i></a> <a class="btn btn-warning"
 													href="${pageContext.request.contextPath}/projeto/tarefa/editar/${concluido[i].id}"><i
-													class="fa fa-pencil"></i></a> <a class="btn btn-danger"
+													class="fa fa-pencil"></i></a> <a class="btn btn-warning"
+													href="${pageContext.request.contextPath}/projeto/tarefa/colaborador/alterar/${concluido[i].id}"><i
+													class="fa fa-user"></i></a>
+												<!-- <a class="btn btn-danger"
 													href="${pageContext.request.contextPath}/projeto/tarefa/remover/${concluido[i].id}"><i
-													class="fa fa-times"></i></a>
+													class="fa fa-times"></i></a> -->
 											</div>
 										</div>
 									</div>

@@ -28,7 +28,7 @@ import br.edu.fjn.cdp.ouroboros.modelo.dao.EquipeDAO;
 import br.edu.fjn.cdp.ouroboros.modelo.dao.ProjetoDAO;
 import br.edu.fjn.cdp.ouroboros.modelo.dao.TarefaDAO;
 import br.edu.fjn.cdp.ouroboros.modelo.dao.UsuarioDAO;
-import br.edu.fjn.cdp.ouroboros.servico.TarefaServico;
+import br.edu.fjn.cdp.ouroboros.servico.ResumoServico;
 
 @Controller
 @Path("projeto")
@@ -45,7 +45,7 @@ public class ProjetoController {
 	@Inject
 	private TarefaDAO tarefaDAO;
 	@Inject
-	private TarefaServico tarefaServico;
+	private ResumoServico resumoServico;
 
 	public ProjetoController() {
 
@@ -61,11 +61,15 @@ public class ProjetoController {
 
 	@Post("cadastrar")
 	@SomenteLogado
-	public void cadastrar(Projeto projeto, String inicio) {
+	public void cadastrar(Projeto projeto, String inicio, List<Integer> semana, Double comeco, Double fim) {
 		DateFormat converte = new SimpleDateFormat("dd/MM/yyyy");
 		DateFormat formata = new SimpleDateFormat("yyyy-MM-dd");
 		Date convertido = null;
 		Calendar cal = null;
+
+		projeto.setSemana(semana);
+		projeto.setComeco(comeco);
+		projeto.setFim(fim);
 
 		try {
 			inicio = formata.format(converte.parse(inicio));
@@ -92,15 +96,44 @@ public class ProjetoController {
 
 		Projeto projeto = projetoDAO.buscarPorId(id);
 		result.include("projeto", projeto);
+
+		String comeco = "", fim = "";
+		Double fracaoComeco = 0.0, fracaoFim = 0.0, controle = 0.5;
+
+		fracaoComeco = projeto.getComeco() % 1;
+		fracaoFim = projeto.getFim() % 1;
+
+		comeco = projeto.getComeco() + "";
+		comeco = comeco.substring(0, comeco.indexOf('.'));
+
+		fim = projeto.getFim() + "";
+		fim = fim.substring(0, fim.indexOf('.'));
+
+		if (fracaoComeco.compareTo(controle) == 0)
+			comeco += ":30";
+		else
+			comeco += ":00";
+
+		if (fracaoFim.compareTo(controle) == 0)
+			fim += ":30";
+		else
+			fim += ":00";
+
+		result.include("comeco", comeco);
+		result.include("fim", fim);
 	}
 
 	@Post("editar")
 	@SomenteLogado
-	public void editar(Projeto projeto, String inicio) {
+	public void editar(Projeto projeto, String inicio, List<Integer> semana, Double comeco, Double fim) {
 		DateFormat converte = new SimpleDateFormat("dd/MM/yyyy");
 		DateFormat formata = new SimpleDateFormat("yyyy-MM-dd");
 		Date convertido = null;
 		Calendar cal = null;
+
+		projeto.setSemana(semana);
+		projeto.setComeco(comeco);
+		projeto.setFim(fim);
 
 		try {
 			inicio = formata.format(converte.parse(inicio));
@@ -110,6 +143,7 @@ public class ProjetoController {
 			cal.setTime(convertido);
 
 			projeto.setInicio(cal);
+
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
@@ -167,8 +201,14 @@ public class ProjetoController {
 		int atrasados = 0;
 		int concluidos = 0;
 		int restantes = 0;
+		int maior = 0;
+
+		concluidos = resumoServico.percentualPorProjetoEEstado(projeto, EstadoTarefa.CONCLUIDO);
+		restantes = 100 - concluidos;
+		atrasados = resumoServico.percentualTarefasAtrasadasPorProjeto(projeto);
 
 		List<Tarefa> tarefas = tarefaDAO.buscarPorProjeto(projeto);
+
 		List<Tarefa> pendente = new ArrayList<>();
 		List<Tarefa> aceitacao = new ArrayList<>();
 		List<Tarefa> fazer = new ArrayList<>();
@@ -183,7 +223,8 @@ public class ProjetoController {
 					pendente.add(tarefa);
 					break;
 				case AGUARDAACEITACAO:
-					aceitacao.add(tarefa);
+					pendente.add(tarefa);
+					// aceitacao.add(tarefa);
 					break;
 				case PARAFAZER:
 					fazer.add(tarefa);
@@ -198,14 +239,25 @@ public class ProjetoController {
 			}
 		}
 
+		if ((pendente.size() > fazer.size()) || (pendente.size() > progresso.size())
+				|| (pendente.size() > concluido.size()))
+			maior = pendente.size();
+		else if ((fazer.size() > progresso.size()) || (fazer.size() > concluido.size()))
+			maior = fazer.size();
+		else if (progresso.size() > concluido.size())
+			maior = progresso.size();
+		else
+			maior = concluido.size();
+
 		result.include("pendente", pendente);
+		result.include("aceitacao", aceitacao);
 		result.include("fazer", fazer);
 		result.include("progresso", progresso);
 		result.include("concluido", concluido);
-		
+
 		result.include("projeto", projeto);
-		
-		result.include("total", total);
+
+		result.include("maior", maior);
 		result.include("restantes", restantes);
 		result.include("atrasados", atrasados);
 		result.include("concluidos", concluidos);
@@ -241,17 +293,20 @@ public class ProjetoController {
 		int progresso = 0;
 		int concluido = 0;
 		int dia = 0;
+		int ociosos = 0;
 
 		if (total > 0) {
-			concluidos = tarefaServico.percentualPorProjetoEEstado(projeto, EstadoTarefa.CONCLUIDO);
+			concluidos = resumoServico.percentualPorProjetoEEstado(projeto, EstadoTarefa.CONCLUIDO);
 			restantes = 100 - concluidos;
-			fazer = tarefaServico.percentualPorProjetoEEstado(projeto, EstadoTarefa.PARAFAZER);
-			progresso = tarefaServico.percentualPorProjetoEEstado(projeto, EstadoTarefa.EMPROGRESSO);
-			concluido = tarefaServico.percentualPorProjetoEEstado(projeto, EstadoTarefa.CONCLUIDO);
-			atrasados = tarefaServico.percentualAtrasadoPorProjeto(projeto);
+			fazer = resumoServico.percentualPorProjetoEEstado(projeto, EstadoTarefa.PARAFAZER);
+			progresso = resumoServico.percentualPorProjetoEEstado(projeto, EstadoTarefa.EMPROGRESSO);
+			concluido = resumoServico.percentualPorProjetoEEstado(projeto, EstadoTarefa.CONCLUIDO);
+			atrasados = resumoServico.percentualTarefasAtrasadasPorProjeto(projeto);
 			dia = 100 - atrasados;
+			ociosos = resumoServico.numeroColaboradoresOciososPorProjeto(projeto);
 		}
 
+		result.include("ociosos", ociosos);
 		result.include("total", total);
 		result.include("concluidos", concluidos);
 		result.include("restantes", restantes);
@@ -291,5 +346,29 @@ public class ProjetoController {
 	@SomenteLogado
 	public void removerTarefa(Integer id) {
 		result.forwardTo(TarefaController.class).remover(id);
+	}
+
+	@Get("tarefa/esquerda/{id:[0-9]{1,15}}")
+	@SomenteLogado
+	public void esquerdaTarefa(Integer id) {
+		result.forwardTo(TarefaController.class).esquerda(id);
+	}
+
+	@Get("tarefa/direita/{id:[0-9]{1,15}}")
+	@SomenteLogado
+	public void direitaTarefa(Integer id) {
+		result.forwardTo(TarefaController.class).direita(id);
+	}
+
+	@Get("tarefa/colaborador/add/{id:[0-9]{1,15}}")
+	@SomenteLogado
+	public void addColaboradorTarefa(Integer id) {
+		result.forwardTo(TarefaController.class).addColaborador(id);
+	}
+
+	@Get("tarefa/colaborador/alterar/{id:[0-9]{1,15}}")
+	@SomenteLogado
+	public void altColaboradorTarefa(Integer id) {
+		result.forwardTo(TarefaController.class).altColaborador(id);
 	}
 }

@@ -82,6 +82,7 @@
 					data-target="#proj"><i class="fa fa-fw fa-suitcase"></i>
 						Projetos <i class="fa fa-fw fa-caret-down"></i></a>
 					<ul id="proj" class="collapse">
+					<li><a href="${pageContext.request.contextPath}/projeto/listar">Aceitar Tarefas</a></li>
 						<li><a href="${pageContext.request.contextPath}/projeto/listar">Listar</a></li>
 					</ul></li>
 			</c:if>

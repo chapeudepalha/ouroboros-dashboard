@@ -83,12 +83,13 @@
 							<div class="panel-heading">
 								<div class="row">
 									<div class="col-xs-3">
-										<i class="fa fa-calendar fa-5x"></i>
+										<i class="fa fa-users fa-5x"></i>
 									</div>
 									<div class="col-xs-9 text-right">
 										<div class="huge">
+										${ociosos}
 										</div>
-										<div>Entrega</div>
+										<div>Colaborador(es) Ocioso(s)</div>
 									</div>
 								</div>
 							</div>

@@ -122,14 +122,84 @@ public class TarefaController {
 		Tarefa tarefa = tarefaDAO.buscarPorId(id);
 		tarefaDAO.remover(tarefa);
 	}
-	
-	@Get("colaborador/{id:[0-9]{1,15}}")
-	public void colaborador(Integer id) {
+
+	@Get("colaborador/add/{id:[0-9]{1,15}}")
+	@SomenteLogado
+	public void addColaborador(Integer id) {
 		Tarefa tarefa = tarefaDAO.buscarPorId(id);
-		List<Usuario> colaboradores = usuarioDAO.buscarPorTipoUsuarioECompetencia(TipoUsuario.COLABORADOR, tarefa.getCompetencia());
-		
+		List<Usuario> colaboradores = usuarioDAO.buscarPorTipoUsuarioECompetencia(TipoUsuario.COLABORADOR,
+				tarefa.getCompetencia());
+
 		result.include("tarefa", tarefa);
 		result.include("colaboradores", colaboradores);
+	}
+	
+	@Get("colaborador/alterar/{id:[0-9]{1,15}}")
+	@SomenteLogado
+	public void altColaborador(Integer id) {
+		Tarefa tarefa = tarefaDAO.buscarPorId(id);
+		List<Usuario> colaboradores = usuarioDAO.buscarPorTipoUsuarioECompetencia(TipoUsuario.COLABORADOR,
+				tarefa.getCompetencia());
+
+		result.include("tarefa", tarefa);
+		result.include("colaboradores", colaboradores);
+	}
+
+	@Post("colaborador")
+	@SomenteLogado
+	public void addColaborador(Usuario usuario, Tarefa tarefa) {
+		tarefa = tarefaDAO.buscarPorId(tarefa.getId());
+		usuario = usuarioDAO.buscarPorId(usuario.getId());
+
+		tarefa.setEstadoTarefa(EstadoTarefa.AGUARDAACEITACAO);
+		tarefa.setColaboradorResponsavel(usuario);
+
+		tarefaDAO.alterar(tarefa);
+
+		result.redirectTo(ProjetoController.class).gerenciar(tarefa.getProjeto().getId());
+	}
+
+	@Get("direita/{id:[0-9]{1,15}}")
+	@SomenteLogado
+	public void direita(Integer id) {
+		Tarefa tarefa = tarefaDAO.buscarPorId(id);
+
+		switch (tarefa.getEstadoTarefa()) {
+		case PARAFAZER:
+			alteraEstado(EstadoTarefa.EMPROGRESSO, tarefa);
+			break;
+		case EMPROGRESSO:
+			alteraEstado(EstadoTarefa.CONCLUIDO, tarefa);
+			break;
+		default:
+			break;
+		}
+
+		result.redirectTo(ProjetoController.class).gerenciar(tarefa.getProjeto().getId());
+	}
+
+	@Get("esquerda/{id:[0-9]{1,15}}")
+	@SomenteLogado
+	public void esquerda(Integer id) {
+		Tarefa tarefa = tarefaDAO.buscarPorId(id);
+
+		switch (tarefa.getEstadoTarefa()) {
+		case EMPROGRESSO:
+			alteraEstado(EstadoTarefa.PARAFAZER, tarefa);
+			break;
+		case CONCLUIDO:
+			alteraEstado(EstadoTarefa.EMPROGRESSO, tarefa);
+			break;
+		default:
+			break;
+		}
+
+		result.redirectTo(ProjetoController.class).gerenciar(tarefa.getProjeto().getId());
+	}
+
+	private void alteraEstado(EstadoTarefa estadoTarefa, Tarefa tarefa) {
+		tarefa.setEstadoTarefa(estadoTarefa);
+		tarefaDAO.alterar(tarefa);
 	}
 
 }

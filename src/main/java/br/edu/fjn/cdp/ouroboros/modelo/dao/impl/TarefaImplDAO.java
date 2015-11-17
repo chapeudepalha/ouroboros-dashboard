@@ -16,6 +16,7 @@ import org.hibernate.criterion.Restrictions;
 import br.edu.fjn.cdp.ouroboros.modelo.EstadoTarefa;
 import br.edu.fjn.cdp.ouroboros.modelo.Projeto;
 import br.edu.fjn.cdp.ouroboros.modelo.Tarefa;
+import br.edu.fjn.cdp.ouroboros.modelo.Usuario;
 import br.edu.fjn.cdp.ouroboros.modelo.dao.TarefaDAO;
 import br.edu.fjn.cdp.ouroboros.modelo.infraestrutura.HibernateInfra;
 
@@ -185,6 +186,41 @@ public class TarefaImplDAO extends DAOGenericoImpl<Tarefa, Integer> implements T
 		}
 
 		return quantidade;
+	}
+
+	@Override
+	public Boolean colaboradorEstaAlocado(Usuario usuario) {
+		boolean alocado = false;
+		
+		EntityManager manager = HibernateInfra.getManager();
+		EntityTransaction transaction = manager.getTransaction();
+		
+		try {
+			transaction.begin();
+
+			Criteria criterio = ((Session) manager.getDelegate()).createCriteria(getClassePersistente());
+
+			criterio.createAlias("colaboradorResponsavel", "c");
+
+			Criterion c1 = Restrictions.eq("c.id", usuario.getId());
+
+			criterio.add(c1);
+			criterio.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
+
+			if (criterio.uniqueResult() == null)
+				alocado = false;
+			else
+				alocado = true;
+			
+			transaction.commit();
+		} catch (Exception e) {
+			e.printStackTrace();
+			transaction.rollback();
+		} finally {
+			manager.close();
+		}
+		
+		return alocado;
 	}
 
 }

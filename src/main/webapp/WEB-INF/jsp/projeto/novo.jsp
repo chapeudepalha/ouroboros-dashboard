@@ -79,16 +79,22 @@
 									</select>
 								</div>
 								<div class="form-group">
-									<label>Dias/semana a serem trabalhados no projeto</label> <select
-										name="projeto.semana" class="form-control">
-										<option value="1">1 dia</option>
-										<option value="2">2 dias</option>
-										<option value="3">3 dias</option>
-										<option value="4">4 dias</option>
-										<option value="5">5 dias</option>
-										<option value="6">6 dias</option>
-										<option value="7">7 dias</option>
-									</select>
+									<label>Dias/semana a serem trabalhados no projeto</label><br />
+									<label class="checkbox-inline"> <input type="checkbox"
+										name="semana" value="1"> Domingo
+									</label> <label class="checkbox-inline"> <input type="checkbox"
+										name="semana" value="2">Segunda
+									</label> <label class="checkbox-inline"> <input type="checkbox"
+										name="semana" value="3">Ter&ccedil;a
+									</label> <label class="checkbox-inline"> <input type="checkbox"
+										name="semana" value="4">Quarta
+									</label> <label class="checkbox-inline"> <input type="checkbox"
+										name="semana" value="5">Quinta
+									</label> <label class="checkbox-inline"> <input type="checkbox"
+										name="semana" value="6">Sexta
+									</label> <label class="checkbox-inline"> <input type="checkbox"
+										name="semana" value="7">S&aacute;bado
+									</label>
 								</div>
 							</div>
 							<div class="col-lg-6">
@@ -102,12 +108,23 @@
 										class="form-control" id="form-descricao">
 								</div>
 								<div class="form-group">
-									<label>Horas/dia a serem trabalhados no projeto</label> <select
-										name="projeto.dia" class="form-control">
-										<c:forEach var="i" begin="1" end="24">
-											<option value="${i}">${i}hora(s)</option>
-										</c:forEach>
-									</select>
+									<label>Horas/dia a serem trabalhados no projeto</label>
+									<div class="col-lg-6 form-group">
+										<select name="comeco" class="form-control">
+											<c:forEach begin="0" end="23" var="i">
+												<option value="${i}">${i}:00</option>
+												<option value="${i},5">${i}:30</option>
+											</c:forEach>
+										</select>
+									</div>
+									<div class="col-lg-6 form-group">
+										<select name="fim" class="form-control">
+											<c:forEach begin="0" end="23" var="i">
+												<option value="${i}">${i}:00</option>
+												<option value="${i},5">${i}:30</option>
+											</c:forEach>
+										</select>
+									</div>
 								</div>
 							</div>
 							<div class="col-lg-3 col-lg-offset-4">

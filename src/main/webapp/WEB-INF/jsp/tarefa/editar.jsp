@@ -81,19 +81,13 @@
 										id="form-first-name">
 								</div>
 								<div class="form-group">
-									<label>Colaborador Respons&aacute;vel</label> <select
-										name="tarefa.colaboradorResponsavel.id" class="form-control">
-										<option value="${tarefa.colaboradorResponsavel.id}">${tarefa.colaboradorResponsavel.pessoa.nome}</option>
-										<c:forEach var="usuario" items="${colaboradores}">
-											<option value="${usuario.id}">${usuario.pessoa.nome}</option>
+									<label>Compet&ecirc;ncia</label> <select
+										name="tarefa.competencia.id" class="form-control">
+										<option value="${tarefa.competencia.id}" selected="selected">${tarefa.competencia.nome}</option>
+										<c:forEach var="competencia" items="${competencias}">
+											<option value="${competencia.id}">${competencia.nome}</option>
 										</c:forEach>
 									</select>
-								</div>
-								<div class="form-group">
-									<label>Descri&ccedil;&atilde;o</label> <input type="text"
-										name="tarefa.descricao" value="${tarefa.descricao}"
-										placeholder="Descri&ccedil;&atilde;o" class="form-control"
-										id="form-descricao">
 								</div>
 							</div>
 							<div class="col-lg-6">
@@ -104,12 +98,13 @@
 										placeholder="10/10/2010" class="form-control" id="form-inicio">
 								</div>
 								<div class="col-lg-6 form-group">
-									<label>N&uacute;mero de Horas para Tarefa</label> <input
-										type="number" name="tarefa.numeroHoras"
-										value='${tarefa.numeroHoras}' placeholder="2"
-										class="form-control">
+									<label>N&uacute;mero de Horas para Tarefa</label> <div class="input-group">
+										<input type="number" value="${tarefa.numeroHoras}" name="tarefa.numeroHoras" placeholder="2"
+											class="form-control" id="form-fim"> <span
+											class="input-group-addon">horas</span>
+									</div>
 								</div>
-								<div class="form-group">
+								<div class="col-lg-6 form-group">
 									<label>Estado</label> <select name="tarefa.estadoTarefa"
 										class="form-control">
 										<option value="${tarefa.estadoTarefa}"><c:out
@@ -118,6 +113,12 @@
 										<option value="EMPROGRESSO">Em Progresso</option>
 										<option value="CONCLUIDO">Conclu&iacute;do</option>
 									</select>
+								</div>
+								<div class="col-lg-6 form-group">
+									<label>Descri&ccedil;&atilde;o</label> <input type="text"
+										name="tarefa.descricao" value="${tarefa.descricao}"
+										placeholder="Descri&ccedil;&atilde;o" class="form-control"
+										id="form-descricao">
 								</div>
 							</div>
 							<div class="col-lg-3 col-lg-offset-5">

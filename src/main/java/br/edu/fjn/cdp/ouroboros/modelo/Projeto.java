@@ -1,9 +1,11 @@
 package br.edu.fjn.cdp.ouroboros.modelo;
 
 import java.util.Calendar;
+import java.util.Collection;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -40,8 +42,10 @@ public class Projeto implements EntidadeOuroboros<Integer> {
 	private Calendar inicio;
 	@Temporal(TemporalType.DATE)
 	private Calendar prazoPrevisto;
-	private Integer semana;
-	private Integer dia;
+	@ElementCollection(fetch = FetchType.EAGER)
+	private Collection<Integer> semana;
+	private Double comeco;
+	private Double fim;
 
 	public Projeto() {
 		// TODO Auto-generated constructor stub
@@ -103,20 +107,28 @@ public class Projeto implements EntidadeOuroboros<Integer> {
 		this.prazoPrevisto = prazoPrevisto;
 	}
 
-	public Integer getSemana() {
+	public Collection<Integer> getSemana() {
 		return semana;
 	}
 
-	public void setSemana(Integer semana) {
+	public void setSemana(Collection<Integer> semana) {
 		this.semana = semana;
 	}
 
-	public Integer getDia() {
-		return dia;
+	public Double getComeco() {
+		return comeco;
 	}
 
-	public void setDia(Integer dia) {
-		this.dia = dia;
+	public void setComeco(Double comeco) {
+		this.comeco = comeco;
+	}
+
+	public Double getFim() {
+		return fim;
+	}
+
+	public void setFim(Double fim) {
+		this.fim = fim;
 	}
 
 }

@@ -58,7 +58,7 @@
 								href="${pageContext.request.contextPath}/projeto/listar">
 									Listar Projetos </a></li>
 							<li class="active"><i class="fa fa-gears"></i> <a
-								href="${pageContext.request.contextPath}/projeto/gerenciar/${projeto.id}">
+								href="${pageContext.request.contextPath}/projeto/gerenciar/${idProjeto}">
 									Gerenciar Projeto</a></li>
 							<li class="active"><i class="fa fa-edit"></i> Cadastrar
 								Tarefa</li>

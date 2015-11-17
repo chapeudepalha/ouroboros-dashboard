@@ -2,6 +2,7 @@
 	pageEncoding="utf-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -70,9 +71,9 @@
 							<input type="hidden" value="${projeto.id}" name="projeto.id" />
 							<div class="col-lg-6">
 								<div class="form-group">
-									<label>Nome</label> <input type="text" name="projeto.nome"
-										value="${projeto.nome}" placeholder="Nome"
-										class="form-control" id="form-first-name">
+									<label>Nome</label> <input type="text" value="${projeto.nome}"
+										name="projeto.nome" placeholder="Nome" class="form-control"
+										id="form-first-name">
 								</div>
 								<div class="form-group">
 									<label>Cliente</label> <select name="projeto.cliente.id"
@@ -83,24 +84,68 @@
 										</c:forEach>
 									</select>
 								</div>
+								<div class="form-group">
+									<label>Dias/semana a serem trabalhados no projeto</label><br />
+									<c:forEach var="semana" items="${projeto.semana}">
+										<label class="checkbox-inline"> <input type="checkbox"
+											name="semana" value="${semana}" checked="checked">
+											${semana}
+										</label>
+									</c:forEach>
+									<label class="checkbox-inline"> <input type="checkbox"
+										name="semana" value="1"> Domingo
+									</label> <label class="checkbox-inline"> <input type="checkbox"
+										name="semana" value="2">Segunda
+									</label> <label class="checkbox-inline"> <input type="checkbox"
+										name="semana" value="3">Ter&ccedil;a
+									</label> <label class="checkbox-inline"> <input type="checkbox"
+										name="semana" value="4">Quarta
+									</label> <label class="checkbox-inline"> <input type="checkbox"
+										name="semana" value="5">Quinta
+									</label> <label class="checkbox-inline"> <input type="checkbox"
+										name="semana" value="6">Sexta
+									</label> <label class="checkbox-inline"> <input type="checkbox"
+										name="semana" value="7">S&aacute;bado
+									</label>
+								</div>
 							</div>
 							<div class="col-lg-6">
 								<div class="form-group">
-									<label>In&iacute;cio</label> <input type="text"
-										name="inicio" placeholder="10/10/2010"
-										value='<fmt:formatDate value="${projeto.inicio.time}" pattern="dd/MM/yyyy" />'
-										class="form-control" id="form-inicio">
+									<label>In&iacute;cio</label> <input type="text" name="inicio"
+										value='<fmt:formatDate value="${projeto.inicio.time}"
+												pattern="dd/MM/yyyy" />'
+										placeholder="10/10/2010" class="form-control" id="form-inicio">
 								</div>
-								
+								<div class="form-group">
+									<label>Descri&ccedil;&atilde;o</label> <input type="text"
+										value="${projeto.descricao}" name="projeto.descricao"
+										placeholder="Descri&ccedil;&atilde;o" class="form-control"
+										id="form-descricao">
+								</div>
+								<div class="form-group">
+									<label>Horas/dia a serem trabalhados no projeto</label>
+									<div class="col-lg-6 form-group">
+										<select name="comeco" class="form-control">
+											<option value='${fn:replace(projeto.comeco, ".", ",")}' selected="selected">${comeco}</option>
+											<c:forEach begin="0" end="23" var="i">
+												<option value="${i}">${i}:00</option>
+												<option value="${i},5">${i}:30</option>
+											</c:forEach>
+										</select>
+									</div>
+									<div class="col-lg-6 form-group">
+										<select name="fim" class="form-control">
+											<option value='${fn:replace(projeto.fim, ".", ",")}' selected="selected">${fim}</option>
+											<c:forEach begin="0" end="23" var="i">
+												<option value="${i}">${i}:00</option>
+												<option value="${i},5">${i}:30</option>
+											</c:forEach>
+										</select>
+									</div>
+								</div>
 							</div>
-							<div class="col-lg-12 form-group">
-								<label>Descri&ccedil;&atilde;o</label> <input type="text"
-									name="projeto.descricao" value="${projeto.descricao}"
-									placeholder="Descri&ccedil;&atilde;o" class="form-control"
-									id="form-descricao">
-							</div>
-							<div class="col-lg-3 col-lg-offset-5">
-								<button type="submit" class="btn btn-success">Editar</button>
+							<div class="col-lg-3 col-lg-offset-4">
+								<button type="submit" class="col-lg-12 btn btn-success">Editar</button>
 							</div>
 						</form>
 					</div>
