@@ -65,10 +65,10 @@
 							<li class="active"><i class="fa fa-dashboard"></i> <a
 								href="${pageContext.request.contextPath}/">Dashboard</a></li>
 							<li class="active"><i class="fa fa-table"></i> <a
-								href="${pageContext.request.contextPath}/projeto/listar">
+								href="${pageContext.request.contextPath}/projeto/listar/cliente">
 									Listar Projetos </a></li>
 							<li class="active"><i class="fa fa-gears"></i> <a
-								href="${pageContext.request.contextPath}/projeto/gerenciar/${projeto.id}">
+								href="${pageContext.request.contextPath}/projeto/painel/cliente/${projeto.id}">
 									Gerenciar Projeto</a></li>
 							<li class="active"><i class="fa fa-pie-chart"></i> Resumo</li>
 						</ol>
@@ -83,18 +83,19 @@
 							<div class="panel-heading">
 								<div class="row">
 									<div class="col-xs-3">
-										<i class="fa fa-users fa-5x"></i>
+										<i class="fa fa-calendar fa-5x"></i>
 									</div>
 									<div class="col-xs-9 text-right">
 										<div class="huge">
-										${ociosos}
+										<fmt:formatDate value="${projeto.inicio.time}"
+												pattern="dd/MM/yy" />
 										</div>
-										<div>Colaborador(es) Ocioso(s)</div>
+										<div>In&iacute;cio</div>
 									</div>
 								</div>
 							</div>
 							<a
-								href="${pageContext.request.contextPath}/projeto/gerenciar/${projeto.id}">
+								href="${pageContext.request.contextPath}/projeto/painel/cliente/${projeto.id}">
 								<div class="panel-footer">
 									<span class="pull-left">Gerenciar Projeto</span> <span
 										class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
@@ -117,7 +118,7 @@
 								</div>
 							</div>
 							<a
-								href="${pageContext.request.contextPath}/projeto/gerenciar/${projeto.id}">
+								href="${pageContext.request.contextPath}/projeto/painel/cliente/${projeto.id}">
 								<div class="panel-footer">
 									<span class="pull-left">Gerenciar Projeto</span> <span
 										class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
@@ -140,7 +141,7 @@
 								</div>
 							</div>
 							<a
-								href="${pageContext.request.contextPath}/projeto/gerenciar/${projeto.id}">
+								href="${pageContext.request.contextPath}/projeto/painel/cliente/${projeto.id}">
 								<div class="panel-footer">
 									<span class="pull-left">Gerenciar Projeto</span> <span
 										class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
@@ -163,7 +164,7 @@
 								</div>
 							</div>
 							<a
-								href="${pageContext.request.contextPath}/projeto/gerenciar/${projeto.id}">
+								href="${pageContext.request.contextPath}/projeto/painel/cliente/${projeto.id}">
 								<div class="panel-footer">
 									<span class="pull-left">Gerenciar Projeto</span> <span
 										class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>

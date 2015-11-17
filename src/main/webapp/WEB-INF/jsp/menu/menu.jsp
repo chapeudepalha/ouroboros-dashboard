@@ -95,7 +95,7 @@
 						Projetos <i class="fa fa-fw fa-caret-down"></i></a>
 					<ul id="proj" class="collapse">
 						<li><a
-							href="${pageContext.request.contextPath}/projeto/listar">Listar</a></li>
+							href="${pageContext.request.contextPath}/projeto/listar/cliente">Listar</a></li>
 					</ul></li>
 			</c:if>
 		</ul>

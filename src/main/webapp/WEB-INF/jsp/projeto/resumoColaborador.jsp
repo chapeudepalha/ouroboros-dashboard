@@ -113,7 +113,7 @@
 									</div>
 									<div class="col-xs-9 text-right">
 										<div class="huge">${concluidos}%</div>
-										<div>Concluido</div>
+										<div>Conclu&iacute;do</div>
 									</div>
 								</div>
 							</div>

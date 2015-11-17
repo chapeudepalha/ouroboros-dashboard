@@ -65,8 +65,8 @@
 						<c:if test="${(projetos == null) || (fn:length(projetos) < 1)}">
 							<div class="jumbotron">
 								<h1>Ooops!</h1>
-								<p>Não fomos capazes de encontrar nenhum Projeto
-									cadastrado. Que tal cadastrar um novo?</p>
+								<p>Não fomos capazes de encontrar nenhum Projeto cadastrado.
+									Que tal cadastrar um novo?</p>
 								<p>
 									<a href="${pageContext.request.contextPath}/projeto/novo"
 										class="btn btn-primary btn-lg" role="button">Cadastrar
@@ -81,7 +81,7 @@
 										<tr>
 											<th>Nome</th>
 											<th>In&iacute;cio</th>
-											<th>Entrega Prevista</th>
+											<!-- <th>Entrega Prevista</th> -->
 											<th>Cliente</th>
 											<th>Op&ccedil;&otilde;es</th>
 										</tr>
@@ -92,8 +92,8 @@
 												<td>${projeto.nome}</td>
 												<td><fmt:formatDate value="${projeto.inicio.time}"
 														pattern="dd/MM/yyyy" /></td>
-												<td><fmt:formatDate
-														value="${projeto.prazoPrevisto.time}" pattern="dd/MM/yyyy" /></td>
+												<!-- <td><fmt:formatDate
+														value="${projeto.prazoPrevisto.time}" pattern="dd/MM/yyyy" /></td> -->
 												<td>${projeto.cliente.pessoa.nome}</td>
 												<td><a
 													href="${pageContext.request.contextPath}/projeto/resumo/${projeto.id}"

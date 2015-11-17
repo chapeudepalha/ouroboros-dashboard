@@ -76,7 +76,6 @@
 										<tr>
 											<th>Nome</th>
 											<th>In&iacute;cio</th>
-											<!-- <th>Entrega Prevista</th> -->
 											<th>Cliente</th>
 											<th>Op&ccedil;&otilde;es</th>
 										</tr>
@@ -87,14 +86,12 @@
 												<td>${projeto.nome}</td>
 												<td><fmt:formatDate value="${projeto.inicio.time}"
 														pattern="dd/MM/yyyy" /></td>
-												<!-- <td><fmt:formatDate
-														value="${projeto.prazoPrevisto.time}" pattern="dd/MM/yyyy" /></td> -->
 												<td>${projeto.cliente.pessoa.nome}</td>
 												<td><a
-													href="${pageContext.request.contextPath}/projeto/resumo/colaborador/${projeto.id}"
+													href="${pageContext.request.contextPath}/projeto/resumo/cliente/${projeto.id}"
 													class="btn btn-info btn-sm" role="button"><i
 														class="fa fa-pie-chart"></i> Resumo do Projeto</a> <a
-													href="${pageContext.request.contextPath}/projeto/painel/${projeto.id}"
+													href="${pageContext.request.contextPath}/projeto/painel/cliente/${projeto.id}"
 													class="btn btn-success btn-sm" role="button"><i
 														class="fa fa-gears"></i> Gerenciar Atividades</a> <!-- <a
 													href="${pageContext.request.contextPath}/projeto/editar/${projeto.id}"

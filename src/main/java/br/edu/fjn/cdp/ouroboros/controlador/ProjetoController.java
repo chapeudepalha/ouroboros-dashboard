@@ -254,6 +254,77 @@ public class ProjetoController {
 		result.include("projeto", projeto);
 	}
 
+	@Get("painel/cliente/{id:[0-9]{1,15}}")
+	@SomenteLogado
+	public void painelCliente(Integer id) {
+		Projeto projeto = projetoDAO.buscarPorId(id);
+
+		long total = 0;
+		int atrasados = 0;
+		int concluidos = 0;
+		int restantes = 0;
+		int maior = 0;
+		
+		concluidos = resumoServico.percentualPorProjetoEEstado(projeto, EstadoTarefa.CONCLUIDO);
+		restantes = 100 - concluidos;
+		atrasados = resumoServico.percentualTarefasAtrasadasPorProjeto(projeto);
+
+		List<Tarefa> tarefas = tarefaDAO.buscarPorProjeto(projeto);
+
+		List<Tarefa> pendente = new ArrayList<>();
+		List<Tarefa> fazer = new ArrayList<>();
+		List<Tarefa> progresso = new ArrayList<>();
+		List<Tarefa> concluido = new ArrayList<>();
+
+		total = tarefas.size();
+		System.out.println("total de tarefas: "+total);
+		if (total > 0) {
+			for (Tarefa tarefa : tarefas) {
+				switch (tarefa.getEstadoTarefa()) {
+				case AGUARDAACEITACAO:
+					pendente.add(tarefa);
+					break;
+				case PENDENTE:
+					pendente.add(tarefa);
+				case PARAFAZER:
+					fazer.add(tarefa);
+					break;
+				case EMPROGRESSO:
+					progresso.add(tarefa);
+					break;
+				case CONCLUIDO:
+					concluido.add(tarefa);
+					break;
+				default:
+					break;
+				}
+			}
+		}
+		
+		if ((pendente.size() > fazer.size()) || (pendente.size() > progresso.size())
+				|| (pendente.size() > concluido.size()))
+			maior = pendente.size();
+		else if ((fazer.size() > progresso.size()) || (fazer.size() > concluido.size()))
+			maior = fazer.size();
+		else if (progresso.size() > concluido.size())
+			maior = progresso.size();
+		else
+			maior = concluido.size();
+
+		result.include("total", total);
+		result.include("maior", maior);
+		result.include("restantes", restantes);
+		result.include("atrasados", atrasados);
+		result.include("concluidos", concluidos);
+		
+		result.include("pendente", pendente);
+		result.include("fazer", fazer);
+		result.include("progresso", progresso);
+		result.include("concluido", concluido);
+
+		result.include("projeto", projeto);
+	}
+	
 	@Get("gerenciar/{id:[0-9]{1,15}}")
 	@SomenteLogado
 	public void gerenciar(Integer id) {
@@ -348,10 +419,58 @@ public class ProjetoController {
 		
 		result.include("projetos", projetos);
 	}
+	
+	@Get("listar/cliente")
+	@SomenteLogado
+	public void listarPorCliente() {
+		List<Projeto> projetos = projetoDAO.buscarPorCliente(sessao.getUsuario());
+		
+		System.out.println("projetos "+projetos.size());
+		
+		result.include("projetos", projetos);
+	}
 
 	@Get("resumo/colaborador/{id:[0-9]{1,15}}")
 	@SomenteLogado
 	public void resumoColaborador(Integer id) {
+		Projeto projeto = projetoDAO.buscarPorId(id);
+
+		long total = tarefaDAO.quantidadeDeTarefasPorProjeto(projeto);
+		int atrasados = 0;
+		int concluidos = 0;
+		int restantes = 0;
+		int fazer = 0;
+		int progresso = 0;
+		int concluido = 0;
+		int dia = 0;
+		int ociosos = 0;
+
+		if (total > 0) {
+			concluidos = resumoServico.percentualPorProjetoEEstado(projeto, EstadoTarefa.CONCLUIDO);
+			restantes = 100 - concluidos;
+			fazer = resumoServico.percentualPorProjetoEEstado(projeto, EstadoTarefa.PARAFAZER);
+			progresso = resumoServico.percentualPorProjetoEEstado(projeto, EstadoTarefa.EMPROGRESSO);
+			concluido = resumoServico.percentualPorProjetoEEstado(projeto, EstadoTarefa.CONCLUIDO);
+			atrasados = resumoServico.percentualTarefasAtrasadasPorProjeto(projeto);
+			dia = 100 - atrasados;
+			ociosos = resumoServico.numeroColaboradoresOciososPorProjeto(projeto);
+		}
+
+		result.include("ociosos", ociosos);
+		result.include("total", total);
+		result.include("concluidos", concluidos);
+		result.include("restantes", restantes);
+		result.include("atrasados", atrasados);
+		result.include("dia", dia);
+		result.include("fazer", fazer);
+		result.include("progresso", progresso);
+		result.include("concluido", concluido);
+		result.include("projeto", projeto);
+	}
+	
+	@Get("resumo/cliente/{id:[0-9]{1,15}}")
+	@SomenteLogado
+	public void resumoCliente(Integer id) {
 		Projeto projeto = projetoDAO.buscarPorId(id);
 
 		long total = tarefaDAO.quantidadeDeTarefasPorProjeto(projeto);
