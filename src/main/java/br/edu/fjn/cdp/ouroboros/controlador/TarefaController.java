@@ -260,6 +260,8 @@ public class TarefaController {
 	public void aceitar(Integer id) {
 		Tarefa tarefa = tarefaDAO.buscarPorId(id);
 
+		tarefa.setInicio(Calendar.getInstance());
+		
 		tarefa.setEstadoTarefa(EstadoTarefa.PARAFAZER);
 		tarefaDAO.alterar(tarefa);
 		result.redirectTo(ProjetoController.class).painel(tarefa.getProjeto().getId());

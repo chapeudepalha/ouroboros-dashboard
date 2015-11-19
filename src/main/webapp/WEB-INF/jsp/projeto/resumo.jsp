@@ -174,7 +174,7 @@
 					</div>
 				</div>
 				<!-- /.row -->
-				<c:if test="${total >= 1}">
+				<c:if test="${(total >= 1) && ((fazer >= 1) && (progresso >= 1) && (concluido >= 1) && (dia >= 1) && (atrasados >= 1) && (concluido >= 1) && (restantes >= 1))}">
 					<div class="row">
 						<div class="col-lg-4">
 							<div class="panel panel-green">
@@ -224,18 +224,10 @@
 					</div>
 					<!-- /.row -->
 				</c:if>
-				<c:if test="${total <= 0}">
+				<c:if test="${(fazer <= 0) || (progresso <= 0) || (concluido <= 0) || (dia <= 0) || (atrasados <= 0) || (concluido <= 0) || (restantes <= 0)}">
 					<div class="jumbotron">
 						<h1>Ooops!</h1>
-						<p>Não fomos capazes de encontrar nenhuma tarefa cadastrada,
-							logo, n&atilde;o conseguimos montar um resumo. Que tal cadastrar
-							uma nova tarefa?</p>
-						<p>
-							<a
-								href="${pageContext.request.contextPath}/projeto/tarefa/${projeto.id}"
-								class="btn btn-primary btn-lg" role="button">Cadastrar
-								Tarefa »</a>
-						</p>
+						<p>Não fomos capazes de encontrar informa&ccedil;&otilde;es suficientes para montar um resumo gr&aacute;fico.</p>
 					</div>
 				</c:if>
 			</div>
