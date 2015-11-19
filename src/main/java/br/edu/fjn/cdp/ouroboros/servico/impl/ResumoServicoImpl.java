@@ -80,7 +80,7 @@ public class ResumoServicoImpl implements ResumoServico {
 		int numero = 0;
 		
 		for (Usuario usuario : projeto.getEquipe().getColaboradores()) {
-			if (!tarefaDAO.colaboradorEstaAlocado(usuario))
+			if (tarefaDAO.colaboradorEstaAlocado(usuario))
 				++numero;
 		}
 		

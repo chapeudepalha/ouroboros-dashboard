@@ -188,6 +188,7 @@ public class TarefaImplDAO extends DAOGenericoImpl<Tarefa, Integer> implements T
 		return quantidade;
 	}
 
+	//Mudar para colaborador nao alocado
 	@Override
 	public Boolean colaboradorEstaAlocado(Usuario usuario) {
 		boolean alocado = false;
@@ -207,10 +208,12 @@ public class TarefaImplDAO extends DAOGenericoImpl<Tarefa, Integer> implements T
 			criterio.add(c1);
 			criterio.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
 
-			if (criterio.uniqueResult() == null)
-				alocado = false;
-			else
+			
+			
+			if ((criterio.uniqueResult() == null) || ((Usuario) criterio.uniqueResult()).getId() != usuario.getId())
 				alocado = true;
+			else
+				alocado = false;
 
 			transaction.commit();
 		} catch (Exception e) {
